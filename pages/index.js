@@ -1,8 +1,41 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/router";
 import styles from "./page.module.css";
 import "bootstrap/dist/css/bootstrap.css";
-import ColorPicker from "@/components/ColorPicker";
 
-export default function Home() {
+const Home = () => {
+  const [displayName, setDisplayName] = useState("");
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+  const [selectedColor, setSelectedColor] = useState("#563d7c");
+  const router = useRouter();
+
+  const handleCheckboxChange = (event) => {
+    // チェックボックスの選択状態を更新
+    const checkboxValue = event.target.value;
+    if (event.target.checked) {
+      setSelectedCheckboxes([...selectedCheckboxes, checkboxValue]);
+    } else {
+      setSelectedCheckboxes(
+        selectedCheckboxes.filter((item) => item !== checkboxValue)
+      );
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // フォームの入力内容を取得し、遷移先のページに渡す
+    const formData = {
+      displayName: displayName,
+      selectedCheckboxes: selectedCheckboxes,
+      selectedColor: selectedColor,
+    };
+    router.push({
+      pathname: "/result",
+      query: formData,
+    });
+  };
   return (
     <main className={styles.main} data-bs-theme="dark">
       <section className="container-sm p-4">
@@ -11,12 +44,14 @@ export default function Home() {
           <h2 className="text-light">Visual Thinking Test Page</h2>
         </div>
         <div className="text-light">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-floating mb-3">
               <input
-                type="email"
+                type="name"
                 className="form-control"
                 id="floatingInput"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
                 placeholder="デザイン太郎"
               />
               <label htmlFor="floatingInput">表示名</label>
@@ -159,7 +194,19 @@ export default function Home() {
                 </label>
               </div>
             </div>
-            <ColorPicker />
+            <div className="mb-3">
+              <label htmlFor="exampleColorInput" className="form-label">
+                Color picker
+              </label>
+              <input
+                type="color"
+                className="form-control form-control-color"
+                id="exampleColorInput"
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                title="Choose your color"
+              />
+            </div>
             <button type="submit" className="btn btn-primary w-100">
               送信
             </button>
@@ -168,4 +215,6 @@ export default function Home() {
       </section>
     </main>
   );
-}
+};
+
+export default Home;
