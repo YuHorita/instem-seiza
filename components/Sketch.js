@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import p5 from "p5";
+import { useRouter } from "next/router";
 
 const Sketch = () => {
   const sketchRef = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     const sketch = new p5((p) => {
@@ -22,12 +24,17 @@ const Sketch = () => {
       ];
 
       const constellationArray = [
-        { array: [0, 4, 2, 3, 1], r: 95, g: 128, b: 192, connections: [] },
-        { array: [5, 6, 7, 8, 9], r: 68, g: 71, b: 155, connections: [] },
-        { array: [0, 3, 5, 11], r: 135, g: 61, b: 147, connections: [] },
-        { array: [1, 6, 9, 10], r: 210, g: 35, b: 134, connections: [] },
-        { array: [2, 7, 3, 7, 11], r: 213, g: 24, b: 25, connections: [] },
-        { array: [3, 4, 6, 8], r: 243, g: 210, b: 57, connections: [] },
+        // { array: [0, 4, 2, 3, 1], r: 95, g: 128, b: 192, connections: [] },
+        // { array: [5, 6, 7, 8, 9], r: 68, g: 71, b: 155, connections: [] },
+        // { array: [0, 3, 5, 11], r: 135, g: 61, b: 147, connections: [] },
+        // { array: [1, 6, 9, 10], r: 210, g: 35, b: 134, connections: [] },
+        // { array: [2, 7, 3, 7, 11], r: 213, g: 24, b: 25, connections: [] },
+        // { array: [3, 4, 6, 8], r: 243, g: 210, b: 57, connections: [] },
+        {
+          array: router.query.selectedCheckboxes,
+          color: router.query.selectedColor,
+          connections: [],
+        },
       ];
 
       class PriorityQueue {
@@ -65,12 +72,7 @@ const Sketch = () => {
       }
 
       let myFont;
-      // let myShader;
       let myCamera;
-      // let sliderX, sliderY, sliderZ;
-      // let camX = 0,
-      //   camY = 0,
-      //   camZ = 0;
 
       p.preload = () => {
         myFont = p.loadFont("fonts/LINESeedJP.ttf");
@@ -179,7 +181,8 @@ const Sketch = () => {
 
       function drawConstellation(constellation) {
         p.beginShape();
-        p.stroke(constellation.r, constellation.g, constellation.b, 180);
+        // p.stroke(constellation.r, constellation.g, constellation.b, 180);
+        p.stroke(constellation.color);
         p.strokeWeight(1);
         p.noFill();
         for (let i = 0; i < constellation.connections.length; i++) {

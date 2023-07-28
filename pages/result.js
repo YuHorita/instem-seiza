@@ -1,12 +1,14 @@
 import Sketch from "../components/Sketch";
+import styles from "./page.module.css";
+import { useRouter } from "next/router";
 
 const ResultPage = () => {
+  const router = useRouter();
   return (
-    <div>
-      <h1>Result Page</h1>
-      {/* ここでフォームから渡されたデータを表示 */}
+    <main className={styles.main} data-bs-theme="dark">
+      <h1 className="text-light p-4">{router.query.displayName}さんの星座</h1>
       <Sketch />
-    </div>
+    </main>
   );
 };
 

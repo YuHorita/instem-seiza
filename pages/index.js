@@ -12,8 +12,7 @@ const Home = () => {
   const router = useRouter();
 
   const handleCheckboxChange = (event) => {
-    // チェックボックスの選択状態を更新
-    const checkboxValue = event.target.value;
+    const checkboxValue = parseInt(event.target.value, 10);
     if (event.target.checked) {
       setSelectedCheckboxes([...selectedCheckboxes, checkboxValue]);
     } else {
@@ -65,10 +64,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="editorial"
-                  id="flexCheckDefault"
+                  value={0}
+                  id="editorial"
+                  checked={selectedCheckboxes.includes(0)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="editorial">
                   エディトリアルデザイン
                 </label>
               </div>
@@ -76,10 +77,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="logo"
-                  id="flexCheckDefault"
+                  value={1}
+                  id="logo"
+                  checked={selectedCheckboxes.includes(1)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="logo">
                   ロゴデザイン
                 </label>
               </div>
@@ -87,10 +90,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="graphic"
-                  id="flexCheckDefault"
+                  value={2}
+                  id="graphic"
+                  checked={selectedCheckboxes.includes(2)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="graphic">
                   グラフィックデザイン
                 </label>
               </div>
@@ -98,10 +103,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="brand"
-                  id="flexCheckDefault"
+                  value={3}
+                  id="brand"
+                  checked={selectedCheckboxes.includes(3)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="brand">
                   ブランドデザイン
                 </label>
               </div>
@@ -109,10 +116,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="industrial"
-                  id="flexCheckDefault"
+                  value={4}
+                  id="industrial"
+                  checked={selectedCheckboxes.includes(4)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="industrial">
                   インダストリアルデザイン
                 </label>
               </div>
@@ -120,10 +129,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="interaction"
-                  id="flexCheckDefault"
+                  value={5}
+                  id="interaction"
+                  checked={selectedCheckboxes.includes(5)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="interaction">
                   インタラクションデザイン
                 </label>
               </div>
@@ -131,10 +142,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="ui"
-                  id="flexCheckDefault"
+                  value={6}
+                  id="ui"
+                  checked={selectedCheckboxes.includes(6)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="ui">
                   UIデザイン
                 </label>
               </div>
@@ -142,10 +155,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="product"
-                  id="flexCheckDefault"
+                  value={7}
+                  id="product"
+                  checked={selectedCheckboxes.includes(7)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="product">
                   プロダクトデザイン
                 </label>
               </div>
@@ -153,10 +168,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="service"
-                  id="flexCheckDefault"
+                  value={8}
+                  id="service"
+                  checked={selectedCheckboxes.includes(8)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="service">
                   サービスデザイン
                 </label>
               </div>
@@ -164,10 +181,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="experience"
-                  id="flexCheckDefault"
+                  value={9}
+                  id="experience"
+                  checked={selectedCheckboxes.includes(9)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="experience">
                   エクスペリエンスデザイン
                 </label>
               </div>
@@ -175,10 +194,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="sound"
-                  id="flexCheckDefault"
+                  value={10}
+                  id="sound"
+                  checked={selectedCheckboxes.includes(10)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="sound">
                   サウンドデザイン
                 </label>
               </div>
@@ -186,10 +207,12 @@ const Home = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value="social"
-                  id="flexCheckDefault"
+                  value={"11"}
+                  id="social"
+                  checked={selectedCheckboxes.includes(11)}
+                  onChange={handleCheckboxChange}
                 ></input>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
+                <label className="form-check-label" htmlFor="social">
                   ソーシャルデザイン
                 </label>
               </div>
