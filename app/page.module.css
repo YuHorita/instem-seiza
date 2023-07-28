@@ -1,9 +1,4 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
   min-height: 100vh;
   background-color: rgb(27, 29, 39);
 }
