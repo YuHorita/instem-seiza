@@ -1,12 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import p5 from "p5";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
-
-const SketchComponent = dynamic(() => import("p5"), {
-  loading: () => <></>,
-  ssr: false,
-});
 
 const Sketch = () => {
   const sketchRef = useRef(null);
@@ -261,7 +255,6 @@ const Sketch = () => {
   }, []);
 
   return <div ref={sketchRef}></div>;
-  // return <Sketch preload={preload} setup={setup} draw={draw} />;
 };
 
 export default Sketch;

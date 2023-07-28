@@ -1,7 +1,6 @@
-// import Sketch from "../components/Sketch";
+import React, { useEffect } from "react";
 import styles from "./page.module.css";
 import { useRouter } from "next/router";
-import React, { useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 const SketchComponent = dynamic(() => import("../components/Sketch"), {
