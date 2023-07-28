@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
-// add bootstrap css
 import "bootstrap/dist/css/bootstrap.css";
+import ColorPicker from "@/components/ColorPicker";
 
 export default function Home() {
   return (
@@ -12,166 +12,155 @@ export default function Home() {
         </div>
         <div className="text-light">
           <form>
-            <div class="form-floating mb-3">
+            <div className="form-floating mb-3">
               <input
                 type="email"
-                class="form-control"
+                className="form-control"
                 id="floatingInput"
                 placeholder="デザイン太郎"
-              ></input>
-              <label for="floatingInput">表示名</label>
+              />
+              <label htmlFor="floatingInput">表示名</label>
             </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">
+            <div className="mb-3">
+              <label htmlFor="exampleInputPassword1" className="form-label">
                 あなたを象徴するデザインの種別を選んでください
               </label>
 
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="editorial"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   エディトリアルデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="logo"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   ロゴデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="graphic"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   グラフィックデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="brand"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   ブランドデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="industrial"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   インダストリアルデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="interaction"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   インタラクションデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="ui"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   UIデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="product"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   プロダクトデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="service"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   サービスデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="experience"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   エクスペリエンスデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="sound"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   サウンドデザイン
                 </label>
               </div>
-              <div class="form-check">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="social"
                   id="flexCheckDefault"
                 ></input>
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   ソーシャルデザイン
                 </label>
               </div>
             </div>
-            <div class="mb-3">
-              <label for="exampleColorInput" class="form-label">
-                星座の色を選んでください
-              </label>
-              <input
-                type="color"
-                class="form-control form-control-color"
-                id="exampleColorInput"
-                value="#563d7c"
-                title="Choose your color"
-              ></input>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">
+            <ColorPicker />
+            <button type="submit" className="btn btn-primary w-100">
               送信
             </button>
           </form>
