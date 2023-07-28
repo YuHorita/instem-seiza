@@ -12,7 +12,7 @@ const ResultPage = () => {
   const router = useRouter();
   return (
     <main className={styles.main} data-bs-theme="dark">
-      <h1 className="text-light p-4">{router.query.displayName}さんの星座</h1>
+      <h1 className={styles.resultHeading}>{router.query.displayName}さんの星座</h1>
       <SketchComponent />
     </main>
   );
