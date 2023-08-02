@@ -74,7 +74,7 @@ const Sketch = () => {
 
       p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
-        p.blendMode(p.SCREEN);
+        p.blendMode(p.ADD);
         p.ambientLight(120, 120, 170);
         p.pointLight(255, 255, 255, 0, 0, 0);
         p.perspective(p.radians(55), p.width / p.height, 1, 5000);
@@ -89,6 +89,7 @@ const Sketch = () => {
 
       p.draw = () => {
         p.background(27, 29, 39);
+        p.ambientLight(60);
 
         p.normalMaterial();
         for (let i = 0; i < itemArray.length; i++) {
@@ -155,21 +156,20 @@ const Sketch = () => {
         p.textLeading(100);
         // text(name, x, y);
         p.noStroke();
-        //planeを常にカメラに正対させる
+
         p.push();
-        // texture(img);
-
         p.translate(x, y + 35, z);
-
         p.rotateY(p.frameCount * 0.005);
         p.text(name, 0, 0);
-        // plane(293 / 3, 49 / 3);
         p.pop();
 
         p.push();
         p.translate(x, y, z);
-        // ambientMaterial(255, 255, 255);
-        p.sphere(10);
+        p.fill(205, 105, 255, 140);
+        
+        for (let r = 0.0; r < 1.2; r += 0.1) {
+          p.sphere(10 * r);
+        }
         p.pop();
       }
 
