@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/router";
-import styles from "./page.module.css";
 import "bootstrap/dist/css/bootstrap.css";
+import { designs } from "../components/library";
+
+designs.sort((a, b) => a.name.localeCompare(b.name));
 
 const Home = () => {
   const [displayName, setDisplayName] = useState("");
@@ -36,206 +38,78 @@ const Home = () => {
     });
   };
   return (
-    <main className={styles.main} data-bs-theme="dark">
-      <section className="container-sm p-4">
-        <div className="mb-5">
-          <h4 className="text-light">Designship 2023</h4>
-          <h2 className="text-light">Visual Thinking Test Page</h2>
-        </div>
-        <div className="text-light">
-          <form onSubmit={handleSubmit}>
-            <div className="form-floating mb-3">
-              <input
-                type="name"
-                className="form-control"
-                id="floatingInput"
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="デザイン太郎"
-              />
-              <label htmlFor="floatingInput">表示名</label>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                あなたを象徴するデザインの種別を選んでください
-              </label>
+    <main
+      data-bs-theme="designship"
+      className="bg-body text-body container-sm p-4"
+    >
+      <div className="mb-5">
+        <h1 className="text-center mt-4 mb-4 lh-base fw-bold">
+          デザイナーの
+          <br />
+          星座を描こう
+        </h1>
 
-              <div className="form-check">
+        <p>
+          デザインが広がりすぎた時代において、一言で「デザイン」と言っても捉え方は人それぞれ。本企画は参加者の皆さんがひとりひとりの「デザイナーの星座」を発見していくためのものです。
+        </p>
+      </div>
+
+      <div className="text-center">
+        <h3 className="text-primary fs-5 fw-bold">Step 1/2</h3>
+        <h2 className="fw-bold">デザインの星を探そう</h2>
+      </div>
+
+      <p className="mt-3">
+        まずは以下の質問に答えて、あなたにとってのデザインの星を夜空の中から見つけてみましょう。
+      </p>
+
+      <div>
+        <form
+          onSubmit={handleSubmit}
+          className="bg-body-secondary p-4 my-5 rounded"
+        >
+          <div className="py-3">
+            <label htmlFor="nameInput" className="form-label">
+              表示名
+            </label>
+            <input
+              type="text"
+              className="form-control p-3"
+              id="nameInput"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              placeholder="デザイン太郎"
+            />
+          </div>
+          <div className="pt-4">
+            <label className="form-label">あなたにとっての「デザイン」</label>
+            {designs.map((design, index) => (
+              <div className="form-check" key={index}>
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  value={0}
-                  id="editorial"
-                  checked={selectedCheckboxes.includes(0)}
+                  id={`design-${index}`}
+                  value={index}
+                  checked={selectedCheckboxes.includes(index)}
                   onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="editorial">
-                  エディトリアルデザイン
+                />
+                <label className="form-check-label" htmlFor={`design-${index}`}>
+                  {design.name}
                 </label>
               </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={1}
-                  id="logo"
-                  checked={selectedCheckboxes.includes(1)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="logo">
-                  ロゴデザイン
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={2}
-                  id="graphic"
-                  checked={selectedCheckboxes.includes(2)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="graphic">
-                  グラフィックデザイン
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={3}
-                  id="brand"
-                  checked={selectedCheckboxes.includes(3)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="brand">
-                  ブランドデザイン
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={4}
-                  id="industrial"
-                  checked={selectedCheckboxes.includes(4)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="industrial">
-                  インダストリアルデザイン
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={5}
-                  id="interaction"
-                  checked={selectedCheckboxes.includes(5)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="interaction">
-                  インタラクションデザイン
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={6}
-                  id="ui"
-                  checked={selectedCheckboxes.includes(6)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="ui">
-                  UIデザイン
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={7}
-                  id="product"
-                  checked={selectedCheckboxes.includes(7)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="product">
-                  プロダクトデザイン
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={8}
-                  id="service"
-                  checked={selectedCheckboxes.includes(8)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="service">
-                  サービスデザイン
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={9}
-                  id="experience"
-                  checked={selectedCheckboxes.includes(9)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="experience">
-                  エクスペリエンスデザイン
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={10}
-                  id="sound"
-                  checked={selectedCheckboxes.includes(10)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="sound">
-                  サウンドデザイン
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={"11"}
-                  id="social"
-                  checked={selectedCheckboxes.includes(11)}
-                  onChange={handleCheckboxChange}
-                ></input>
-                <label className="form-check-label" htmlFor="social">
-                  ソーシャルデザイン
-                </label>
-              </div>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="exampleColorInput" className="form-label">
-                Color picker
-              </label>
-              <input
-                type="color"
-                className="form-control form-control-color"
-                id="exampleColorInput"
-                value={selectedColor}
-                onChange={(e) => setSelectedColor(e.target.value)}
-                title="Choose your color"
-              />
-            </div>
-            <button type="submit" className="btn btn-primary w-100">
-              送信
-            </button>
-          </form>
+            ))}
+          </div>
+        </form>
+        <div className="d-flex justify-content-center mb-5">
+          <a
+            href="step2"
+            type="submit"
+            className="btn btn-primary rounded-5 px-5 py-2 fs-5"
+          >
+            回答を送信する
+          </a>
         </div>
-      </section>
+      </div>
     </main>
   );
 };

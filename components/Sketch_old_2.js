@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import p5 from "p5";
 import { useRouter } from "next/router";
-import { designs } from "./library";
 
 const Sketch = () => {
   const sketchRef = useRef(null);
@@ -9,6 +8,21 @@ const Sketch = () => {
 
   useEffect(() => {
     const sketch = new p5((p) => {
+      const itemArray = [
+        { name: "エディトリアルデザイン", x: 40, y: -300, z: -350 },
+        { name: "ロゴデザイン", x: 100, y: 80, z: -380 },
+        { name: "グラフィックデザイン", x: -30, y: 100, z: 340 },
+        { name: "ブランドデザイン", x: 60, y: 200, z: -30 },
+        { name: "インダストリアルデザイン", x: 45, y: 300, z: 60 },
+        { name: "インタラクションデザイン", x: 75, y: -200, z: 45 },
+        { name: "UIデザイン", x: -120, y: 320, z: 70 },
+        { name: "プロダクトデザイン", x: 280, y: 300, z: -100 },
+        { name: "サービスデザイン", x: 350, y: -100, z: 30 },
+        { name: "エクスペリエンスデザイン", x: -320, y: 180, z: 0 },
+        { name: "サウンドデザイン", x: -380, y: -120, z: 0 },
+        { name: "ソーシャルデザイン", x: 420, y: 60, z: 0 },
+      ];
+
       const constellationArray = [
         {
           array: router.query.selectedCheckboxes,
@@ -52,26 +66,58 @@ const Sketch = () => {
       }
 
       let myFont;
-      let bg;
-
-      function convertRemToPx(rem) {
-        var fontSize = getComputedStyle(document.documentElement).fontSize;
-        return rem * parseFloat(fontSize);
-      }
+      let myCamera;
 
       p.preload = () => {
         myFont = p.loadFont("fonts/LINESeedJP.ttf");
-        bg = p.loadImage("bg.png");
       };
 
       p.setup = () => {
-        const w = p.windowWidth - convertRemToPx(3.0);
-        p.createCanvas(w, w / 1.91);
+        p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+        p.blendMode(p.ADD);
+        p.ambientLight(120, 120, 170);
+        p.pointLight(255, 255, 255, 0, 0, 0);
+        p.perspective(p.radians(55), p.width / p.height, 1, 5000);
         p.textFont(myFont);
+
+        for (let i = 0; i < constellationArray.length; i++) {
+          createConstellation(constellationArray[i]);
+        }
+
+        myCamera = p.createCamera();
       };
 
       p.draw = () => {
-        p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
+        p.background(27, 29, 39);
+        p.ambientLight(60);
+
+        p.normalMaterial();
+        for (let i = 0; i < itemArray.length; i++) {
+          drawItem(
+            itemArray[i].name,
+            itemArray[i].x,
+            itemArray[i].y,
+            itemArray[i].z
+          );
+        }
+
+        for (let i = 0; i < constellationArray.length; i++) {
+          drawConstellation(constellationArray[i]);
+        }
+        p.rotateY(p.frameCount * 0.01);
+        p.rotateX(p.frameCount * 0.01);
+
+        myCamera.camera(
+          p.sin(p.frameCount * 0.005) * 1000,
+          0,
+          p.cos(p.frameCount * 0.005) * 1000,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        );
       };
 
       function createConstellation(constellation) {
@@ -120,11 +166,34 @@ const Sketch = () => {
         p.push();
         p.translate(x, y, z);
         p.fill(205, 105, 255, 140);
-
+        
         for (let r = 0.0; r < 1.2; r += 0.1) {
           p.sphere(10 * r);
         }
         p.pop();
+      }
+
+      function drawConstellation(constellation) {
+        p.beginShape();
+        // p.stroke(constellation.r, constellation.g, constellation.b, 180);
+        p.stroke(constellation.color);
+        p.strokeWeight(1);
+        p.noFill();
+        for (let i = 0; i < constellation.connections.length; i++) {
+          p.vertex(
+            itemArray[constellation.array[constellation.connections[i].start]]
+              .x,
+            itemArray[constellation.array[constellation.connections[i].start]]
+              .y,
+            itemArray[constellation.array[constellation.connections[i].start]].z
+          );
+          p.vertex(
+            itemArray[constellation.array[constellation.connections[i].end]].x,
+            itemArray[constellation.array[constellation.connections[i].end]].y,
+            itemArray[constellation.array[constellation.connections[i].end]].z
+          );
+        }
+        p.endShape(p.CLOSE);
       }
 
       function dijkstra(graph, start) {
