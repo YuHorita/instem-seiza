@@ -53,6 +53,8 @@ const Sketch = () => {
 
       let myFont;
       let bg;
+      let pg;
+      let r = convertRemToPx(0.7);
 
       function convertRemToPx(rem) {
         var fontSize = getComputedStyle(document.documentElement).fontSize;
@@ -68,11 +70,40 @@ const Sketch = () => {
         const w = p.windowWidth - convertRemToPx(3.0);
         p.createCanvas(w, w / 1.91);
         p.textFont(myFont);
+        pg = p.createGraphics(p.width, p.height);
       };
 
       p.draw = () => {
         p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
+        pg.background(37, 39, 50);
+
+        designs.forEach((element) => {
+          drawElement(element);
+        });
+        p.image(pg, 0, 0);
+
+        p.fill(255, 255, 255);
+        p.textAlign(p.CENTER);
+        p.textSize(r / 2);
+        p.textLeading(100);
+        p.noStroke();
+        designs.forEach((element) => {
+          drawText(element);
+        });
       };
+
+      function drawElement(elm) {
+        pg.erase();
+        pg.ellipse((elm.x / 100) * p.width, (elm.y / 100) * p.height, r, r);
+        pg.noErase();
+      }
+
+      function drawText(elm) {
+        p.push();
+        p.translate((elm.x / 100) * p.width, (elm.y / 100) * p.height + r * 1.5);
+        p.text(elm.name, 0, 0);
+        p.pop();
+      }
 
       function createConstellation(constellation) {
         let graph = createGraph(constellation.array.length);
@@ -101,30 +132,6 @@ const Sketch = () => {
           visited[nextNode] = true;
           currentNode = nextNode;
         }
-      }
-
-      function drawItem(name, x, y, z) {
-        p.fill(255, 255, 255);
-        p.textAlign(p.CENTER);
-        p.textSize(20);
-        p.textLeading(100);
-        // text(name, x, y);
-        p.noStroke();
-
-        p.push();
-        p.translate(x, y + 35, z);
-        p.rotateY(p.frameCount * 0.005);
-        p.text(name, 0, 0);
-        p.pop();
-
-        p.push();
-        p.translate(x, y, z);
-        p.fill(205, 105, 255, 140);
-
-        for (let r = 0.0; r < 1.2; r += 0.1) {
-          p.sphere(10 * r);
-        }
-        p.pop();
       }
 
       function dijkstra(graph, start) {
