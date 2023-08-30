@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import styles from "./page.module.css";
-import { useRouter } from "next/router";
+// import styles from "./page.module.css";
+// import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -17,10 +17,15 @@ try {
   console.log(e);
 }
 
-// console.log(formData);
-
 const ResultPage = () => {
-  const router = useRouter();
+  useEffect(() => {
+    window.onload = function () {
+      function disableScroll(event) {
+        event.preventDefault();
+      }
+    };
+  }, []);
+  // const router = useRouter();
   return (
     <main
       data-bs-theme="designship"
