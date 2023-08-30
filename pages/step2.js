@@ -17,7 +17,7 @@ try {
   console.log(e);
 }
 
-console.log(formData);
+// console.log(formData);
 
 const ResultPage = () => {
   const router = useRouter();
@@ -31,7 +31,7 @@ const ResultPage = () => {
         <h3 className="text-primary fs-5 fw-bold">Step 2/2</h3>
         <h2 className="fw-bold">星座を描こう</h2>
       </div>
-      <SketchComponent />
+      <SketchComponent data={formData} />
     </main>
   );
 };

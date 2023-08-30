@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../components/library";
 
-designs.sort((a, b) => a.name.localeCompare(b.name));
 
 const Home = () => {
   const [displayName, setDisplayName] = useState("");

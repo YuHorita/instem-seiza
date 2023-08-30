@@ -33,4 +33,4 @@ export const designs = [
   { name: "ビジネスデザイン", x: 10, y: 93 },
   { name: "行政デザイン", x: 75, y: 90 },
   { name: "モーションデザイン", x: 86, y: 91 },
-];
+].sort((a, b) => a.name.localeCompare(b.name));

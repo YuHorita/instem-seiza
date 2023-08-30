@@ -3,9 +3,11 @@ import p5 from "p5";
 import { useRouter } from "next/router";
 import { designs } from "./library";
 
-const Sketch = () => {
+const Sketch = (props) => {
   const sketchRef = useRef(null);
   const router = useRouter();
+  const displayName = props.data.displayName;
+  const selectedCheckboxes = props.data.selectedCheckboxes;
 
   useEffect(() => {
     const sketch = new p5((p) => {
@@ -54,7 +56,42 @@ const Sketch = () => {
       let myFont;
       let bg;
       let pg;
-      let r = convertRemToPx(0.7);
+      let r = 80 / selectedCheckboxes.length;
+
+      const w = p.windowWidth - convertRemToPx(3.0);
+      const h = w / 1.91;
+
+      const padding = r * 2.5;
+      const areaXMin = padding;
+      const areaXMax = w - padding;
+      const areaYMin = padding;
+      const areaYMax = h - padding;
+      const areaWidth = areaXMax - areaXMin;
+      const areaHeight = areaYMax - areaYMin;
+
+      const itemXMin =
+        designs[
+          selectedCheckboxes.sort((a, b) => designs[a].x - designs[b].x)[0]
+        ].x;
+      const itemXMax =
+        designs[
+          selectedCheckboxes.sort((a, b) => designs[b].x - designs[a].x)[0]
+        ].x;
+      const itemYMin =
+        designs[
+          selectedCheckboxes.sort((a, b) => designs[a].y - designs[b].y)[0]
+        ].y;
+      const itemYMax =
+        designs[
+          selectedCheckboxes.sort((a, b) => designs[b].y - designs[a].y)[0]
+        ].y;
+
+      const itemWidth = itemXMax - itemXMin;
+      const itemHeight = itemYMax - itemYMin;
+      const xRatio = areaWidth / itemWidth;
+      const yRatio = areaHeight / itemHeight;
+
+      var touchedLines = [];
 
       function convertRemToPx(rem) {
         var fontSize = getComputedStyle(document.documentElement).fontSize;
@@ -67,8 +104,7 @@ const Sketch = () => {
       };
 
       p.setup = () => {
-        const w = p.windowWidth - convertRemToPx(3.0);
-        p.createCanvas(w, w / 1.91);
+        p.createCanvas(w, h);
         p.textFont(myFont);
         pg = p.createGraphics(p.width, p.height);
       };
@@ -77,9 +113,14 @@ const Sketch = () => {
         p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg.background(37, 39, 50);
 
-        designs.forEach((element) => {
-          drawElement(element);
+        pg.erase();
+        props.data.selectedCheckboxes.forEach((i) => {
+          drawElement(designs[i]);
         });
+        touchedLines.forEach((line) => {
+          drawLine(line);
+        });
+        pg.noErase();
         p.image(pg, 0, 0);
 
         p.fill(255, 255, 255);
@@ -87,22 +128,55 @@ const Sketch = () => {
         p.textSize(r / 2);
         p.textLeading(100);
         p.noStroke();
-        designs.forEach((element) => {
-          drawText(element);
+
+        props.data.selectedCheckboxes.forEach((i) => {
+          drawText(designs[i]);
         });
       };
 
+      p.touchStarted = () => {
+        touchedLines.push({ x: [], y: [] });
+      };
+
+      p.touchMoved = () => {
+        console.log(p.touches[0].x, p.touches[0].y);
+        touchedLines[touchedLines.length - 1].x.push(p.touches[0].x);
+        touchedLines[touchedLines.length - 1].y.push(p.touches[0].y);
+      };
+
       function drawElement(elm) {
-        pg.erase();
-        pg.ellipse((elm.x / 100) * p.width, (elm.y / 100) * p.height, r, r);
-        pg.noErase();
+        pg.push();
+        pg.fill(255);
+        pg.noStroke();
+        pg.ellipse(
+          areaXMin + (elm.x - itemXMin) * xRatio,
+          areaYMin + (elm.y - itemYMin) * yRatio,
+          r
+        );
+        pg.pop();
       }
 
       function drawText(elm) {
         p.push();
-        p.translate((elm.x / 100) * p.width, (elm.y / 100) * p.height + r * 1.5);
+        p.translate(
+          areaXMin + (elm.x - itemXMin) * xRatio,
+          areaYMin + (elm.y - itemYMin) * yRatio + r * 1.3
+        );
         p.text(elm.name, 0, 0);
         p.pop();
+      }
+
+      function drawLine(line) {
+        pg.push();
+        pg.stroke(255);
+        pg.strokeWeight(1);
+        pg.noFill();
+        pg.beginShape();
+        for (let i = 0; i < line.x.length; i++) {
+          pg.curveVertex(line.x[i], line.y[i]);
+        }
+        pg.endShape();
+        pg.pop();
       }
 
       function createConstellation(constellation) {
