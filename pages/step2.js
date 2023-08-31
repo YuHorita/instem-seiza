@@ -40,7 +40,18 @@ const ResultPage = () => {
         <h3 className="text-primary fs-5 fw-bold">Step 2/2</h3>
         <h2 className="fw-bold">星座を描こう</h2>
       </div>
+      <p>
+        広大なデザインの星空から、あなたにとってのデザインの星を見つけ出しました。次は、星同士を繋ぐことで星座を描いてみましょう。
+      </p>
       <SketchComponent data={formData} />
+      <div className="d-flex justify-content-center my-3">
+        <button
+          type="submit"
+          className="btn btn-primary rounded-5 px-5 py-2 fs-5 text-center"
+        >
+          回答を送信する
+        </button>
+      </div>
     </main>
   );
 };
