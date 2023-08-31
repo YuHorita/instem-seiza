@@ -1,28 +1,16 @@
 import React, { useRef, useEffect } from "react";
 import p5 from "p5";
 import { useRouter } from "next/router";
+import { designs } from "./library";
 
-const Sketch = () => {
+const Sketch = (props) => {
   const sketchRef = useRef(null);
   const router = useRouter();
+  const displayName = props.data.displayName;
+  const selectedCheckboxes = props.data.selectedCheckboxes;
 
   useEffect(() => {
     const sketch = new p5((p) => {
-      const itemArray = [
-        { name: "エディトリアルデザイン", x: 40, y: -300, z: -350 },
-        { name: "ロゴデザイン", x: 100, y: 80, z: -380 },
-        { name: "グラフィックデザイン", x: -30, y: 100, z: 340 },
-        { name: "ブランドデザイン", x: 60, y: 200, z: -30 },
-        { name: "インダストリアルデザイン", x: 45, y: 300, z: 60 },
-        { name: "インタラクションデザイン", x: 75, y: -200, z: 45 },
-        { name: "UIデザイン", x: -120, y: 320, z: 70 },
-        { name: "プロダクトデザイン", x: 280, y: 300, z: -100 },
-        { name: "サービスデザイン", x: 350, y: -100, z: 30 },
-        { name: "エクスペリエンスデザイン", x: -320, y: 180, z: 0 },
-        { name: "サウンドデザイン", x: -380, y: -120, z: 0 },
-        { name: "ソーシャルデザイン", x: 420, y: 60, z: 0 },
-      ];
-
       const constellationArray = [
         {
           array: router.query.selectedCheckboxes,
@@ -66,59 +54,129 @@ const Sketch = () => {
       }
 
       let myFont;
-      let myCamera;
+      let bg;
+      let pg;
+      let r = 80 / selectedCheckboxes.length;
+
+      const w = p.windowWidth - convertRemToPx(3.0);
+      const h = w / 1.91;
+
+      const padding = r * 2.5;
+      const areaXMin = padding;
+      const areaXMax = w - padding;
+      const areaYMin = padding;
+      const areaYMax = h - padding;
+      const areaWidth = areaXMax - areaXMin;
+      const areaHeight = areaYMax - areaYMin;
+
+      const itemXMin =
+        designs[
+          selectedCheckboxes.sort((a, b) => designs[a].x - designs[b].x)[0]
+        ].x;
+      const itemXMax =
+        designs[
+          selectedCheckboxes.sort((a, b) => designs[b].x - designs[a].x)[0]
+        ].x;
+      const itemYMin =
+        designs[
+          selectedCheckboxes.sort((a, b) => designs[a].y - designs[b].y)[0]
+        ].y;
+      const itemYMax =
+        designs[
+          selectedCheckboxes.sort((a, b) => designs[b].y - designs[a].y)[0]
+        ].y;
+
+      const itemWidth = itemXMax - itemXMin;
+      const itemHeight = itemYMax - itemYMin;
+      const xRatio = areaWidth / itemWidth;
+      const yRatio = areaHeight / itemHeight;
+
+      var touchedLines = [];
+
+      function convertRemToPx(rem) {
+        var fontSize = getComputedStyle(document.documentElement).fontSize;
+        return rem * parseFloat(fontSize);
+      }
 
       p.preload = () => {
         myFont = p.loadFont("fonts/LINESeedJP.ttf");
+        bg = p.loadImage("bg.png");
       };
 
       p.setup = () => {
-        p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
-        p.blendMode(p.ADD);
-        p.ambientLight(120, 120, 170);
-        p.pointLight(255, 255, 255, 0, 0, 0);
-        p.perspective(p.radians(55), p.width / p.height, 1, 5000);
+        p.createCanvas(w, h);
         p.textFont(myFont);
-
-        for (let i = 0; i < constellationArray.length; i++) {
-          createConstellation(constellationArray[i]);
-        }
-
-        myCamera = p.createCamera();
+        pg = p.createGraphics(p.width, p.height);
       };
 
       p.draw = () => {
-        p.background(27, 29, 39);
-        p.ambientLight(60);
+        p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
+        pg.background(37, 39, 50);
 
-        p.normalMaterial();
-        for (let i = 0; i < itemArray.length; i++) {
-          drawItem(
-            itemArray[i].name,
-            itemArray[i].x,
-            itemArray[i].y,
-            itemArray[i].z
-          );
-        }
+        pg.erase();
+        props.data.selectedCheckboxes.forEach((i) => {
+          drawElement(designs[i]);
+        });
+        touchedLines.forEach((line) => {
+          drawLine(line);
+        });
+        pg.noErase();
+        p.image(pg, 0, 0);
 
-        for (let i = 0; i < constellationArray.length; i++) {
-          drawConstellation(constellationArray[i]);
-        }
-        p.rotateY(p.frameCount * 0.01);
-        p.rotateX(p.frameCount * 0.01);
+        p.fill(255, 255, 255);
+        p.textAlign(p.CENTER);
+        p.textSize(r / 2);
+        p.textLeading(100);
+        p.noStroke();
 
-        myCamera.camera(
-          p.sin(p.frameCount * 0.005) * 1000,
-          0,
-          p.cos(p.frameCount * 0.005) * 1000,
-          0,
-          0,
-          0,
-          0,
-          1,
-          0
-        );
+        props.data.selectedCheckboxes.forEach((i) => {
+          drawText(designs[i]);
+        });
       };
+
+      p.touchStarted = () => {
+        touchedLines.push({ x: [], y: [] });
+      };
+
+      p.touchMoved = () => {
+        touchedLines[touchedLines.length - 1].x.push(p.touches[0].x);
+        touchedLines[touchedLines.length - 1].y.push(p.touches[0].y);
+      };
+
+      function drawElement(elm) {
+        pg.push();
+        pg.fill(255);
+        pg.noStroke();
+        pg.ellipse(
+          areaXMin + (elm.x - itemXMin) * xRatio,
+          areaYMin + (elm.y - itemYMin) * yRatio,
+          r
+        );
+        pg.pop();
+      }
+
+      function drawText(elm) {
+        p.push();
+        p.translate(
+          areaXMin + (elm.x - itemXMin) * xRatio,
+          areaYMin + (elm.y - itemYMin) * yRatio + r * 1.3
+        );
+        p.text(elm.name, 0, 0);
+        p.pop();
+      }
+
+      function drawLine(line) {
+        pg.push();
+        pg.stroke(255);
+        pg.strokeWeight(1);
+        pg.noFill();
+        pg.beginShape();
+        for (let i = 0; i < line.x.length; i++) {
+          pg.curveVertex(line.x[i], line.y[i]);
+        }
+        pg.endShape();
+        pg.pop();
+      }
 
       function createConstellation(constellation) {
         let graph = createGraph(constellation.array.length);
@@ -147,53 +205,6 @@ const Sketch = () => {
           visited[nextNode] = true;
           currentNode = nextNode;
         }
-      }
-
-      function drawItem(name, x, y, z) {
-        p.fill(255, 255, 255);
-        p.textAlign(p.CENTER);
-        p.textSize(20);
-        p.textLeading(100);
-        // text(name, x, y);
-        p.noStroke();
-
-        p.push();
-        p.translate(x, y + 35, z);
-        p.rotateY(p.frameCount * 0.005);
-        p.text(name, 0, 0);
-        p.pop();
-
-        p.push();
-        p.translate(x, y, z);
-        p.fill(205, 105, 255, 140);
-        
-        for (let r = 0.0; r < 1.2; r += 0.1) {
-          p.sphere(10 * r);
-        }
-        p.pop();
-      }
-
-      function drawConstellation(constellation) {
-        p.beginShape();
-        // p.stroke(constellation.r, constellation.g, constellation.b, 180);
-        p.stroke(constellation.color);
-        p.strokeWeight(1);
-        p.noFill();
-        for (let i = 0; i < constellation.connections.length; i++) {
-          p.vertex(
-            itemArray[constellation.array[constellation.connections[i].start]]
-              .x,
-            itemArray[constellation.array[constellation.connections[i].start]]
-              .y,
-            itemArray[constellation.array[constellation.connections[i].start]].z
-          );
-          p.vertex(
-            itemArray[constellation.array[constellation.connections[i].end]].x,
-            itemArray[constellation.array[constellation.connections[i].end]].y,
-            itemArray[constellation.array[constellation.connections[i].end]].z
-          );
-        }
-        p.endShape(p.CLOSE);
       }
 
       function dijkstra(graph, start) {

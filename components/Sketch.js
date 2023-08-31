@@ -59,7 +59,7 @@ const Sketch = (props) => {
       let r = 80 / selectedCheckboxes.length;
 
       const w = p.windowWidth - convertRemToPx(3.0);
-      const h = w / 1.91;
+      const h = w * 1.3;
 
       const padding = r * 2.5;
       const areaXMin = padding;
@@ -88,8 +88,8 @@ const Sketch = (props) => {
 
       const itemWidth = itemXMax - itemXMin;
       const itemHeight = itemYMax - itemYMin;
-      const xRatio = areaWidth / itemWidth;
-      const yRatio = areaHeight / itemHeight;
+      const xRatio = areaWidth / itemHeight;
+      const yRatio = areaHeight / itemWidth;
 
       var touchedLines = [];
 
@@ -100,7 +100,7 @@ const Sketch = (props) => {
 
       p.preload = () => {
         myFont = p.loadFont("fonts/LINESeedJP.ttf");
-        bg = p.loadImage("bg.png");
+        bg = p.loadImage("bg_portrait.png");
       };
 
       p.setup = () => {
@@ -139,7 +139,6 @@ const Sketch = (props) => {
       };
 
       p.touchMoved = () => {
-        console.log(p.touches[0].x, p.touches[0].y);
         touchedLines[touchedLines.length - 1].x.push(p.touches[0].x);
         touchedLines[touchedLines.length - 1].y.push(p.touches[0].y);
       };
@@ -149,8 +148,8 @@ const Sketch = (props) => {
         pg.fill(255);
         pg.noStroke();
         pg.ellipse(
-          areaXMin + (elm.x - itemXMin) * xRatio,
-          areaYMin + (elm.y - itemYMin) * yRatio,
+          areaYMin + (elm.y - itemYMin) * xRatio,
+          areaXMin + (elm.x - itemXMin) * yRatio,
           r
         );
         pg.pop();
@@ -159,8 +158,8 @@ const Sketch = (props) => {
       function drawText(elm) {
         p.push();
         p.translate(
-          areaXMin + (elm.x - itemXMin) * xRatio,
-          areaYMin + (elm.y - itemYMin) * yRatio + r * 1.3
+          areaYMin + (elm.y - itemYMin) * xRatio,
+          areaXMin + (elm.x - itemXMin) * yRatio + r * 1.3
         );
         p.text(elm.name, 0, 0);
         p.pop();
