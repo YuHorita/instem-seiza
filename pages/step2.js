@@ -18,18 +18,18 @@ try {
 }
 
 const ResultPage = () => {
-  useEffect(() => {
-    function disableScroll(event) {
-      event.preventDefault();
-    }
-    document.addEventListener("touchmove", disableScroll, {
-      passive: false,
-    });
-    document.addEventListener("mousewheel", disableScroll, {
-      passive: false,
-    });
-  }, []);
-  // const router = useRouter();
+  // useEffect(() => {
+  //   function disableScroll(event) {
+  //     event.preventDefault();
+  //   }
+  //   document.addEventListener("touchmove", disableScroll, {
+  //     passive: false,
+  //   });
+  //   document.addEventListener("mousewheel", disableScroll, {
+  //     passive: false,
+  //   });
+  // }, []);
+
   return (
     <main
       data-bs-theme="designship"
@@ -42,6 +42,9 @@ const ResultPage = () => {
       </div>
       <p>
         広大なデザインの星空から、あなたにとってのデザインの星を見つけ出しました。次は、星同士を繋ぐことで星座を描いてみましょう。
+      </p>
+      <p>
+        デザインの星を2つタップすると星同士が繋がります。線のある場所をもう一度選ぶと線を消すことができます。
       </p>
       <SketchComponent data={formData} />
       <div className="d-flex justify-content-center my-3">
