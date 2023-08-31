@@ -123,6 +123,7 @@ const Sketch = (props) => {
           let distance = p.dist(p.mouseX, p.mouseY, itemX, itemY);
           if (distance < r) {
             console.log(item.name);
+            alert(item.name);
           }
         }
       }
