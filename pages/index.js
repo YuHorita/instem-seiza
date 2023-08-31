@@ -9,7 +9,6 @@ import { designs } from "../components/library";
 const Home = () => {
   const [displayName, setDisplayName] = useState("");
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
-  const [selectedColor, setSelectedColor] = useState("#563d7c");
   const router = useRouter();
 
   const handleCheckboxChange = (event) => {
@@ -35,17 +34,6 @@ const Home = () => {
       pathname: "/step2",
     });
 
-    // e.preventDefault();
-    // // フォームの入力内容を取得し、遷移先のページに渡す
-    // const formData = {
-    //   displayName: displayName,
-    //   selectedCheckboxes: selectedCheckboxes,
-    //   selectedColor: selectedColor,
-    // };
-    // router.push({
-    //   pathname: "/result",
-    //   query: formData,
-    // });
   };
   return (
     <main data-bs-theme="designship" className="bg-body text-body ">

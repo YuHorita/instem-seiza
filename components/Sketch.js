@@ -10,6 +10,14 @@ const Sketch = (props) => {
 
   useEffect(() => {
     const sketch = new p5((p) => {
+      class DesignStar {
+        constructor(name, x, y) {
+          this.name = name;
+          this.x = x;
+          this.y = y;
+        }
+      }
+
       let myFont;
       let bg;
       let pg;
@@ -100,16 +108,28 @@ const Sketch = (props) => {
         isTouching = true;
       };
 
+      p.mouseClicked = () => {
+        // if (isTouching) {
+        isTouching = false;
+        checkIsTouchingItem();
+        // }
+      };
+
+      function checkIsTouchingItem() {
+        for (let i = 0; i < selectedCheckboxes.length; i++) {
+          let item = designs[selectedCheckboxes[i]];
+          let itemX = areaXMin + (item.x - itemXMin) * xRatio;
+          let itemY = areaYMin + (item.y - itemYMin) * yRatio;
+          let distance = p.dist(p.mouseX, p.mouseY, itemX, itemY);
+          if (distance < r) {
+            console.log(item.name);
+          }
+        }
+      }
+
       p.touchMoved = () => {
         touchedLines[touchedLines.length - 1].x.push(p.touches[0].x);
         touchedLines[touchedLines.length - 1].y.push(p.touches[0].y);
-      };
-
-      p.touchEnded = () => {
-        if (isTouching) {
-          isTouching = false;
-          alert([p.mouseX, p.mouseY]);
-        }
       };
 
       function drawElement(elm) {
@@ -145,87 +165,6 @@ const Sketch = (props) => {
         }
         pg.endShape();
         pg.pop();
-      }
-
-      function createConstellation(constellation) {
-        let graph = createGraph(constellation.array.length);
-        for (let i = 0; i < constellation.array.length; i++) {
-          for (let j = i + 1; j < constellation.array.length; j++) {
-            let distance = p.dist(
-              itemArray[constellation.array[i]].x,
-              itemArray[constellation.array[i]].y,
-              itemArray[constellation.array[i]].z,
-              itemArray[constellation.array[j]].x,
-              itemArray[constellation.array[j]].y,
-              itemArray[constellation.array[j]].z
-            );
-            addEdge(graph, i, j, distance);
-          }
-        }
-        let startNode = 0;
-        let distance = dijkstra(graph, startNode);
-
-        let visited = new Array(constellation.array.length).fill(false);
-        visited[startNode] = true;
-        let currentNode = startNode;
-        for (let i = 0; i < constellation.array.length - 1; i++) {
-          let nextNode = findClosestNode(distance, visited);
-          constellation.connections.push({ start: currentNode, end: nextNode });
-          visited[nextNode] = true;
-          currentNode = nextNode;
-        }
-      }
-
-      function dijkstra(graph, start) {
-        let distances = new Array(graph.length).fill(Infinity);
-        distances[start] = 0;
-
-        let queue = new PriorityQueue();
-        queue.enqueue(start, 0);
-
-        while (!queue.isEmpty()) {
-          let current = queue.dequeue().element;
-
-          for (let i = 0; i < graph[current].length; i++) {
-            let nextNode = graph[current][i].node;
-            let weight = graph[current][i].weight;
-            let distance = distances[current] + weight;
-
-            if (distance < distances[nextNode]) {
-              distances[nextNode] = distance;
-              queue.enqueue(nextNode, distance);
-            }
-          }
-        }
-
-        return distances;
-      }
-
-      function findClosestNode(distances, visited) {
-        let minDistance = Infinity;
-        let closestNode;
-
-        for (let i = 0; i < distances.length; i++) {
-          if (!visited[i] && distances[i] < minDistance) {
-            minDistance = distances[i];
-            closestNode = i;
-          }
-        }
-
-        return closestNode;
-      }
-
-      function createGraph(vertices) {
-        let graph = new Array(vertices);
-        for (let i = 0; i < vertices; i++) {
-          graph[i] = [];
-        }
-        return graph;
-      }
-
-      function addEdge(graph, start, end, weight) {
-        graph[start].push({ node: end, weight: weight });
-        graph[end].push({ node: start, weight: weight });
       }
     });
 
