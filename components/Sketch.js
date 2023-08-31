@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import p5 from "p5";
-import { useRouter } from "next/router";
 import { designs } from "./library";
 
 const Sketch = (props) => {
@@ -15,8 +14,11 @@ const Sketch = (props) => {
           this.name = name;
           this.x = x;
           this.y = y;
+          this.isSelected = false;
         }
       }
+
+      var designStars = [];
 
       let myFont;
       let bg;
@@ -26,11 +28,12 @@ const Sketch = (props) => {
       const w = p.windowWidth - convertRemToPx(3.0);
       const h = w;
 
-      const padding = r * 2.5;
-      const areaXMin = padding;
-      const areaXMax = w - padding;
-      const areaYMin = padding;
-      const areaYMax = h - padding;
+      const paddingX = 60;
+      const paddingY = 30;
+      const areaXMin = paddingX;
+      const areaXMax = w - paddingX;
+      const areaYMin = paddingY;
+      const areaYMax = h - paddingY - r * 1.3;
       const areaWidth = areaXMax - areaXMin;
       const areaHeight = areaYMax - areaYMin;
 
@@ -56,11 +59,8 @@ const Sketch = (props) => {
       const xRatio = areaWidth / itemWidth;
       const yRatio = areaHeight / itemHeight;
 
-      var touchedLines = [];
-      var isSelecting = false;
-      var isTouching = false;
-
-      var pTouchX;
+      var nowSelecting = undefined;
+      var starLines = [];
 
       function convertRemToPx(rem) {
         var fontSize = getComputedStyle(document.documentElement).fontSize;
@@ -76,6 +76,12 @@ const Sketch = (props) => {
         p.createCanvas(w, h);
         p.textFont(myFont);
         pg = p.createGraphics(p.width, p.height);
+
+        for (let i = 0; i < designs.length; i++) {
+          const x = areaXMin + (designs[i].x - itemXMin) * xRatio;
+          const y = areaYMin + (designs[i].y - itemYMin) * yRatio;
+          designStars.push(new DesignStar(designs[i].name, x, y));
+        }
       };
 
       p.draw = () => {
@@ -84,11 +90,12 @@ const Sketch = (props) => {
 
         pg.erase();
         props.data.selectedCheckboxes.forEach((i) => {
-          drawElement(designs[i]);
+          drawDesignStar(designStars[i]);
         });
-        touchedLines.forEach((line) => {
+        starLines.forEach((line) => {
           drawLine(line);
         });
+
         pg.noErase();
         p.image(pg, 0, 0);
 
@@ -99,58 +106,74 @@ const Sketch = (props) => {
         p.noStroke();
 
         props.data.selectedCheckboxes.forEach((i) => {
-          drawText(designs[i]);
+          drawText(designStars[i]);
         });
       };
 
-      p.touchStarted = () => {
-        touchedLines.push({ x: [], y: [] });
-        isTouching = true;
-      };
-
       p.mouseClicked = () => {
-        // if (isTouching) {
-        isTouching = false;
         checkIsTouchingItem();
-        // }
       };
 
       function checkIsTouchingItem() {
-        for (let i = 0; i < selectedCheckboxes.length; i++) {
-          let item = designs[selectedCheckboxes[i]];
-          let itemX = areaXMin + (item.x - itemXMin) * xRatio;
-          let itemY = areaYMin + (item.y - itemYMin) * yRatio;
-          let distance = p.dist(p.mouseX, p.mouseY, itemX, itemY);
+        for (let i = 0; i < designStars.length; i++) {
+          let distance = p.dist(
+            p.mouseX,
+            p.mouseY,
+            designStars[i].x,
+            designStars[i].y
+          );
           if (distance < r) {
-            console.log(item.name);
-            alert(item.name);
+            console.log(designStars[i].name);
+            if (nowSelecting === undefined) {
+              nowSelecting = designStars[i];
+              designStars[i].isSelected = true;
+            } else if (nowSelecting === designStars[i]) {
+              nowSelecting = undefined;
+              designStars[i].isSelected = false;
+            } else {
+              let isExist = false;
+              let existingNum;
+              for (let j = 0; j < starLines.length; j++) {
+                if (
+                  (starLines[j][0] === nowSelecting &&
+                    starLines[j][1] === designStars[i]) ||
+                  (starLines[j][0] === designStars[i] &&
+                    starLines[j][1] === nowSelecting)
+                ) {
+                  isExist = true;
+                  existingNum = j;
+                  break;
+                }
+              }
+              if (!isExist) {
+                starLines.push([nowSelecting, designStars[i]]);
+              } else {
+                starLines.splice(existingNum, 1);
+              }
+              nowSelecting.isSelected = false;
+              nowSelecting = undefined;
+            }
           }
         }
       }
 
-      p.touchMoved = () => {
-        touchedLines[touchedLines.length - 1].x.push(p.touches[0].x);
-        touchedLines[touchedLines.length - 1].y.push(p.touches[0].y);
-      };
-
-      function drawElement(elm) {
+      function drawDesignStar(elm) {
         pg.push();
         pg.fill(255);
         pg.noStroke();
-        pg.ellipse(
-          areaXMin + (elm.x - itemXMin) * xRatio,
-          areaYMin + (elm.y - itemYMin) * yRatio,
-          r
-        );
+        pg.ellipse(elm.x, elm.y, r);
+        if (elm.isSelected) {
+          pg.noFill();
+          pg.stroke(255);
+          pg.strokeWeight(1.5);
+          pg.ellipse(elm.x, elm.y, r + 5);
+        }
         pg.pop();
       }
 
       function drawText(elm) {
         p.push();
-        p.translate(
-          areaXMin + (elm.x - itemXMin) * xRatio,
-          areaYMin + (elm.y - itemYMin) * yRatio + r * 1.3
-        );
+        p.translate(elm.x, elm.y + r * 1.3);
         p.text(elm.name, 0, 0);
         p.pop();
       }
@@ -160,11 +183,7 @@ const Sketch = (props) => {
         pg.stroke(255);
         pg.strokeWeight(1);
         pg.noFill();
-        pg.beginShape();
-        for (let i = 0; i < line.x.length; i++) {
-          pg.curveVertex(line.x[i], line.y[i]);
-        }
-        pg.endShape();
+        pg.line(line[0].x, line[0].y, line[1].x, line[1].y);
         pg.pop();
       }
     });
