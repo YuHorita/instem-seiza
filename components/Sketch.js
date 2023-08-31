@@ -5,61 +5,18 @@ import { designs } from "./library";
 
 const Sketch = (props) => {
   const sketchRef = useRef(null);
-  const router = useRouter();
   const displayName = props.data.displayName;
   const selectedCheckboxes = props.data.selectedCheckboxes;
 
   useEffect(() => {
     const sketch = new p5((p) => {
-      const constellationArray = [
-        {
-          array: router.query.selectedCheckboxes,
-          color: router.query.selectedColor,
-          connections: [],
-        },
-      ];
-
-      class PriorityQueue {
-        constructor() {
-          this.items = [];
-        }
-
-        enqueue(element, priority) {
-          let queueElement = { element, priority };
-          let added = false;
-
-          for (let i = 0; i < this.items.length; i++) {
-            if (queueElement.priority < this.items[i].priority) {
-              this.items.splice(i, 0, queueElement);
-              added = true;
-              break;
-            }
-          }
-
-          if (!added) {
-            this.items.push(queueElement);
-          }
-        }
-
-        dequeue() {
-          if (this.isEmpty()) {
-            return null;
-          }
-          return this.items.shift();
-        }
-
-        isEmpty() {
-          return this.items.length === 0;
-        }
-      }
-
       let myFont;
       let bg;
       let pg;
       let r = 80 / selectedCheckboxes.length;
 
       const w = p.windowWidth - convertRemToPx(3.0);
-      const h = w * 1.3;
+      const h = w;
 
       const padding = r * 2.5;
       const areaXMin = padding;
@@ -88,10 +45,14 @@ const Sketch = (props) => {
 
       const itemWidth = itemXMax - itemXMin;
       const itemHeight = itemYMax - itemYMin;
-      const xRatio = areaWidth / itemHeight;
-      const yRatio = areaHeight / itemWidth;
+      const xRatio = areaWidth / itemWidth;
+      const yRatio = areaHeight / itemHeight;
 
       var touchedLines = [];
+      var isSelecting = false;
+      var isTouching = false;
+
+      var pTouchX;
 
       function convertRemToPx(rem) {
         var fontSize = getComputedStyle(document.documentElement).fontSize;
@@ -136,6 +97,7 @@ const Sketch = (props) => {
 
       p.touchStarted = () => {
         touchedLines.push({ x: [], y: [] });
+        isTouching = true;
       };
 
       p.touchMoved = () => {
@@ -143,13 +105,20 @@ const Sketch = (props) => {
         touchedLines[touchedLines.length - 1].y.push(p.touches[0].y);
       };
 
+      p.touchEnded = () => {
+        if (isTouching) {
+          isTouching = false;
+          alert([p.mouseX, p.mouseY]);
+        }
+      };
+
       function drawElement(elm) {
         pg.push();
         pg.fill(255);
         pg.noStroke();
         pg.ellipse(
-          areaYMin + (elm.y - itemYMin) * xRatio,
-          areaXMin + (elm.x - itemXMin) * yRatio,
+          areaXMin + (elm.x - itemXMin) * xRatio,
+          areaYMin + (elm.y - itemYMin) * yRatio,
           r
         );
         pg.pop();
@@ -158,8 +127,8 @@ const Sketch = (props) => {
       function drawText(elm) {
         p.push();
         p.translate(
-          areaYMin + (elm.y - itemYMin) * xRatio,
-          areaXMin + (elm.x - itemXMin) * yRatio + r * 1.3
+          areaXMin + (elm.x - itemXMin) * xRatio,
+          areaYMin + (elm.y - itemYMin) * yRatio + r * 1.3
         );
         p.text(elm.name, 0, 0);
         p.pop();
