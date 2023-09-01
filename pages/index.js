@@ -1,15 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/router";
 import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../components/library";
-
 
 const Home = () => {
   const [displayName, setDisplayName] = useState("");
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
-  const router = useRouter();
 
   const handleCheckboxChange = (event) => {
     const checkboxValue = parseInt(event.target.value, 10);
@@ -30,10 +27,7 @@ const Home = () => {
       selectedCheckboxes: selectedCheckboxes,
     };
     localStorage.setItem("formData", JSON.stringify(formData));
-    router.push({
-      pathname: "/step2",
-    });
-
+    window.location.href = "/page2";
   };
   return (
     <main data-bs-theme="designship" className="bg-body text-body ">
@@ -74,7 +68,7 @@ const Home = () => {
                 id="nameInput"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="デザイン太郎"
+                // placeholder="デザイン太郎"
               />
             </div>
             <div className="pt-4">
