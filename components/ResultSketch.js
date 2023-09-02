@@ -2,26 +2,45 @@ import React, { useRef, useEffect } from "react";
 import p5 from "p5";
 import { designs, DesignStar } from "./library";
 
+var formData = {};
+var starName = "";
+var starLines = [];
+var selectedCheckboxes = [];
+var displayName = "";
+
+try {
+  formData = JSON.parse(localStorage.getItem("formData"));
+  starName = JSON.parse(localStorage.getItem("starName"));
+  starLines = JSON.parse(localStorage.getItem("starLines"));
+  selectedCheckboxes = formData.selectedCheckboxes;
+  displayName = formData.displayName;
+} catch (e) {
+  console.log(e);
+}
+
 const Sketch = (props) => {
   const sketchRef = useRef(null);
-  const selectedCheckboxes = props.data.selectedCheckboxes;
+  // const selectedCheckboxes = props.data.selectedCheckboxes;
+  // const starLines = props.starLines;
+  // const displayName = props.data.displayName;
+  // const starName = props.starName;
 
   useEffect(() => {
     const sketch = new p5((p) => {
       let myFont;
       let bg;
       let pg;
-      let r = 20;
+      let r = 15;
 
       var designStars = [];
-      var starLines = [];
+      // var starLines = [];
 
       const w = p.windowWidth - convertRemToPx(3.0);
-      const h = w;
+      const h = w / 1.91;
 
-      const paddingX = 100;
+      const paddingX = 50;
       const paddingY = 30;
-      const areaXMin = paddingX;
+      const areaXMin = w / 2;
       const areaXMax = w - paddingX;
       const areaYMin = paddingY;
       const areaYMax = h - paddingY - r * 1.3;
@@ -62,8 +81,10 @@ const Sketch = (props) => {
         bg = p.loadImage("bg_portrait.png");
       };
 
+      let canvas;
+
       p.setup = () => {
-        const canvas = p.createCanvas(w, h);
+        canvas = p.createCanvas(w, h);
         canvas.parent(sketchRef.current);
         p.textFont(myFont);
         pg = p.createGraphics(p.width, p.height);
@@ -81,11 +102,20 @@ const Sketch = (props) => {
               designs[i].caption
             )
           );
-          localStorage.setItem("designStars", JSON.stringify(designStars));
         }
-      };
 
-      p.draw = () => {
+        // starLinesが前ページのDesignStarsによって構成されているため、同名のDesignStarを探して代入する
+        for (let i = 0; i < starLines.length; i++) {
+          for (let j = 0; j < designStars.length; j++) {
+            if (starLines[i][0].name === designStars[j].name) {
+              starLines[i][0] = designStars[j];
+            }
+            if (starLines[i][1].name === designStars[j].name) {
+              starLines[i][1] = designStars[j];
+            }
+          }
+        }
+
         p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg.background(37, 39, 50);
 
@@ -102,9 +132,25 @@ const Sketch = (props) => {
         pg.noErase();
         p.image(pg, 0, 0);
 
-        props.data.selectedCheckboxes.forEach((i) => {
+        selectedCheckboxes.forEach((i) => {
           drawCaption(designStars[i]);
         });
+
+        p.fill(255, 255, 255);
+        p.textAlign(p.LEFT, p.CENTER);
+
+        p.textLeading(100);
+        p.noStroke();
+        p.push();
+        p.translate(20, h / 2 - 10);
+        p.textSize(8);
+        p.text(displayName + "さんの星座", 0, 0);
+        p.pop();
+        p.push();
+        p.translate(20, h / 2 + 10);
+        p.textSize(16);
+        p.text(starName + "座", 0, 0);
+        p.pop();
       };
 
       p.mouseClicked = () => {
@@ -139,7 +185,6 @@ const Sketch = (props) => {
                 } else {
                   starLines.splice(existingNum, 1);
                 }
-                localStorage.setItem("starLines", JSON.stringify(starLines));
                 nowSelecting.isSelected = false;
                 nowSelecting = undefined;
               }
@@ -164,26 +209,26 @@ const Sketch = (props) => {
       function drawCaption(elm) {
         p.push();
         p.fill(255, 255, 255);
-        if (elm.captionPos === 0 || elm.captionPos === 2) {
-          p.textAlign(p.CENTER, p.CENTER);
-        } else if (elm.captionPos === 1) {
-          p.textAlign(p.LEFT, p.CENTER);
-        } else if (elm.captionPos === 3) {
-          p.textAlign(p.RIGHT, p.CENTER);
-        }
+        // if (elm.captionPos === 0 || elm.captionPos === 2) {
+        p.textAlign(p.CENTER, p.CENTER);
+        // } else if (elm.captionPos === 1) {
+        // p.textAlign(p.LEFT, p.CENTER);
+        // } else if (elm.captionPos === 3) {
+        // p.textAlign(p.RIGHT, p.CENTER);
+        // }
 
-        p.textSize(r / 2);
+        p.textSize(r / 3);
         p.textLeading(100);
         p.noStroke();
-        if (elm.captionPos === 0) {
-          p.translate(elm.x, elm.y - r);
-        } else if (elm.captionPos === 1) {
-          p.translate(elm.x + r * 0.7, elm.y - 3);
-        } else if (elm.captionPos === 2) {
-          p.translate(elm.x, elm.y + r - 3);
-        } else if (elm.captionPos === 3) {
-          p.translate(elm.x - r * 0.7, elm.y - 3);
-        }
+        // if (elm.captionPos === 0) {
+        //   p.translate(elm.x, elm.y - r);
+        // } else if (elm.captionPos === 1) {
+        //   p.translate(elm.x + r * 0.7, elm.y - 3);
+        // } else if (elm.captionPos === 2) {
+        p.translate(elm.x, elm.y + r - 3);
+        // } else if (elm.captionPos === 3) {
+        //   p.translate(elm.x - r * 0.7, elm.y - 3);
+        // }
         p.text(elm.name, 0, 0);
         p.pop();
       }
@@ -196,6 +241,12 @@ const Sketch = (props) => {
         pg.line(line[0].x, line[0].y, line[1].x, line[1].y);
         pg.pop();
       }
+
+      p.keyPressed = () => {
+        if (p.key === "s" || p.key === "S") {
+          p.saveCanvas(canvas, "myCanvas", "png");
+        }
+      };
     });
 
     return () => {

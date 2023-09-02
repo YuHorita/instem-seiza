@@ -16,7 +16,7 @@ try {
 }
 
 const Page2 = () => {
-  const [starName] = useState("");
+  const [starName, setStarName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,9 +58,8 @@ const Page2 = () => {
             type="text"
             className="form-control p-3"
             id="starName"
-            // value={displayName}
-            // onChange={(e) => setDisplayName(e.target.value)}
-            // placeholder="わたしのデザイン"
+            value={starName}
+            onChange={(e) => setStarName(e.target.value)}
           />
           <span className="input-group-text">座</span>
         </div>
