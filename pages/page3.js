@@ -37,9 +37,7 @@ const Page3 = (displayName) => {
       <div className="text-center mt-3 mb-4">
         <h2 className="fw-bold">{displayName}さんの星座</h2>
       </div>
-      <SketchComponent
-        onSave={handleCanvasSave}
-      />
+      <SketchComponent onSave={handleCanvasSave} />
       {canvasImage && (
         <img
           src={canvasImage}
@@ -48,18 +46,11 @@ const Page3 = (displayName) => {
         />
       )}
 
-      <p className="mt-3">
-        素敵な星座が完成しました！体験いただきありがとうございました。
+      <p className="mt-4">
+        素敵な星座が完成しました！
+        体験いただきありがとうございました。
       </p>
-
-      <div className="d-flex justify-content-center my-5">
-        <button
-          className="btn btn-primary rounded-5 px-5 py-2 fs-5 text-center"
-          onClick={handleDownloadClick}
-        >
-          画像を保存する
-        </button>
-      </div>
+      <p className="mt-3">画像を長押しすると保存できます。</p>
     </main>
   );
 };
