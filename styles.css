@@ -42,3 +42,7 @@
     background-color: #DA297B !important;
     border-color: #DA297B !important;
 }
+
+main {
+    min-height: 100vh;
+}

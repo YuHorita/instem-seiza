@@ -18,12 +18,9 @@ try {
   console.log(e);
 }
 
-const Sketch = (props) => {
+const Sketch = ({ onSave }) => {
+  let canvas;
   const sketchRef = useRef(null);
-  // const selectedCheckboxes = props.data.selectedCheckboxes;
-  // const starLines = props.starLines;
-  // const displayName = props.data.displayName;
-  // const starName = props.starName;
 
   useEffect(() => {
     const sketch = new p5((p) => {
@@ -80,8 +77,6 @@ const Sketch = (props) => {
         myFont = p.loadFont("fonts/LINESeedJP.ttf");
         bg = p.loadImage("bg_portrait.png");
       };
-
-      let canvas;
 
       p.setup = () => {
         canvas = p.createCanvas(w, h);
@@ -151,6 +146,15 @@ const Sketch = (props) => {
         p.textSize(16);
         p.text(starName + "座", 0, 0);
         p.pop();
+      };
+
+      p.draw = () => {
+        if (canvas && onSave) {
+          canvas.canvas.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            onSave(url);
+          }, "image/png");
+        }
       };
 
       p.mouseClicked = () => {
@@ -254,7 +258,21 @@ const Sketch = (props) => {
     };
   }, []);
 
-  return <div ref={sketchRef}></div>;
+  const saveCanvas = () => {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+
+      // キャンバスからPNG画像を生成
+      const canvasImage = canvas.toDataURL("image/png");
+
+      // 生成したPNG画像をコールバック関数に渡す
+      if (onCanvasSave) {
+        onCanvasSave(canvasImage);
+      }
+    }
+  };
+
+  return <div ref={sketchRef} style={{ display: "none" }}></div>;
 };
 
 export default Sketch;

@@ -8,6 +8,19 @@ const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
 });
 
 const Page3 = (displayName) => {
+  const [canvasImage, setCanvasImage] = useState(null);
+  const handleCanvasSave = (imageData) => {
+    setCanvasImage(imageData);
+  };
+  const handleDownloadClick = () => {
+    if (canvasImage) {
+      const link = document.createElement("a");
+      link.href = canvasImage;
+      link.download = `${displayName}さんの星座.png`;
+      link.click();
+    }
+  };
+
   var formData = {};
   var displayName = "";
   try {
@@ -24,13 +37,26 @@ const Page3 = (displayName) => {
       <div className="text-center mt-3 mb-4">
         <h2 className="fw-bold">{displayName}さんの星座</h2>
       </div>
-      <SketchComponent />
+      <SketchComponent
+        onSave={handleCanvasSave}
+      />
+      {canvasImage && (
+        <img
+          src={canvasImage}
+          alt={`${displayName}さんの星座`}
+          style={{ width: "100%" }}
+        />
+      )}
+
       <p className="mt-3">
         素敵な星座が完成しました！体験いただきありがとうございました。
       </p>
 
       <div className="d-flex justify-content-center my-5">
-        <button className="btn btn-primary rounded-5 px-5 py-2 fs-5 text-center">
+        <button
+          className="btn btn-primary rounded-5 px-5 py-2 fs-5 text-center"
+          onClick={handleDownloadClick}
+        >
           画像を保存する
         </button>
       </div>
