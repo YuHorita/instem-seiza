@@ -65,13 +65,6 @@ const Sketch = ({ onSave }) => {
       const xRatio = areaWidth / itemWidth;
       const yRatio = areaHeight / itemHeight;
 
-      var nowSelecting = undefined;
-
-      function convertRemToPx(rem) {
-        var fontSize = getComputedStyle(document.documentElement).fontSize;
-        return rem * parseFloat(fontSize);
-      }
-
       p.preload = () => {
         myFont = p.loadFont("fonts/LINESeedJP.ttf");
         bg = p.loadImage("bg_portrait.png");
@@ -154,45 +147,6 @@ const Sketch = ({ onSave }) => {
         }
       };
 
-      p.mouseClicked = () => {
-        designStars
-          .filter((elm) => elm.isDisplayed)
-          .forEach((elm) => {
-            let distance = p.dist(p.mouseX, p.mouseY, elm.x, elm.y);
-            if (distance < r) {
-              if (nowSelecting === undefined) {
-                nowSelecting = elm;
-                elm.isSelected = true;
-              } else if (nowSelecting === elm) {
-                nowSelecting = undefined;
-                elm.isSelected = false;
-              } else {
-                let isExist = false;
-                let existingNum;
-                for (let j = 0; j < starLines.length; j++) {
-                  if (
-                    (starLines[j][0] === nowSelecting &&
-                      starLines[j][1] === elm) ||
-                    (starLines[j][0] === elm &&
-                      starLines[j][1] === nowSelecting)
-                  ) {
-                    isExist = true;
-                    existingNum = j;
-                    break;
-                  }
-                }
-                if (!isExist) {
-                  starLines.push([nowSelecting, elm]);
-                } else {
-                  starLines.splice(existingNum, 1);
-                }
-                nowSelecting.isSelected = false;
-                nowSelecting = undefined;
-              }
-            }
-          });
-      };
-
       function drawDesignStar(elm) {
         pg.push();
         pg.fill(255);
@@ -228,28 +182,12 @@ const Sketch = ({ onSave }) => {
         pg.line(line[0].x, line[0].y, line[1].x, line[1].y);
         pg.pop();
       }
-
-      p.keyPressed = () => {
-        if (p.key === "s" || p.key === "S") {
-          p.saveCanvas(canvas, "myCanvas", "png");
-        }
-      };
     });
 
     return () => {
       sketch.remove();
     };
   }, []);
-
-  const saveCanvas = () => {
-    if (canvasRef.current) {
-      const canvas = canvasRef.current;
-      const canvasImage = canvas.toDataURL("image/png");
-      if (onCanvasSave) {
-        onCanvasSave(canvasImage);
-      }
-    }
-  };
 
   return <div ref={sketchRef} style={{ display: "none" }}></div>;
 };
