@@ -33,6 +33,7 @@ export const designs = [
   { name: "ビジネスデザイン", x: 10, y: 93, caption: 2 },
   { name: "行政デザイン", x: 75, y: 90, caption: 2 },
   { name: "モーションデザイン", x: 86, y: 91, caption: 1 },
+  { name: "パッケージデザイン", x: 95, y: 93, caption: 1 },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export class DesignStar {
