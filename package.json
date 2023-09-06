@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^5.2.0",
     "bootstrap": "^5.3.1",
     "next": "13.4.12",
     "p5": "^1.7.0",
@@ -20,7 +19,6 @@
   "devDependencies": {
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
-    "prisma": "^5.2.0",
     "typescript": "5.2.2"
   }
 }

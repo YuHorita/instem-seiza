@@ -22,18 +22,17 @@ const Page2 = () => {
     e.preventDefault();
     localStorage.setItem("starName", JSON.stringify(starName));
 
-    await fetch("/api/designStars", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: {
-        displayName: JSON.stringify(formData.displayName),
-        selectedStar: JSON.stringify(formData.selectedStar),
-        starLines: localStorage.getItem(starLines),
-        starName: JSON.stringify(starName),
-      },
-    });
+    // const { data, error } = await supabase
+    //   .from("designStars")
+    //   .insert([
+    //     {
+    //       displayName: formData.displayName,
+    //       selectedStars: formData.selectedCheckboxes,
+    //       starLines: localStorage.getItem("starLines"),
+    //       starName: starName,
+    //     },
+    //   ])
+    //   .select();
 
     window.location.href = "/page3";
   };
