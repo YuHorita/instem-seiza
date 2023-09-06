@@ -7,10 +7,12 @@ const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
   ssr: false,
 });
 
-var formData = {};
+var designerName = "";
+var selectedStars = [];
 
 try {
-  formData = JSON.parse(localStorage.getItem("formData"));
+  designerName = JSON.parse(localStorage.getItem("designerName"));
+  selectedStars = JSON.parse(localStorage.getItem("selectedStars"));
 } catch (e) {
   console.log(e);
 }
@@ -22,17 +24,29 @@ const Page2 = () => {
     e.preventDefault();
     localStorage.setItem("starName", JSON.stringify(starName));
 
-    // const { data, error } = await supabase
-    //   .from("designStars")
-    //   .insert([
-    //     {
-    //       displayName: formData.displayName,
-    //       selectedStars: formData.selectedCheckboxes,
-    //       starLines: localStorage.getItem("starLines"),
-    //       starName: starName,
-    //     },
-    //   ])
-    //   .select();
+    try {
+      const starLines = JSON.parse(localStorage.getItem("starLines"));
+      const response = await fetch("/api/addData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          designerName,
+          selectedStars,
+          starName,
+          starLines,
+        }),
+      });
+
+      if (response.status === 201) {
+        setMessage("データが追加されました");
+      } else {
+        setMessage("データの追加に失敗しました");
+      }
+    } catch (error) {
+      console.error("データ追加エラー:", error);
+    }
 
     window.location.href = "/page3";
   };
@@ -53,7 +67,7 @@ const Page2 = () => {
       <p>
         デザインの星を2つタップすると星同士が繋がります。線のある場所をもう一度選ぶと線を消すことができます。
       </p>
-      <SketchComponent data={formData} />
+      <SketchComponent />
 
       <div className="text-center mt-5 mb-3">
         <h3 className="text-primary fs-5 fw-bold">Step 3/3</h3>

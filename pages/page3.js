@@ -12,14 +12,14 @@ const Page3 = (displayName) => {
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
   };
-  const handleDownloadClick = () => {
-    if (canvasImage) {
-      const link = document.createElement("a");
-      link.href = canvasImage;
-      link.download = `${displayName}さんの星座.png`;
-      link.click();
-    }
-  };
+  // const handleDownloadClick = () => {
+  //   if (canvasImage) {
+  //     const link = document.createElement("a");
+  //     link.href = canvasImage;
+  //     link.download = `${displayName}さんの星座.png`;
+  //     link.click();
+  //   }
+  // };
 
   var formData = {};
   var displayName = "";
@@ -35,7 +35,9 @@ const Page3 = (displayName) => {
       className="bg-body text-body container-flued p-4"
     >
       <div className="text-center mt-3 mb-4">
-        <h2 className="fw-bold">{displayName}さんの星座</h2>
+        <h2 className="fw-bold" suppressHydrationWarning={true}>
+          {`${displayName}さんの星座`}
+        </h2>
       </div>
       <SketchComponent onSave={handleCanvasSave} />
       {canvasImage && (
@@ -47,8 +49,7 @@ const Page3 = (displayName) => {
       )}
 
       <p className="mt-4">
-        素敵な星座が完成しました！
-        体験いただきありがとうございました。
+        素敵な星座が完成しました！ 体験いただきありがとうございました。
       </p>
       <p className="mt-3">画像を長押しすると保存できます。</p>
     </main>

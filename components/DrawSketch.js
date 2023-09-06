@@ -2,9 +2,15 @@ import React, { useRef, useEffect } from "react";
 import p5 from "p5";
 import { designs, DesignStar } from "./library";
 
-const Sketch = (props) => {
+const Sketch = () => {
   const sketchRef = useRef(null);
-  const selectedCheckboxes = props.data.selectedCheckboxes;
+  var selectedStars = [];
+
+  try {
+    selectedStars = JSON.parse(localStorage.getItem("selectedStars"));
+  } catch (e) {
+    console.log(e);
+  }
 
   useEffect(() => {
     const sketch = new p5((p) => {
@@ -29,21 +35,13 @@ const Sketch = (props) => {
       const areaHeight = areaYMax - areaYMin;
 
       const itemXMin =
-        designs[
-          selectedCheckboxes.sort((a, b) => designs[a].x - designs[b].x)[0]
-        ].x;
+        designs[selectedStars.sort((a, b) => designs[a].x - designs[b].x)[0]].x;
       const itemXMax =
-        designs[
-          selectedCheckboxes.sort((a, b) => designs[b].x - designs[a].x)[0]
-        ].x;
+        designs[selectedStars.sort((a, b) => designs[b].x - designs[a].x)[0]].x;
       const itemYMin =
-        designs[
-          selectedCheckboxes.sort((a, b) => designs[a].y - designs[b].y)[0]
-        ].y;
+        designs[selectedStars.sort((a, b) => designs[a].y - designs[b].y)[0]].y;
       const itemYMax =
-        designs[
-          selectedCheckboxes.sort((a, b) => designs[b].y - designs[a].y)[0]
-        ].y;
+        designs[selectedStars.sort((a, b) => designs[b].y - designs[a].y)[0]].y;
 
       const itemWidth = itemXMax - itemXMin;
       const itemHeight = itemYMax - itemYMin;
@@ -71,13 +69,13 @@ const Sketch = (props) => {
         for (let i = 0; i < designs.length; i++) {
           const x = areaXMin + (designs[i].x - itemXMin) * xRatio;
           const y = areaYMin + (designs[i].y - itemYMin) * yRatio;
-          //selectedCheckBoxesに含まれているかどうかでisDisplayedを判定
+          //selectedStarsに含まれているかどうかでisDisplayedを判定
           designStars.push(
             new DesignStar(
               designs[i].name,
               x,
               y,
-              selectedCheckboxes.includes(i),
+              selectedStars.includes(i),
               designs[i].caption
             )
           );
@@ -102,7 +100,7 @@ const Sketch = (props) => {
         pg.noErase();
         p.image(pg, 0, 0);
 
-        props.data.selectedCheckboxes.forEach((i) => {
+        selectedStars.forEach((i) => {
           drawCaption(designStars[i]);
         });
       };

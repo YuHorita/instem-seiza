@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1694043278778,
+    "designerName": "aaaaaaa",
+    "selectedStars": [0, 1],
+    "starName": "test",
+    "starLines": [
+      [
+        {
+          "name": "AI",
+          "x": 100,
+          "y": 346,
+          "isSelected": true,
+          "isDisplayed": true,
+          "captionPos": 0
+        },
+        {
+          "name": "Co-Design",
+          "x": 302,
+          "y": 30,
+          "isSelected": false,
+          "isDisplayed": true,
+          "captionPos": 3
+        }
+      ]
+    ]
+  }
+]

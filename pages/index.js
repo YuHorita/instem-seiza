@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../components/library";
 
 const Home = () => {
-  const [displayName, setDisplayName] = useState("");
+  const [designerName, setDesignerName] = useState("");
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
 
   const handleCheckboxChange = (event) => {
@@ -22,11 +22,13 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // フォームの入力内容を取得し、localStorageで遷移先のページに渡す
-    const formData = {
-      displayName: displayName,
-      selectedCheckboxes: selectedCheckboxes,
-    };
-    localStorage.setItem("formData", JSON.stringify(formData));
+    // const formData = {
+    //   displayName: displayName,
+    //   selectedCheckboxes: selectedCheckboxes,
+    // };
+    // localStorage.setItem("formData", JSON.stringify(formData));
+    localStorage.setItem("designerName", JSON.stringify(designerName));
+    localStorage.setItem("selectedStars", JSON.stringify(selectedCheckboxes));
     window.location.href = "/page2";
   };
   return (
@@ -66,8 +68,8 @@ const Home = () => {
                 type="text"
                 className="form-control p-3"
                 id="nameInput"
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
+                value={designerName}
+                onChange={(e) => setDesignerName(e.target.value)}
                 // placeholder="デザイン太郎"
               />
             </div>

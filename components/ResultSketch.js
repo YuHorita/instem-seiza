@@ -2,18 +2,22 @@ import React, { useRef, useEffect } from "react";
 import p5 from "p5";
 import { designs, DesignStar } from "./library";
 
-var formData = {};
+// var formData = {};
+var designerName = "";
+var selectedStars = [];
 var starName = "";
 var starLines = [];
-var selectedCheckboxes = [];
-var displayName = "";
+// var selectedCheckboxes = [];
+// var displayName = "";
 
 try {
-  formData = JSON.parse(localStorage.getItem("formData"));
+  // formData = JSON.parse(localStorage.getItem("formData"));
+  designerName = JSON.parse(localStorage.getItem("designerName"));
+  selectedStars = JSON.parse(localStorage.getItem("selectedStars"));
   starName = JSON.parse(localStorage.getItem("starName"));
   starLines = JSON.parse(localStorage.getItem("starLines"));
-  selectedCheckboxes = formData.selectedCheckboxes;
-  displayName = formData.displayName;
+  // selectedCheckboxes = formData.selectedCheckboxes;
+  // displayName = formData.displayName;
 } catch (e) {
   console.log(e);
 }
@@ -44,21 +48,13 @@ const Sketch = ({ onSave }) => {
       const areaHeight = areaYMax - areaYMin;
 
       const itemXMin =
-        designs[
-          selectedCheckboxes.sort((a, b) => designs[a].x - designs[b].x)[0]
-        ].x;
+        designs[selectedStars.sort((a, b) => designs[a].x - designs[b].x)[0]].x;
       const itemXMax =
-        designs[
-          selectedCheckboxes.sort((a, b) => designs[b].x - designs[a].x)[0]
-        ].x;
+        designs[selectedStars.sort((a, b) => designs[b].x - designs[a].x)[0]].x;
       const itemYMin =
-        designs[
-          selectedCheckboxes.sort((a, b) => designs[a].y - designs[b].y)[0]
-        ].y;
+        designs[selectedStars.sort((a, b) => designs[a].y - designs[b].y)[0]].y;
       const itemYMax =
-        designs[
-          selectedCheckboxes.sort((a, b) => designs[b].y - designs[a].y)[0]
-        ].y;
+        designs[selectedStars.sort((a, b) => designs[b].y - designs[a].y)[0]].y;
 
       const itemWidth = itemXMax - itemXMin;
       const itemHeight = itemYMax - itemYMin;
@@ -84,7 +80,7 @@ const Sketch = ({ onSave }) => {
               designs[i].name,
               x,
               y,
-              selectedCheckboxes.includes(i),
+              selectedStars.includes(i),
               designs[i].caption
             )
           );
@@ -117,7 +113,7 @@ const Sketch = ({ onSave }) => {
         pg.noErase();
         p.image(pg, 0, 0);
 
-        selectedCheckboxes.forEach((i) => {
+        selectedStars.forEach((i) => {
           drawCaption(designStars[i]);
         });
 
@@ -129,7 +125,7 @@ const Sketch = ({ onSave }) => {
         p.push();
         p.translate(80, h / 2 - 40);
         p.textSize(32);
-        p.text(displayName + "さんの星座", 0, 0);
+        p.text(designerName + "さんの星座", 0, 0);
         p.pop();
         p.push();
         p.translate(80, h / 2 + 20);
