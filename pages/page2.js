@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -18,9 +18,23 @@ try {
 const Page2 = () => {
   const [starName, setStarName] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.setItem("starName", JSON.stringify(starName));
+
+    await fetch("/api/designStars", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        displayName: JSON.stringify(formData.displayName),
+        selectedStar: JSON.stringify(formData.selectedStar),
+        starLines: localStorage.getItem(starLines),
+        starName: JSON.stringify(starName),
+      },
+    });
+
     window.location.href = "/page3";
   };
 

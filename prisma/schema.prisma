@@ -1,0 +1,17 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model designStars {
+  id              Int  @id @default(autoincrement())
+  displayName     String
+  selectedStar    Int[]
+  starLines       Int[]
+  starName        String
+  createdAt       DateTime @default(now()) @map("created_at")
+}
