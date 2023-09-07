@@ -21,14 +21,16 @@ const Page3 = (displayName) => {
   //   }
   // };
 
-  var formData = {};
   var displayName = "";
-  try {
-    formData = JSON.parse(localStorage.getItem("formData"));
-    displayName = formData.displayName;
-  } catch (e) {
-    console.log(e);
-  }
+
+  useEffect(() => {
+    try {
+      displayName = JSON.parse(localStorage.getItem("displayName"));
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
   return (
     <main
       data-bs-theme="designship"

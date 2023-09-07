@@ -12,15 +12,17 @@ var designerName = "";
 var selectedStars = [];
 var starLines = [];
 
-try {
-  designerName = JSON.parse(localStorage.getItem("designerName"));
-  selectedStars = JSON.parse(localStorage.getItem("selectedStars"));
-} catch (e) {
-  console.log(e);
-}
-
 const Page2 = () => {
   const [starName, setStarName] = useState("");
+
+  useEffect(() => {
+    try {
+      designerName = JSON.parse(localStorage.getItem("designerName"));
+      selectedStars = JSON.parse(localStorage.getItem("selectedStars"));
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
