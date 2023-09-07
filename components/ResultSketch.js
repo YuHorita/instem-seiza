@@ -11,13 +11,10 @@ var starLines = [];
 // var displayName = "";
 
 try {
-  // formData = JSON.parse(localStorage.getItem("formData"));
   designerName = JSON.parse(localStorage.getItem("designerName"));
   selectedStars = JSON.parse(localStorage.getItem("selectedStars"));
   starName = JSON.parse(localStorage.getItem("starName"));
   starLines = JSON.parse(localStorage.getItem("starLines"));
-  // selectedCheckboxes = formData.selectedCheckboxes;
-  // displayName = formData.displayName;
 } catch (e) {
   console.log(e);
 }

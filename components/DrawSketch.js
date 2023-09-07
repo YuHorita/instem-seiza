@@ -79,7 +79,7 @@ const Sketch = () => {
               designs[i].caption
             )
           );
-          localStorage.setItem("designStars", JSON.stringify(designStars));
+          // localStorage.setItem("designStars", JSON.stringify(designStars));
         }
       };
 

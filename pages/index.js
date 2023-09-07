@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../components/library";
@@ -7,6 +5,10 @@ import { designs } from "../components/library";
 const Home = () => {
   const [designerName, setDesignerName] = useState("");
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+  // const supabase = createClient(
+  //   "https://wbxfedsyxrqjjtgkgegn.supabase.co",
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndieGZlZHN5eHJxamp0Z2tnZWduIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NDAwNzIwNCwiZXhwIjoyMDA5NTgzMjA0fQ.UrggV7Gcpe2P9Z3ceQI0lhVfyo9g3IurbLbGaeQ2dcE"
+  // );
 
   const handleCheckboxChange = (event) => {
     const checkboxValue = parseInt(event.target.value, 10);
@@ -19,16 +21,11 @@ const Home = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // フォームの入力内容を取得し、localStorageで遷移先のページに渡す
-    // const formData = {
-    //   displayName: displayName,
-    //   selectedCheckboxes: selectedCheckboxes,
-    // };
-    // localStorage.setItem("formData", JSON.stringify(formData));
     localStorage.setItem("designerName", JSON.stringify(designerName));
     localStorage.setItem("selectedStars", JSON.stringify(selectedCheckboxes));
+
     window.location.href = "/page2";
   };
   return (

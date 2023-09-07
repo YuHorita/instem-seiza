@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
+import supabase from "./api/supabase";
 
 const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
   loading: () => <></>,
@@ -9,6 +10,7 @@ const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
 
 var designerName = "";
 var selectedStars = [];
+var starLines = [];
 
 try {
   designerName = JSON.parse(localStorage.getItem("designerName"));
@@ -25,30 +27,49 @@ const Page2 = () => {
     localStorage.setItem("starName", JSON.stringify(starName));
 
     try {
-      const starLines = JSON.parse(localStorage.getItem("starLines"));
-      const response = await fetch("/api/addData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          designerName,
-          selectedStars,
-          starName,
-          starLines,
-        }),
-      });
-
-      if (response.status === 201) {
-        setMessage("データが追加されました");
-      } else {
-        setMessage("データの追加に失敗しました");
-      }
-    } catch (error) {
-      console.error("データ追加エラー:", error);
+      starLines = JSON.parse(localStorage.getItem("starLines"));
+    } catch (e) {
+      console.log(e);
     }
 
-    window.location.href = "/page3";
+    // try {
+    //   const response = await fetch("/api/addData", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       designerName,
+    //       selectedStars,
+    //       starName,
+    //       starLines,
+    //     }),
+    //   });
+
+    //   if (response.status === 201) {
+    //     setMessage("データが追加されました");
+    //   } else {
+    //     setMessage("データの追加に失敗しました");
+    //   }
+    // } catch (error) {
+    //   console.error("データ追加エラー:", error);
+    // }
+
+    const { data, error } = await supabase
+      .from("designStars")
+      .insert([
+        {
+          created_at: new Date(),
+          designerName: designerName,
+          starName: starName,
+          starLines: starLines,
+          selectedStars: selectedStars,
+        },
+      ])
+      .select();
+    console.log(data, error);
+
+    // window.location.href = "/page3";
   };
 
   return (
