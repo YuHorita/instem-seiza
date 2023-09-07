@@ -23,7 +23,7 @@ const Sketch = () => {
       var starLines = [];
 
       const w = p.windowWidth - convertRemToPx(3.0);
-      const h = w;
+      const h = w * 0.7;
 
       const paddingX = 100;
       const paddingY = 30;

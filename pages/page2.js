@@ -22,6 +22,23 @@ const Page2 = () => {
     } catch (e) {
       console.log(e);
     }
+
+    var forms = document.querySelectorAll(".needs-validation");
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
   }, []);
 
   const handleSubmit = async (e) => {
@@ -79,21 +96,27 @@ const Page2 = () => {
       </div>
       <p>最後に、描いた星座に名前をつけてみましょう。 </p>
 
-      <form onSubmit={handleSubmit} className="my-5">
+      <form
+        onSubmit={handleSubmit}
+        className="my-5 needs-validation"
+        noValidate
+      >
         <label htmlFor="starName" className="form-label">
           星座名
         </label>
-
-        <div className="input-group mb-5">
+        <div className="input-group has-validation mb-5">
           <input
             type="text"
             className="form-control p-3"
             id="starName"
             value={starName}
             onChange={(e) => setStarName(e.target.value)}
+            required
           />
           <span className="input-group-text">座</span>
+          <div className="invalid-feedback">星座名を入力してください。</div>
         </div>
+
         <div className="d-flex justify-content-center">
           <button
             type="submit"
