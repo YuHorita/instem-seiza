@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../components/library";
 
 const Home = () => {
   const [designerName, setDesignerName] = useState("");
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+  const [selectedStars, setSelectedStars] = useState([]);
 
   const handleCheckboxChange = (event) => {
     const checkboxValue = parseInt(event.target.value, 10);
@@ -16,14 +17,37 @@ const Home = () => {
       );
     }
   };
+  useEffect(() => {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll(".needs-validation");
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  }, []);
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.setItem("designerName", JSON.stringify(designerName));
-    localStorage.setItem("selectedStars", JSON.stringify(selectedCheckboxes));
+    // localStorage.setItem("selectedStars", JSON.stringify(selectedCheckboxes));
+    localStorage.setItem("selectedStars", JSON.stringify(selectedStars));
 
     window.location.href = "/page2";
   };
+
   return (
     <main data-bs-theme="designship" className="bg-body text-body ">
       <section className="container-sm p-4">
@@ -51,7 +75,8 @@ const Home = () => {
         <div>
           <form
             onSubmit={handleSubmit}
-            className="bg-body-secondary p-4 my-5 rounded"
+            className="bg-body-secondary p-4 my-5 rounded needs-validation"
+            noValidate
           >
             <div className="py-3">
               <label htmlFor="nameInput" className="form-label">
@@ -64,11 +89,45 @@ const Home = () => {
                 value={designerName}
                 onChange={(e) => setDesignerName(e.target.value)}
                 // placeholder="デザイン太郎"
+                required
               />
+              <div className="invalid-feedback">表示名を入力してください。</div>
             </div>
             <div className="pt-4">
-              <label className="form-label">あなたにとっての「デザイン」</label>
-              {designs.map((design, index) => (
+              <label className="form-label" htmlFor="designSelect">
+                あなたにとっての「デザイン」
+              </label>
+              <select
+                className="form-select"
+                id="designSelect"
+                required
+                multiple
+                aria-label="design select"
+                // selectedOptionsの値はobject型になっているので、valueを取り出した配列に変換し、selectedStarsに格納する
+                onChange={(e) =>
+                  setSelectedStars(
+                    Array.from(e.target.selectedOptions, (elm) =>
+                      parseInt(elm.value)
+                    )
+                  )
+                }
+              >
+                <option disabled value="">
+                  デザインを選んでください。
+                </option>
+                {designs.map((design, index) => (
+                  <option value={index} key={design.name}>
+                    {design.name}
+                  </option>
+                ))}
+                {/* <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option> */}
+              </select>
+              <div className="invalid-feedback">
+                最低１つのデザインを選択してください。
+              </div>
+              {/* {designs.map((design, index) => (
                 <div className="form-check" key={index}>
                   <input
                     className="form-check-input"
@@ -85,8 +144,9 @@ const Home = () => {
                     {design.name}
                   </label>
                 </div>
-              ))}
+              ))} */}
             </div>
+
             <div className="d-flex justify-content-center my-3">
               <button
                 type="submit"
