@@ -72,62 +72,61 @@ const Home = () => {
           まずは以下の質問に答えて、あなたにとってのデザインの星を夜空の中から見つけてみましょう。
         </p>
 
-        <div>
-          <form
-            onSubmit={handleSubmit}
-            className="bg-body-secondary p-4 my-5 rounded needs-validation"
-            noValidate
-          >
-            <div className="py-3">
-              <label htmlFor="nameInput" className="form-label">
-                表示名
-              </label>
-              <input
-                type="text"
-                className="form-control p-3"
-                id="nameInput"
-                value={designerName}
-                onChange={(e) => setDesignerName(e.target.value)}
-                // placeholder="デザイン太郎"
-                required
-              />
-              <div className="invalid-feedback">表示名を入力してください。</div>
-            </div>
-            <div className="pt-4">
-              <label className="form-label" htmlFor="designSelect">
-                あなたにとっての「デザイン」
-              </label>
-              <select
-                className="form-select p-3"
-                id="designSelect"
-                required
-                multiple
-                aria-label="design select"
-                // selectedOptionsの値はobject型になっているので、valueを取り出した配列に変換し、selectedStarsに格納する
-                onChange={(e) =>
-                  setSelectedStars(
-                    Array.from(e.target.selectedOptions, (elm) =>
-                      parseInt(elm.value)
-                    )
+        <form
+          onSubmit={handleSubmit}
+          className="bg-body-secondary px-4 py-5 my-5 rounded needs-validation"
+          noValidate
+        >
+          <div>
+            <label htmlFor="nameInput" className="form-label">
+              表示名
+            </label>
+            <input
+              type="text"
+              className="form-control p-3"
+              id="nameInput"
+              value={designerName}
+              onChange={(e) => setDesignerName(e.target.value)}
+              // placeholder="デザイン太郎"
+              required
+            />
+            <div className="invalid-feedback">表示名を入力してください。</div>
+          </div>
+          <div className="mt-4">
+            <label className="form-label" htmlFor="designSelect">
+              あなたにとっての「デザイン」
+            </label>
+            <select
+              className="form-select p-3"
+              id="designSelect"
+              required
+              multiple
+              aria-label="design select"
+              // selectedOptionsの値はobject型になっているので、valueを取り出した配列に変換し、selectedStarsに格納する
+              onChange={(e) =>
+                setSelectedStars(
+                  Array.from(e.target.selectedOptions, (elm) =>
+                    parseInt(elm.value)
                   )
-                }
-              >
-                <option disabled value="">
-                  デザインを選んでください。
+                )
+              }
+            >
+              <option disabled value="">
+                デザインを選んでください。
+              </option>
+              {designs.map((design, index) => (
+                <option value={index} key={design.name}>
+                  {design.name}
                 </option>
-                {designs.map((design, index) => (
-                  <option value={index} key={design.name}>
-                    {design.name}
-                  </option>
-                ))}
-                {/* <option value="1">One</option>
+              ))}
+              {/* <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option> */}
-              </select>
-              <div className="invalid-feedback">
-                最低１つのデザインを選択してください。
-              </div>
-              {/* {designs.map((design, index) => (
+            </select>
+            <div className="invalid-feedback">
+              最低１つのデザインを選択してください。
+            </div>
+            {/* {designs.map((design, index) => (
                 <div className="form-check" key={index}>
                   <input
                     className="form-check-input"
@@ -145,18 +144,17 @@ const Home = () => {
                   </label>
                 </div>
               ))} */}
-            </div>
+          </div>
 
-            <div className="d-flex justify-content-center my-5">
-              <button
-                type="submit"
-                className="btn btn-primary rounded-5 px-5 py-2 fs-5"
-              >
-                回答を送信する
-              </button>
-            </div>
-          </form>
-        </div>
+          <div className="d-flex justify-content-center mt-5">
+            <button
+              type="submit"
+              className="btn btn-primary rounded-5 px-5 py-2 fs-5"
+            >
+              回答を送信する
+            </button>
+          </div>
+        </form>
       </section>
     </main>
   );
