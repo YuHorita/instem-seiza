@@ -7,7 +7,7 @@ const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
   ssr: false,
 });
 
-const Page3 = (displayName) => {
+const Page3 = (designerName) => {
   const [canvasImage, setCanvasImage] = useState(null);
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
@@ -16,20 +16,17 @@ const Page3 = (displayName) => {
   //   if (canvasImage) {
   //     const link = document.createElement("a");
   //     link.href = canvasImage;
-  //     link.download = `${displayName}さんの星座.png`;
+  //     link.download = `${designerName}さんの星座.png`;
   //     link.click();
   //   }
   // };
 
-  var displayName = "";
-
-  useEffect(() => {
-    try {
-      displayName = JSON.parse(localStorage.getItem("displayName"));
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
+  var designerName = "";
+  try {
+    designerName = JSON.parse(localStorage.getItem("designerName"));
+  } catch (e) {
+    console.log(e);
+  }
 
   return (
     <main
@@ -38,14 +35,14 @@ const Page3 = (displayName) => {
     >
       <div className="text-center mt-3 mb-4">
         <h2 className="fw-bold" suppressHydrationWarning={true}>
-          {`${displayName}さんの星座`}
+          {designerName}さんの星座
         </h2>
       </div>
       <SketchComponent onSave={handleCanvasSave} />
       {canvasImage && (
         <img
           src={canvasImage}
-          alt={`${displayName}さんの星座`}
+          alt={`${designerName}さんの星座`}
           style={{ width: "100%" }}
         />
       )}
