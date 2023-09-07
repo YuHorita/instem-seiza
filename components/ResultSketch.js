@@ -1,27 +1,24 @@
 import React, { useRef, useEffect } from "react";
 import p5 from "p5";
-import { designs, DesignStar } from "./library";
-
-// var formData = {};
-var designerName = "";
-var selectedStars = [];
-var starName = "";
-var starLines = [];
-// var selectedCheckboxes = [];
-// var displayName = "";
-
-try {
-  designerName = JSON.parse(localStorage.getItem("designerName"));
-  selectedStars = JSON.parse(localStorage.getItem("selectedStars"));
-  starName = JSON.parse(localStorage.getItem("starName"));
-  starLines = JSON.parse(localStorage.getItem("starLines"));
-} catch (e) {
-  console.log(e);
-}
+import { designs } from "./library";
 
 const Sketch = ({ onSave }) => {
   let canvas;
   const sketchRef = useRef(null);
+
+  var designerName = "";
+  var selectedDesigns = [];
+  var starLines = [];
+  var constellationName = "";
+
+  try {
+    designerName = JSON.parse(localStorage.getItem("designerName"));
+    selectedDesigns = JSON.parse(localStorage.getItem("selectedDesigns"));
+    starLines = JSON.parse(localStorage.getItem("starLines"));
+    constellationName = JSON.parse(localStorage.getItem("constellationName"));
+  } catch (e) {
+    console.log(e);
+  }
 
   useEffect(() => {
     const sketch = new p5((p) => {
@@ -30,7 +27,9 @@ const Sketch = ({ onSave }) => {
       let pg;
       let r = 40;
 
-      var designStars = [];
+      const filteredDesigns = designs.filter((design) =>
+        selectedDesigns.includes(design.index)
+      );
 
       const w = 1200;
       const h = 630;
@@ -44,19 +43,22 @@ const Sketch = ({ onSave }) => {
       const areaWidth = areaXMax - areaXMin;
       const areaHeight = areaYMax - areaYMin;
 
-      const itemXMin =
-        designs[selectedStars.sort((a, b) => designs[a].x - designs[b].x)[0]].x;
-      const itemXMax =
-        designs[selectedStars.sort((a, b) => designs[b].x - designs[a].x)[0]].x;
-      const itemYMin =
-        designs[selectedStars.sort((a, b) => designs[a].y - designs[b].y)[0]].y;
-      const itemYMax =
-        designs[selectedStars.sort((a, b) => designs[b].y - designs[a].y)[0]].y;
+      const itemXMin = filteredDesigns.sort((a, b) => a.x - b.x)[0].x;
+      const itemXMax = filteredDesigns.sort((a, b) => b.x - a.x)[0].x;
+      const itemYMin = filteredDesigns.sort((a, b) => a.y - b.y)[0].y;
+      const itemYMax = filteredDesigns.sort((a, b) => b.y - a.y)[0].y;
 
       const itemWidth = itemXMax - itemXMin;
       const itemHeight = itemYMax - itemYMin;
       const xRatio = areaWidth / itemWidth;
       const yRatio = areaHeight / itemHeight;
+
+      function calcX(x) {
+        return areaXMin + (x - itemXMin) * xRatio;
+      }
+      function calcY(y) {
+        return areaYMin + (y - itemYMin) * yRatio;
+      }
 
       p.preload = () => {
         myFont = p.loadFont("fonts/LINESeedJP.ttf");
@@ -69,40 +71,13 @@ const Sketch = ({ onSave }) => {
         p.textFont(myFont);
         pg = p.createGraphics(p.width, p.height);
 
-        for (let i = 0; i < designs.length; i++) {
-          const x = areaXMin + (designs[i].x - itemXMin) * xRatio;
-          const y = areaYMin + (designs[i].y - itemYMin) * yRatio;
-          designStars.push(
-            new DesignStar(
-              designs[i].name,
-              x,
-              y,
-              selectedStars.includes(i),
-              designs[i].caption
-            )
-          );
-        }
-
-        for (let i = 0; i < starLines.length; i++) {
-          for (let j = 0; j < designStars.length; j++) {
-            if (starLines[i][0].name === designStars[j].name) {
-              starLines[i][0] = designStars[j];
-            }
-            if (starLines[i][1].name === designStars[j].name) {
-              starLines[i][1] = designStars[j];
-            }
-          }
-        }
-
         p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg.background(37, 39, 50);
 
         pg.erase();
-        designStars
-          .filter((elm) => elm.isDisplayed)
-          .forEach((elm) => {
-            drawDesignStar(elm);
-          });
+        filteredDesigns.forEach((elm) => {
+          drawDesignStar(elm);
+        });
         starLines.forEach((line) => {
           drawLine(line);
         });
@@ -110,24 +85,25 @@ const Sketch = ({ onSave }) => {
         pg.noErase();
         p.image(pg, 0, 0);
 
-        selectedStars.forEach((i) => {
-          drawCaption(designStars[i]);
+        filteredDesigns.forEach((elm) => {
+          drawCaption(elm);
         });
 
         p.fill(255, 255, 255);
         p.textAlign(p.LEFT, p.CENTER);
-
         p.textLeading(100);
         p.noStroke();
+
         p.push();
         p.translate(80, h / 2 - 40);
         p.textSize(32);
         p.text(designerName + "さんの星座", 0, 0);
         p.pop();
+
         p.push();
         p.translate(80, h / 2 + 20);
         p.textSize(52);
-        p.text(starName + "座", 0, 0);
+        p.text(constellationName + "座", 0, 0);
         p.pop();
       };
 
@@ -144,27 +120,8 @@ const Sketch = ({ onSave }) => {
         pg.push();
         pg.fill(255);
         pg.noStroke();
-        pg.ellipse(elm.x, elm.y, r);
-        if (elm.isSelected) {
-          pg.noFill();
-          pg.stroke(255);
-          pg.strokeWeight(1);
-          pg.ellipse(elm.x, elm.y, r + 10 + p.sin(p.frameCount / 20) * 5);
-        }
+        pg.ellipse(calcX(elm.x), calcY(elm.y), r);
         pg.pop();
-      }
-
-      function drawCaption(elm) {
-        p.push();
-        p.fill(255, 255, 255);
-        p.textAlign(p.CENTER, p.CENTER);
-
-        p.textSize(r / 2);
-        p.textLeading(100);
-        p.noStroke();
-        p.translate(elm.x, elm.y + r - 3);
-        p.text(elm.name, 0, 0);
-        p.pop();
       }
 
       function drawLine(line) {
@@ -172,8 +129,22 @@ const Sketch = ({ onSave }) => {
         pg.stroke(255);
         pg.strokeWeight(3);
         pg.noFill();
-        pg.line(line[0].x, line[0].y, line[1].x, line[1].y);
+        const elm1 = filteredDesigns.filter((elm) => elm.index === line[0])[0];
+        const elm2 = filteredDesigns.filter((elm) => elm.index === line[1])[0];
+        pg.line(calcX(elm1.x), calcY(elm1.y), calcX(elm2.x), calcY(elm2.y));
         pg.pop();
+      }
+
+      function drawCaption(elm) {
+        p.push();
+        p.fill(255, 255, 255);
+        p.textAlign(p.CENTER, p.CENTER);
+        p.textSize(r / 2);
+        p.textLeading(100);
+        p.noStroke();
+        p.translate(calcX(elm.x), calcY(elm.y) + r - 3);
+        p.text(elm.name, 0, 0);
+        p.pop();
       }
     });
 

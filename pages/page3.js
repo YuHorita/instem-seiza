@@ -12,14 +12,6 @@ const Page3 = (designerName) => {
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
   };
-  // const handleDownloadClick = () => {
-  //   if (canvasImage) {
-  //     const link = document.createElement("a");
-  //     link.href = canvasImage;
-  //     link.download = `${designerName}さんの星座.png`;
-  //     link.click();
-  //   }
-  // };
 
   var designerName = "";
   try {
