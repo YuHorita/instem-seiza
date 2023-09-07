@@ -4,19 +4,19 @@ import { designs } from "../components/library";
 
 const Home = () => {
   const [designerName, setDesignerName] = useState("");
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+  // const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const [selectedStars, setSelectedStars] = useState([]);
 
-  const handleCheckboxChange = (event) => {
-    const checkboxValue = parseInt(event.target.value, 10);
-    if (event.target.checked) {
-      setSelectedCheckboxes([...selectedCheckboxes, checkboxValue]);
-    } else {
-      setSelectedCheckboxes(
-        selectedCheckboxes.filter((item) => item !== checkboxValue)
-      );
-    }
-  };
+  // const handleCheckboxChange = (event) => {
+  //   const checkboxValue = parseInt(event.target.value, 10);
+  //   if (event.target.checked) {
+  //     setSelectedCheckboxes([...selectedCheckboxes, checkboxValue]);
+  //   } else {
+  //     setSelectedCheckboxes(
+  //       selectedCheckboxes.filter((item) => item !== checkboxValue)
+  //     );
+  //   }
+  // };
   useEffect(() => {
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.querySelectorAll(".needs-validation");
@@ -64,7 +64,7 @@ const Home = () => {
         </div>
 
         <div className="text-center">
-          <h3 className="text-primary fs-5 fw-bold">Step 1/2</h3>
+          <h3 className="text-primary fs-5 fw-bold">Step 1/3</h3>
           <h2 className="fw-bold">デザインの星を探そう</h2>
         </div>
 
