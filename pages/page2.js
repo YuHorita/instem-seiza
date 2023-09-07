@@ -67,9 +67,8 @@ const Page2 = () => {
         },
       ])
       .select();
-    console.log(data, error);
 
-    // window.location.href = "/page3";
+    window.location.href = "/page3";
   };
 
   return (
