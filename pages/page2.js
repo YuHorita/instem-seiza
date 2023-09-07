@@ -59,7 +59,7 @@ const Page2 = () => {
       .from("designStars")
       .insert([
         {
-          created_at: new Date(),
+          // created_at: new Date(),
           designerName: designerName,
           starName: starName,
           starLines: starLines,
