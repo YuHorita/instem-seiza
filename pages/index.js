@@ -4,19 +4,9 @@ import { designs } from "../components/library";
 
 const Home = () => {
   const [designerName, setDesignerName] = useState("");
-  // const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const [selectedStars, setSelectedStars] = useState([]);
 
-  // const handleCheckboxChange = (event) => {
-  //   const checkboxValue = parseInt(event.target.value, 10);
-  //   if (event.target.checked) {
-  //     setSelectedCheckboxes([...selectedCheckboxes, checkboxValue]);
-  //   } else {
-  //     setSelectedCheckboxes(
-  //       selectedCheckboxes.filter((item) => item !== checkboxValue)
-  //     );
-  //   }
-  // };
+
   useEffect(() => {
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.querySelectorAll(".needs-validation");
