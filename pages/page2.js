@@ -9,22 +9,21 @@ const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
 });
 
 var designerName = "";
-var selectedStars = [];
+var selectedDesigns = [];
 var starLines = [];
 
 const Page2 = () => {
-  const [starName, setStarName] = useState("");
+  const [constellationName, setConstellationName] = useState("");
 
   useEffect(() => {
     try {
       designerName = JSON.parse(localStorage.getItem("designerName"));
-      selectedStars = JSON.parse(localStorage.getItem("selectedStars"));
+      selectedDesigns = JSON.parse(localStorage.getItem("selectedDesigns"));
     } catch (e) {
       console.log(e);
     }
 
     var forms = document.querySelectorAll(".needs-validation");
-    // Loop over them and prevent submission
     Array.prototype.slice.call(forms).forEach(function (form) {
       form.addEventListener(
         "submit",
@@ -43,31 +42,32 @@ const Page2 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem("starName", JSON.stringify(starName));
+    localStorage.setItem(
+      "constellationName",
+      JSON.stringify(constellationName)
+    );
 
     try {
       starLines = JSON.parse(localStorage.getItem("starLines"));
+      console.log(starLines);
     } catch (e) {
       console.log(e);
     }
 
     const { data, error } = await supabase
-      .from("designStars")
+      .from("design_constellation")
       .insert(
         [
           {
-            // created_at: new Date(),
-            designerName: designerName,
-            starName: starName,
-            starLines: starLines,
-            selectedStars: selectedStars,
+            designer_name: designerName,
+            constellation_name: constellationName,
+            selected_designs: selectedDesigns,
+            star_lines: starLines,
           },
         ],
         { returning: "minimal" }
       )
       .select();
-
-    // console.log(data, error);
 
     window.location.href = "/page3";
   };
@@ -77,7 +77,6 @@ const Page2 = () => {
       data-bs-theme="designship"
       className="bg-body text-body container-flued p-4"
     >
-      {/* <h1 className="fw-bold">{router.query.displayName}さんの星座</h1> */}
       <div className="text-center mt-3 mb-4">
         <h3 className="text-primary fs-5 fw-bold">Step 2/3</h3>
         <h2 className="fw-bold">星座を描こう</h2>
@@ -101,16 +100,16 @@ const Page2 = () => {
         className="my-5 needs-validation"
         noValidate
       >
-        <label htmlFor="starName" className="form-label">
+        <label htmlFor="constellationName" className="form-label">
           星座名
         </label>
         <div className="input-group has-validation mb-5">
           <input
             type="text"
             className="form-control p-3"
-            id="starName"
-            value={starName}
-            onChange={(e) => setStarName(e.target.value)}
+            id="constellationName"
+            value={constellationName}
+            onChange={(e) => setConstellationName(e.target.value)}
             required
           />
           <span className="input-group-text">座</span>

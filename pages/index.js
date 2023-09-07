@@ -4,8 +4,7 @@ import { designs } from "../components/library";
 
 const Home = () => {
   const [designerName, setDesignerName] = useState("");
-  const [selectedStars, setSelectedStars] = useState([]);
-
+  const [selectedDesigns, setSelectedDesigns] = useState([]);
 
   useEffect(() => {
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -32,8 +31,8 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.setItem("designerName", JSON.stringify(designerName));
-    // localStorage.setItem("selectedStars", JSON.stringify(selectedCheckboxes));
-    localStorage.setItem("selectedStars", JSON.stringify(selectedStars));
+    // localStorage.setItem("selectedDesigns", JSON.stringify(selectedCheckboxes));
+    localStorage.setItem("selectedDesigns", JSON.stringify(selectedDesigns));
 
     window.location.href = "/page2";
   };
@@ -92,9 +91,9 @@ const Home = () => {
               required
               multiple
               aria-label="design select"
-              // selectedOptionsの値はobject型になっているので、valueを取り出した配列に変換し、selectedStarsに格納する
+              // selectedOptionsの値はobject型になっているので、valueを取り出した配列に変換し、selectedDesignsに格納する
               onChange={(e) =>
-                setSelectedStars(
+                setSelectedDesigns(
                   Array.from(e.target.selectedOptions, (elm) =>
                     parseInt(elm.value)
                   )
@@ -104,14 +103,11 @@ const Home = () => {
               <option disabled value="">
                 デザインを選んでください。
               </option>
-              {designs.map((design, index) => (
-                <option value={index} key={design.name}>
+              {designs.map((design) => (
+                <option value={design.index} key={design.name}>
                   {design.name}
                 </option>
               ))}
-              {/* <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option> */}
             </select>
             <div className="invalid-feedback">
               最低１つのデザインを選択してください。
