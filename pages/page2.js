@@ -34,41 +34,23 @@ const Page2 = () => {
       console.log(e);
     }
 
-    // try {
-    //   const response = await fetch("/api/addData", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       designerName,
-    //       selectedStars,
-    //       starName,
-    //       starLines,
-    //     }),
-    //   });
-
-    //   if (response.status === 201) {
-    //     setMessage("データが追加されました");
-    //   } else {
-    //     setMessage("データの追加に失敗しました");
-    //   }
-    // } catch (error) {
-    //   console.error("データ追加エラー:", error);
-    // }
-
     const { data, error } = await supabase
       .from("designStars")
-      .insert([
-        {
-          // created_at: new Date(),
-          designerName: designerName,
-          starName: starName,
-          starLines: starLines,
-          selectedStars: selectedStars,
-        },
-      ])
+      .insert(
+        [
+          {
+            // created_at: new Date(),
+            designerName: designerName,
+            starName: starName,
+            starLines: starLines,
+            selectedStars: selectedStars,
+          },
+        ],
+        { returning: "minimal" }
+      )
       .select();
+
+    // console.log(data, error);
 
     window.location.href = "/page3";
   };
