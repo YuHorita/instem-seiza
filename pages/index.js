@@ -98,7 +98,7 @@ const Home = () => {
                 あなたにとっての「デザイン」
               </label>
               <select
-                className="form-select"
+                className="form-select p-3"
                 id="designSelect"
                 required
                 multiple
@@ -147,7 +147,7 @@ const Home = () => {
               ))} */}
             </div>
 
-            <div className="d-flex justify-content-center my-3">
+            <div className="d-flex justify-content-center my-5">
               <button
                 type="submit"
                 className="btn btn-primary rounded-5 px-5 py-2 fs-5"
