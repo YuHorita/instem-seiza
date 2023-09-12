@@ -7,7 +7,7 @@
     letter-spacing: 1.4px;
 }
 
-[data-bs-theme=designship] {
+[data-bs-theme="designship"] {
     --bs-body-color: white;
     --bs-body-color-rgb: 255, 255, 255;
     --bs-body-bg: #{1B1D28};
@@ -27,6 +27,15 @@
         --bs-btn-active-border-color: none;
     }
 
+}
+
+.btn-primary {
+    --bs-btn-bg: #DA297B !important;
+    --bs-btn-border-color: none !important;
+    --bs-btn-hover-bg: #DA297B !important;
+    --bs-btn-hover-border-color: none !important;
+    --bs-btn-active-bg: #DA297B !important;
+    --bs-btn-active-border-color: none !important;
 }
 
 .form-check {

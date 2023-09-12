@@ -53,6 +53,12 @@ const Sketch = () => {
       function calcY(y) {
         return areaYMin + (y - itemYMin) * yRatio;
       }
+      function calcXForWEBGL(x) {
+        return areaXMin + (x - itemXMin) * xRatio - w / 2;
+      }
+      function calcYForWEBGL(y) {
+        return areaYMin + (y - itemYMin) * yRatio - h / 2;
+      }
 
       function convertRemToPx(rem) {
         var fontSize = getComputedStyle(document.documentElement).fontSize;
@@ -65,14 +71,15 @@ const Sketch = () => {
       };
 
       p.setup = () => {
-        const canvas = p.createCanvas(w, h);
+        const canvas = p.createCanvas(w, h, p.WEBGL);
         canvas.parent(sketchRef.current);
         p.textFont(myFont);
         pg = p.createGraphics(p.width, p.height);
+        console.log(pg.webglVersion);
       };
 
       p.draw = () => {
-        p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
+        p.image(bg, -w / 2, -h / 2, p.width, bg.height * (p.width / bg.width));
         pg.background(37, 39, 50);
 
         pg.erase();
@@ -85,7 +92,7 @@ const Sketch = () => {
         });
 
         pg.noErase();
-        p.image(pg, 0, 0);
+        p.image(pg, -w / 2, -h / 2);
 
         filteredDesigns.forEach((elm) => {
           drawCaption(elm);
@@ -144,13 +151,13 @@ const Sketch = () => {
         p.textLeading(100);
         p.noStroke();
         if (elm.caption === 0) {
-          p.translate(calcX(elm.x), calcY(elm.y) - r);
+          p.translate(calcXForWEBGL(elm.x), calcYForWEBGL(elm.y) - r);
         } else if (elm.caption === 1) {
-          p.translate(calcX(elm.x) + r * 0.7, calcY(elm.y) - 3);
+          p.translate(calcXForWEBGL(elm.x) + r * 0.7, calcYForWEBGL(elm.y) - 3);
         } else if (elm.caption === 2) {
-          p.translate(calcX(elm.x), calcY(elm.y) + r - 3);
+          p.translate(calcXForWEBGL(elm.x), calcYForWEBGL(elm.y) + r - 3);
         } else if (elm.caption === 3) {
-          p.translate(calcX(elm.x) - r * 0.7, calcY(elm.y) - 3);
+          p.translate(calcXForWEBGL(elm.x) - r * 0.7, calcYForWEBGL(elm.y) - 3);
         }
         p.text(elm.name, 0, 0);
         p.pop();
