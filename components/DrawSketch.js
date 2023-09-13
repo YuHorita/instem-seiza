@@ -55,14 +55,14 @@ const Sketch = () => {
 
       function calcX(x) {
         if (filteredDesigns.length == 1) {
-          return w / 2;
+          return canvasWidth / 2;
         } else {
           return areaXMin + (x - itemXMin) * xRatio;
         }
       }
       function calcY(y) {
         if (filteredDesigns.length == 1) {
-          return h / 2;
+          return canvasHeight / 2;
         } else {
           return areaYMin + (y - itemYMin) * yRatio;
         }
@@ -71,43 +71,43 @@ const Sketch = () => {
       p.preload = () => {
         bg = p.loadImage("bg_portrait.png");
 
-        const montserratUrl = [
-          "fonts/Montserrat/Montserrat-Thin.ttf",
-          "fonts/Montserrat/Montserrat-ExtraLight.ttf",
-          "fonts/Montserrat/Montserrat-Light.ttf",
-          "fonts/Montserrat/Montserrat-Regular.ttf",
-          "fonts/Montserrat/Montserrat-Medium.ttf",
-          "fonts/Montserrat/Montserrat-SemiBold.ttf",
-          "fonts/Montserrat/Montserrat-Bold.ttf",
-          "fonts/Montserrat/Montserrat-ExtraBold.ttf",
-          "fonts/Montserrat/Montserrat-Black.ttf",
-        ];
-        const notoSansJPUrl = [
-          "fonts/NotoSansJP/NotoSansJP-Thin.ttf",
-          "fonts/NotoSansJP/NotoSansJP-ExtraLight.ttf",
-          "fonts/NotoSansJP/NotoSansJP-Light.ttf",
-          "fonts/NotoSansJP/NotoSansJP-Regular.ttf",
-          "fonts/NotoSansJP/NotoSansJP-Medium.ttf",
-          "fonts/NotoSansJP/NotoSansJP-SemiBold.ttf",
-          "fonts/NotoSansJP/NotoSansJP-Bold.ttf",
-          "fonts/NotoSansJP/NotoSansJP-Black.ttf",
-        ];
-        montserratUrl.forEach((url) => {
-          montserrat.push(p.loadFont(url));
-        });
-        notoSansJPUrl.forEach((url) => {
-          notoSansJP.push(p.loadFont(url));
-        });
+        // const montserratUrl = [
+        //   "fonts/Montserrat/Montserrat-Thin.ttf",
+        //   "fonts/Montserrat/Montserrat-ExtraLight.ttf",
+        //   "fonts/Montserrat/Montserrat-Light.ttf",
+        //   "fonts/Montserrat/Montserrat-Regular.ttf",
+        //   "fonts/Montserrat/Montserrat-Medium.ttf",
+        //   "fonts/Montserrat/Montserrat-SemiBold.ttf",
+        //   "fonts/Montserrat/Montserrat-Bold.ttf",
+        //   "fonts/Montserrat/Montserrat-ExtraBold.ttf",
+        //   "fonts/Montserrat/Montserrat-Black.ttf",
+        // ];
+        // const notoSansJPUrl = [
+        //   "fonts/NotoSansJP/NotoSansJP-Thin.ttf",
+        //   "fonts/NotoSansJP/NotoSansJP-ExtraLight.ttf",
+        //   "fonts/NotoSansJP/NotoSansJP-Light.ttf",
+        //   "fonts/NotoSansJP/NotoSansJP-Regular.ttf",
+        //   "fonts/NotoSansJP/NotoSansJP-Medium.ttf",
+        //   "fonts/NotoSansJP/NotoSansJP-SemiBold.ttf",
+        //   "fonts/NotoSansJP/NotoSansJP-Bold.ttf",
+        //   "fonts/NotoSansJP/NotoSansJP-Black.ttf",
+        // ];
+        // montserratUrl.forEach((url) => {
+        //   montserrat.push(p.loadFont(url));
+        // });
+        // notoSansJPUrl.forEach((url) => {
+        //   notoSansJP.push(p.loadFont(url));
+        // });
 
-        lineSeedJP = p.loadFont("fonts/LINESeedJP.ttf");
+        // lineSeedJP = p.loadFont("fonts/LINESeedJP.ttf");
       };
 
       p.setup = () => {
         const canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
         // p.textFont(lineSeedJP);
-        p.textFont("Zen Kaku Gothic New");
-        // p.textStyle(p.BOLD);
+        p.textFont("M PLUS 1p");
+        p.textStyle(p.BOLD);
         p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg = p.createGraphics(p.width, p.height);
       };
