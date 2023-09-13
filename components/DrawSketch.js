@@ -14,101 +14,134 @@ const Sketch = () => {
 
   useEffect(() => {
     const sketch = new p5((p) => {
-      let myFont;
-      let bg;
-      let pg;
-      let r = 20;
-
       const filteredDesigns = designs.filter((design) =>
         selectedDesigns.includes(design.index)
       );
-      var nowSelecting = null;
-      var starLines = [];
-
-      const w = p.windowWidth - convertRemToPx(3.0);
-      const h = w * 0.7;
-
-      const paddingX = 100;
-      const paddingY = 30;
-      const areaXMin = paddingX;
-      const areaXMax = w - paddingX;
-      const areaYMin = paddingY;
-      const areaYMax = h - paddingY - r * 1.3;
-      const areaWidth = areaXMax - areaXMin;
-      const areaHeight = areaYMax - areaYMin;
-
-      const itemXMin = filteredDesigns.sort((a, b) => a.x - b.x)[0].x;
-      const itemXMax = filteredDesigns.sort((a, b) => b.x - a.x)[0].x;
-      const itemYMin = filteredDesigns.sort((a, b) => a.y - b.y)[0].y;
-      const itemYMax = filteredDesigns.sort((a, b) => b.y - a.y)[0].y;
-
-      const itemWidth = itemXMax - itemXMin;
-      const itemHeight = itemYMax - itemYMin;
-      const xRatio = areaWidth / itemWidth;
-      const yRatio = areaHeight / itemHeight;
-
-      function calcX(x) {
-        return areaXMin + (x - itemXMin) * xRatio;
-      }
-      function calcY(y) {
-        return areaYMin + (y - itemYMin) * yRatio;
-      }
-      function calcXForWEBGL(x) {
-        return areaXMin + (x - itemXMin) * xRatio - w / 2;
-      }
-      function calcYForWEBGL(y) {
-        return areaYMin + (y - itemYMin) * yRatio - h / 2;
-      }
 
       function convertRemToPx(rem) {
         var fontSize = getComputedStyle(document.documentElement).fontSize;
         return rem * parseFloat(fontSize);
       }
 
+      var nowSelecting = null;
+      var starLines = [];
+      localStorage.setItem("starLines", JSON.stringify(starLines));
+
+      let montserrat = [],
+        notoSansJP = [],
+        lineSeedJP,
+        bg,
+        pg;
+
+      const r = 20,
+        canvasWidth = p.windowWidth - convertRemToPx(3.0),
+        canvasHeight = parseInt(canvasWidth * 0.7),
+        paddingX = 100,
+        paddingY = 30,
+        areaXMin = paddingX,
+        areaXMax = canvasWidth - paddingX,
+        areaYMin = paddingY,
+        areaYMax = canvasHeight - paddingY - r * 1.3,
+        areaWidth = areaXMax - areaXMin,
+        areaHeight = areaYMax - areaYMin,
+        itemXMin = filteredDesigns.sort((a, b) => a.x - b.x)[0].x,
+        itemXMax = filteredDesigns.sort((a, b) => b.x - a.x)[0].x,
+        itemYMin = filteredDesigns.sort((a, b) => a.y - b.y)[0].y,
+        itemYMax = filteredDesigns.sort((a, b) => b.y - a.y)[0].y,
+        itemWidth = itemXMax - itemXMin,
+        itemHeight = itemYMax - itemYMin,
+        xRatio = areaWidth / itemWidth,
+        yRatio = areaHeight / itemHeight;
+
+      function calcX(x) {
+        if (filteredDesigns.length == 1) {
+          return w / 2;
+        } else {
+          return areaXMin + (x - itemXMin) * xRatio;
+        }
+      }
+      function calcY(y) {
+        if (filteredDesigns.length == 1) {
+          return h / 2;
+        } else {
+          return areaYMin + (y - itemYMin) * yRatio;
+        }
+      }
+
       p.preload = () => {
-        myFont = p.loadFont("fonts/LINESeedJP.ttf");
         bg = p.loadImage("bg_portrait.png");
+
+        const montserratUrl = [
+          "fonts/Montserrat/Montserrat-Thin.ttf",
+          "fonts/Montserrat/Montserrat-ExtraLight.ttf",
+          "fonts/Montserrat/Montserrat-Light.ttf",
+          "fonts/Montserrat/Montserrat-Regular.ttf",
+          "fonts/Montserrat/Montserrat-Medium.ttf",
+          "fonts/Montserrat/Montserrat-SemiBold.ttf",
+          "fonts/Montserrat/Montserrat-Bold.ttf",
+          "fonts/Montserrat/Montserrat-ExtraBold.ttf",
+          "fonts/Montserrat/Montserrat-Black.ttf",
+        ];
+        const notoSansJPUrl = [
+          "fonts/NotoSansJP/NotoSansJP-Thin.ttf",
+          "fonts/NotoSansJP/NotoSansJP-ExtraLight.ttf",
+          "fonts/NotoSansJP/NotoSansJP-Light.ttf",
+          "fonts/NotoSansJP/NotoSansJP-Regular.ttf",
+          "fonts/NotoSansJP/NotoSansJP-Medium.ttf",
+          "fonts/NotoSansJP/NotoSansJP-SemiBold.ttf",
+          "fonts/NotoSansJP/NotoSansJP-Bold.ttf",
+          "fonts/NotoSansJP/NotoSansJP-Black.ttf",
+        ];
+        montserratUrl.forEach((url) => {
+          montserrat.push(p.loadFont(url));
+        });
+        notoSansJPUrl.forEach((url) => {
+          notoSansJP.push(p.loadFont(url));
+        });
+
+        lineSeedJP = p.loadFont("fonts/LINESeedJP.ttf");
       };
 
       p.setup = () => {
-        const canvas = p.createCanvas(w, h, p.WEBGL);
+        const canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
-        p.textFont(myFont);
+        // p.textFont(lineSeedJP);
+        p.textFont("Zen Kaku Gothic New");
+        // p.textStyle(p.BOLD);
+        p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg = p.createGraphics(p.width, p.height);
-        console.log(pg.webglVersion);
       };
 
       p.draw = () => {
-        p.image(bg, -w / 2, -h / 2, p.width, bg.height * (p.width / bg.width));
+        p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg.background(37, 39, 50);
-
         pg.erase();
         filteredDesigns.forEach((elm) => {
           drawDesignStar(elm);
         });
-
         starLines.forEach((line) => {
           drawLine(line);
         });
-
         pg.noErase();
-        p.image(pg, -w / 2, -h / 2);
-
+        p.image(pg, 0, 0);
         filteredDesigns.forEach((elm) => {
           drawCaption(elm);
         });
       };
 
       p.mouseClicked = () => {
-        filteredDesigns.forEach((elm) => {
-          createConstellation(elm);
-        });
+        if (filteredDesigns.length > 1) {
+          filteredDesigns.forEach((elm) => {
+            createConstellation(elm);
+          });
+        }
       };
 
       function drawDesignStar(elm) {
         pg.push();
         pg.fill(255);
         pg.noStroke();
+
         pg.ellipse(calcX(elm.x), calcY(elm.y), r);
 
         if (nowSelecting === elm) {
@@ -147,17 +180,17 @@ const Sketch = () => {
           p.textAlign(p.RIGHT, p.CENTER);
         }
 
-        p.textSize(r / 2);
+        p.textSize(12);
         p.textLeading(100);
         p.noStroke();
         if (elm.caption === 0) {
-          p.translate(calcXForWEBGL(elm.x), calcYForWEBGL(elm.y) - r);
+          p.translate(calcX(elm.x), calcY(elm.y) - r);
         } else if (elm.caption === 1) {
-          p.translate(calcXForWEBGL(elm.x) + r * 0.7, calcYForWEBGL(elm.y) - 3);
+          p.translate(calcX(elm.x) + r * 0.7, calcY(elm.y) - 3);
         } else if (elm.caption === 2) {
-          p.translate(calcXForWEBGL(elm.x), calcYForWEBGL(elm.y) + r - 3);
+          p.translate(calcX(elm.x), calcY(elm.y) + r - 3);
         } else if (elm.caption === 3) {
-          p.translate(calcXForWEBGL(elm.x) - r * 0.7, calcYForWEBGL(elm.y) - 3);
+          p.translate(calcX(elm.x) - r * 0.7, calcY(elm.y) - 3);
         }
         p.text(elm.name, 0, 0);
         p.pop();

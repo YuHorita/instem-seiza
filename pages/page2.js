@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 import supabase from "./api/supabase";
+import Head from "next/head";
 
 const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
   loading: () => <></>,

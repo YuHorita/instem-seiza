@@ -100,9 +100,6 @@ const Home = () => {
                 )
               }
             >
-              <option disabled value="">
-                デザインを選んでください。
-              </option>
               {designs.map((design) => (
                 <option value={design.index} key={design.name}>
                   {design.name}

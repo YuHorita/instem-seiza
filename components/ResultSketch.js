@@ -54,10 +54,32 @@ const Sketch = ({ onSave }) => {
       const yRatio = areaHeight / itemHeight;
 
       function calcX(x) {
-        return areaXMin + (x - itemXMin) * xRatio;
+        if (filteredDesigns.length == 1) {
+          return w / 2;
+        } else {
+          return areaXMin + (x - itemXMin) * xRatio;
+        }
       }
       function calcY(y) {
-        return areaYMin + (y - itemYMin) * yRatio;
+        if (filteredDesigns.length == 1) {
+          return h / 2;
+        } else {
+          return areaYMin + (y - itemYMin) * yRatio;
+        }
+      }
+      function calcXForWEBGL(x) {
+        if (filteredDesigns.length == 1) {
+          return 0;
+        } else {
+          return areaXMin + (x - itemXMin) * xRatio - w / 2;
+        }
+      }
+      function calcYForWEBGL(y) {
+        if (filteredDesigns.length == 1) {
+          return 0;
+        } else {
+          return areaYMin + (y - itemYMin) * yRatio - h / 2;
+        }
       }
 
       p.preload = () => {
