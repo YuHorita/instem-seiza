@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
+import { designs } from "../components/library";
 
 const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
-  loading: () => <></>,
+  loading: () => <div>Loading SketchComponent...</div>,
   ssr: false,
 });
 
@@ -14,8 +15,10 @@ const Page3 = (designerName) => {
   };
 
   var designerName = "";
+  var constellationName = "";
   try {
     designerName = JSON.parse(localStorage.getItem("designerName"));
+    constellationName = JSON.parse(localStorage.getItem("constellationName"));
   } catch (e) {
     console.log(e);
   }
@@ -43,6 +46,17 @@ const Page3 = (designerName) => {
         素敵な星座が完成しました！ 体験いただきありがとうございました。
       </p>
       <p className="mt-3">画像を長押しすると保存できます。</p>
+
+      <div
+        className="hiddenContent"
+        style={{ visibility: "hidden", position: "fixed" }}
+      >
+        <p>{designerName}さんの星座</p>
+        <p>{constellationName}座</p>
+        {designs.map((design) => (
+          <p>{design.name}</p>
+        ))}
+      </div>
     </main>
   );
 };

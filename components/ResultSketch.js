@@ -22,9 +22,7 @@ const Sketch = ({ onSave }) => {
 
   useEffect(() => {
     const sketch = new p5((p) => {
-      // let myFont;
       let bg, pg;
-      // let r = 40;
 
       const filteredDesigns = designs.filter((design) =>
         selectedDesigns.includes(design.index)
@@ -72,8 +70,7 @@ const Sketch = ({ onSave }) => {
       p.setup = () => {
         canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
-        p.textFont("M PLUS 1p");
-        p.textStyle(p.BOLD);
+        p.textFont("Gothic MB101 Bold");
         pg = p.createGraphics(p.width, p.height);
         p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg.background(37, 39, 50);
