@@ -24,6 +24,19 @@ const Page3 = (designerName) => {
     } catch (e) {
       console.log(e);
     }
+
+    if (typeof window !== "undefined") {
+      const designerNameHolder = document.getElementById("designerNameHolder");
+      if (designerNameHolder) {
+        designerNameHolder.innerText = designerName + "さんの星座";
+      }
+      const hiddenConstellationNameHolder = document.getElementById(
+        "hiddenConstellationNameHolder"
+      );
+      if (hiddenConstellationNameHolder) {
+        hiddenConstellationNameHolder.innerText = constellationName;
+      }
+    }
   }, []);
 
   return (
@@ -32,9 +45,11 @@ const Page3 = (designerName) => {
       className="bg-body text-body container-flued p-4"
     >
       <div className="text-center mt-3 mb-4">
-        <h2 className="fw-bold" suppressHydrationWarning={true}>
-          {designerName}さんの星座
-        </h2>
+        <h2
+          className="fw-bold"
+          // suppressHydrationWarning={true}
+          id="designerNameHolder"
+        ></h2>
       </div>
       <SketchComponent onSave={handleCanvasSave} />
       {canvasImage && (
@@ -53,10 +68,10 @@ const Page3 = (designerName) => {
       <div
         className="hiddenContent"
         style={{ visibility: "hidden", position: "fixed" }}
-        suppressHydrationWarning={true}
+        // suppressHydrationWarning={true}
       >
-        <p>{designerName}さんの星座</p>
-        <p>{constellationName}座</p>
+        <p id="hiddenConstellationNameHolder"></p>
+
         {designs.map((design) => (
           <p>{design.name}</p>
         ))}
