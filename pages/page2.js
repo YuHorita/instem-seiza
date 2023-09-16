@@ -3,11 +3,19 @@ import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 import supabase from "./api/supabase";
 import fontAsync from "./api/fontAsync";
+import { designs } from "../components/library";
 
-const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
-  loading: () => <></>,
-  ssr: false,
-});
+const importText = designs.map((design) => design.name).join("");
+
+// const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
+//   loading: () => <></>,
+//   ssr: false,
+// });
+
+// const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
+//   loading: () => <div>Loading SketchComponent...</div>,
+//   ssr: false,
+// });
 
 var designerName = "";
 var selectedDesigns = [];
@@ -16,8 +24,23 @@ var starLines = [];
 const Page2 = () => {
   const [constellationName, setConstellationName] = useState("");
 
+  const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
+    loading: () => <div>Loading SketchComponent...</div>,
+    ssr: false,
+  });
+
   useEffect(() => {
-    fontAsync();
+    const callbackJson = function (params) {
+      console.log("たぶんロード完了");
+      console.log("取得した単語:", importText);
+      console.log("返ってきたデータ:", params);
+    };
+
+    Ts.loadFontAsync({
+      cssName: "Gothic MB101 Bold",
+      text: importText,
+      callback: callbackJson,
+    });
 
     try {
       designerName = JSON.parse(localStorage.getItem("designerName"));
