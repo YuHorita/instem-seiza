@@ -22,80 +22,61 @@ const Sketch = ({ onSave }) => {
 
   useEffect(() => {
     const sketch = new p5((p) => {
-      let myFont;
-      let bg;
-      let pg;
-      let r = 40;
+      // let myFont;
+      let bg, pg;
+      // let r = 40;
 
       const filteredDesigns = designs.filter((design) =>
         selectedDesigns.includes(design.index)
       );
 
-      const w = 1200;
-      const h = 630;
-
-      const paddingX = 150;
-      const paddingY = 100;
-      const areaXMin = w / 2;
-      const areaXMax = w - paddingX;
-      const areaYMin = paddingY;
-      const areaYMax = h - paddingY - r;
-      const areaWidth = areaXMax - areaXMin;
-      const areaHeight = areaYMax - areaYMin;
-
-      const itemXMin = filteredDesigns.sort((a, b) => a.x - b.x)[0].x;
-      const itemXMax = filteredDesigns.sort((a, b) => b.x - a.x)[0].x;
-      const itemYMin = filteredDesigns.sort((a, b) => a.y - b.y)[0].y;
-      const itemYMax = filteredDesigns.sort((a, b) => b.y - a.y)[0].y;
-
-      const itemWidth = itemXMax - itemXMin;
-      const itemHeight = itemYMax - itemYMin;
-      const xRatio = areaWidth / itemWidth;
-      const yRatio = areaHeight / itemHeight;
+      const r = 40,
+        canvasWidth = 1200,
+        canvasHeight = 630,
+        paddingX = 150,
+        paddingY = 100,
+        areaXMin = canvasWidth / 2,
+        areaXMax = canvasWidth - paddingX,
+        areaYMin = paddingY,
+        areaYMax = canvasHeight - paddingY - r,
+        areaWidth = areaXMax - areaXMin,
+        areaHeight = areaYMax - areaYMin,
+        itemXMin = filteredDesigns.sort((a, b) => a.x - b.x)[0].x,
+        itemXMax = filteredDesigns.sort((a, b) => b.x - a.x)[0].x,
+        itemYMin = filteredDesigns.sort((a, b) => a.y - b.y)[0].y,
+        itemYMax = filteredDesigns.sort((a, b) => b.y - a.y)[0].y,
+        itemWidth = itemXMax - itemXMin,
+        itemHeight = itemYMax - itemYMin,
+        xRatio = areaWidth / itemWidth,
+        yRatio = areaHeight / itemHeight;
 
       function calcX(x) {
         if (filteredDesigns.length == 1) {
-          return w / 2;
+          return canvasWidth / 2;
         } else {
           return areaXMin + (x - itemXMin) * xRatio;
         }
       }
       function calcY(y) {
         if (filteredDesigns.length == 1) {
-          return h / 2;
+          return canvasHeight / 2;
         } else {
           return areaYMin + (y - itemYMin) * yRatio;
         }
       }
-      function calcXForWEBGL(x) {
-        if (filteredDesigns.length == 1) {
-          return 0;
-        } else {
-          return areaXMin + (x - itemXMin) * xRatio - w / 2;
-        }
-      }
-      function calcYForWEBGL(y) {
-        if (filteredDesigns.length == 1) {
-          return 0;
-        } else {
-          return areaYMin + (y - itemYMin) * yRatio - h / 2;
-        }
-      }
 
       p.preload = () => {
-        myFont = p.loadFont("fonts/LINESeedJP.ttf");
         bg = p.loadImage("bg_portrait.png");
       };
 
       p.setup = () => {
-        canvas = p.createCanvas(w, h);
+        canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
-        p.textFont(myFont);
+        p.textFont("M PLUS 1p");
+        p.textStyle(p.BOLD);
         pg = p.createGraphics(p.width, p.height);
-
         p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg.background(37, 39, 50);
-
         pg.erase();
         filteredDesigns.forEach((elm) => {
           drawDesignStar(elm);
@@ -103,10 +84,8 @@ const Sketch = ({ onSave }) => {
         starLines.forEach((line) => {
           drawLine(line);
         });
-
         pg.noErase();
         p.image(pg, 0, 0);
-
         filteredDesigns.forEach((elm) => {
           drawCaption(elm);
         });
@@ -117,13 +96,13 @@ const Sketch = ({ onSave }) => {
         p.noStroke();
 
         p.push();
-        p.translate(80, h / 2 - 40);
+        p.translate(80, canvasHeight / 2 - 40);
         p.textSize(32);
         p.text(designerName + "さんの星座", 0, 0);
         p.pop();
 
         p.push();
-        p.translate(80, h / 2 + 20);
+        p.translate(80, canvasHeight / 2 + 20);
         p.textSize(52);
         p.text(constellationName + "座", 0, 0);
         p.pop();

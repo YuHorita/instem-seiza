@@ -27,11 +27,7 @@ const Sketch = () => {
       var starLines = [];
       localStorage.setItem("starLines", JSON.stringify(starLines));
 
-      let montserrat = [],
-        notoSansJP = [],
-        lineSeedJP,
-        bg,
-        pg;
+      let bg, pg;
 
       const r = 20,
         canvasWidth = p.windowWidth - convertRemToPx(3.0),
@@ -70,45 +66,11 @@ const Sketch = () => {
 
       p.preload = () => {
         bg = p.loadImage("bg_portrait.png");
-
-        // const montserratUrl = [
-        //   "fonts/Montserrat/Montserrat-Thin.ttf",
-        //   "fonts/Montserrat/Montserrat-ExtraLight.ttf",
-        //   "fonts/Montserrat/Montserrat-Light.ttf",
-        //   "fonts/Montserrat/Montserrat-Regular.ttf",
-        //   "fonts/Montserrat/Montserrat-Medium.ttf",
-        //   "fonts/Montserrat/Montserrat-SemiBold.ttf",
-        //   "fonts/Montserrat/Montserrat-Bold.ttf",
-        //   "fonts/Montserrat/Montserrat-ExtraBold.ttf",
-        //   "fonts/Montserrat/Montserrat-Black.ttf",
-        // ];
-        // const notoSansJPUrl = [
-        //   "fonts/NotoSansJP/NotoSansJP-Thin.ttf",
-        //   "fonts/NotoSansJP/NotoSansJP-ExtraLight.ttf",
-        //   "fonts/NotoSansJP/NotoSansJP-Light.ttf",
-        //   "fonts/NotoSansJP/NotoSansJP-Regular.ttf",
-        //   "fonts/NotoSansJP/NotoSansJP-Medium.ttf",
-        //   "fonts/NotoSansJP/NotoSansJP-SemiBold.ttf",
-        //   "fonts/NotoSansJP/NotoSansJP-Bold.ttf",
-        //   "fonts/NotoSansJP/NotoSansJP-Black.ttf",
-        // ];
-        // montserratUrl.forEach((url) => {
-        //   montserrat.push(p.loadFont(url));
-        // });
-        // notoSansJPUrl.forEach((url) => {
-        //   notoSansJP.push(p.loadFont(url));
-        // });
-
-        // lineSeedJP = p.loadFont("fonts/LINESeedJP.ttf");
       };
 
       p.setup = () => {
         const canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
-        // p.textFont(lineSeedJP);
-        p.textFont("M PLUS 1p");
-        p.textStyle(p.BOLD);
-        p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg = p.createGraphics(p.width, p.height);
       };
 
@@ -172,28 +134,41 @@ const Sketch = () => {
       function drawCaption(elm) {
         p.push();
         p.fill(255, 255, 255);
-        if (elm.caption === 0 || elm.caption === 2) {
-          p.textAlign(p.CENTER, p.CENTER);
-        } else if (elm.caption === 1) {
-          p.textAlign(p.LEFT, p.CENTER);
-        } else if (elm.caption === 3) {
-          p.textAlign(p.RIGHT, p.CENTER);
-        }
-
+        p.textFont("Gothic MB101 Bold");
         p.textSize(12);
+        // p.textStyle(p.BOLD);
         p.textLeading(100);
         p.noStroke();
         if (elm.caption === 0) {
+          p.textAlign(p.CENTER, p.CENTER);
           p.translate(calcX(elm.x), calcY(elm.y) - r);
         } else if (elm.caption === 1) {
+          p.textAlign(p.LEFT, p.CENTER);
           p.translate(calcX(elm.x) + r * 0.7, calcY(elm.y) - 3);
         } else if (elm.caption === 2) {
+          p.textAlign(p.CENTER, p.CENTER);
           p.translate(calcX(elm.x), calcY(elm.y) + r - 3);
         } else if (elm.caption === 3) {
+          p.textAlign(p.RIGHT, p.CENTER);
           p.translate(calcX(elm.x) - r * 0.7, calcY(elm.y) - 3);
         }
         p.text(elm.name, 0, 0);
         p.pop();
+
+        // let caption = p.createP(elm.name);
+        // if (elm.caption === 0) {
+        //   caption.position(calcX(elm.x), calcY(elm.y) - r);
+        //   caption.style("text-align", "center");
+        // } else if (elm.caption === 1) {
+        //   caption.position(calcX(elm.x) + r * 0.7, calcY(elm.y) - 3);
+        //   caption.style("text-align", "left");
+        // } else if (elm.caption === 2) {
+        //   caption.position(calcX(elm.x), calcY(elm.y) + r - 3);
+        //   caption.style("text-align", "center");
+        // } else if (elm.caption === 3) {
+        //   caption.position(calcX(elm.x) - r * 0.7, calcY(elm.y) - 3);
+        //   caption.style("text-align", "right");
+        // }
       }
 
       function createConstellation(elm) {
