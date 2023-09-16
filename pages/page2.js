@@ -2,20 +2,16 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 import supabase from "./api/supabase";
-import fontAsync from "./api/fontAsync";
-import { designs } from "../components/library";
-
-const importText = designs.map((design) => design.name).join("");
 
 // const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
 //   loading: () => <></>,
 //   ssr: false,
 // });
 
-// const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
-//   loading: () => <div>Loading SketchComponent...</div>,
-//   ssr: false,
-// });
+const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
+  loading: () => <div>Loading SketchComponent...</div>,
+  ssr: false,
+});
 
 var designerName = "";
 var selectedDesigns = [];
@@ -24,24 +20,7 @@ var starLines = [];
 const Page2 = () => {
   const [constellationName, setConstellationName] = useState("");
 
-  const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
-    loading: () => <div>Loading SketchComponent...</div>,
-    ssr: false,
-  });
-
   useEffect(() => {
-    // const callbackJson = function (params) {
-    //   console.log("たぶんロード完了");
-    //   console.log("取得した単語:", importText);
-    //   console.log("返ってきたデータ:", params);
-    // };
-
-    // Ts.loadFontAsync({
-    //   cssName: "Gothic MB101 Bold",
-    //   text: importText,
-    //   callback: callbackJson,
-    // });
-
     try {
       designerName = JSON.parse(localStorage.getItem("designerName"));
       selectedDesigns = JSON.parse(localStorage.getItem("selectedDesigns"));
@@ -58,18 +37,12 @@ const Page2 = () => {
             event.preventDefault();
             event.stopPropagation();
           }
-
           form.classList.add("was-validated");
         },
         false
       );
     });
   }, []);
-
-  const handleInputChange = (e) => {
-    setConstellationName(e.target.value);
-    Ts.loadFont();
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -140,11 +113,7 @@ const Page2 = () => {
             className="form-control p-3"
             id="constellationName"
             value={constellationName}
-            // onChange={(e) => {
-            //   setConstellationName(e.target.value);
-            //   loadFont();
-            // }}
-            onChange={handleInputChange}
+            onChange={(e) => setConstellationName(e.target.value)}
             required
           />
           <span className="input-group-text">座</span>
