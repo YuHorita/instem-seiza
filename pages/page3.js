@@ -50,6 +50,7 @@ const Page3 = (designerName) => {
       <div
         className="hiddenContent"
         style={{ visibility: "hidden", position: "fixed" }}
+        suppressHydrationWarning={true}
       >
         <p>{designerName}さんの星座</p>
         <p>{constellationName}座</p>
