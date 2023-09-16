@@ -4,11 +4,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import supabase from "./api/supabase";
 import { designs } from "../components/library";
 
-// const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
-//   loading: () => <></>,
-//   ssr: false,
-// });
-
 const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
   ssr: false,
@@ -78,67 +73,70 @@ const Page2 = () => {
   };
 
   return (
-    <main
-      data-bs-theme="designship"
-      className="bg-body text-body container-flued p-4"
-    >
-      <div className="text-center mt-3 mb-4">
-        <h3 className="text-primary fs-5 fw-bold">Step 2/3</h3>
-        <h2 className="fw-bold">星座を描こう</h2>
-      </div>
-      <p>
-        広大なデザインの星空から、あなたにとってのデザインの星を見つけ出しました。次は、星同士を繋ぐことで星座を描いてみましょう。
-      </p>
-      <p>
-        デザインの星を2つタップすると星同士が繋がります。線のある場所をもう一度選ぶと線を消すことができます。
-      </p>
-      <SketchComponent />
-
-      <div className="text-center mt-5 mb-3">
-        <h3 className="text-primary fs-5 fw-bold">Step 3/3</h3>
-        <h2 className="fw-bold">星座に名前をつけよう</h2>
-      </div>
-      <p>最後に、描いた星座に名前をつけてみましょう。 </p>
-
-      <form
-        onSubmit={handleSubmit}
-        className="my-5 needs-validation"
-        noValidate
-      >
-        <label htmlFor="constellationName" className="form-label">
-          星座名
-        </label>
-        <div className="input-group has-validation mb-5">
-          <input
-            type="text"
-            className="form-control p-3"
-            id="constellationName"
-            value={constellationName}
-            onChange={(e) => setConstellationName(e.target.value)}
-            required
-          />
-          <span className="input-group-text">座</span>
-          <div className="invalid-feedback">星座名を入力してください。</div>
+    <main data-bs-theme="designship" className="bg-body text-body">
+      <section className="container-sm p-4">
+        <div className="text-center mt-3 mb-4">
+          <h3 className="text-primary fs-5 fw-bold">Step 2/3</h3>
+          <h2 className="fw-bold">星を繋ごう</h2>
         </div>
+        <p>
+          広大なデザインの星空から、あなたにとってのデザインの星を見つけ出しました。次は、星同士を繋いで星座を描いてみましょう。
+        </p>
 
-        <div className="d-flex justify-content-center">
-          <button
-            type="submit"
-            className="btn btn-primary rounded-5 px-5 py-2 fs-5 text-center"
-          >
-            回答を送信する
-          </button>
+        <div class="balloon">
+          <p>星をタップして繋いでみましょう！</p>
         </div>
-      </form>
+        <SketchComponent />
 
-      <div
-        className="hiddenContent"
-        style={{ visibility: "hidden", position: "fixed" }}
-      >
-        {designs.map((design) => (
-          <p>{design.name}</p>
-        ))}
-      </div>
+        <div className="text-center mt-5 mb-3">
+          <h3 className="text-primary fs-5 fw-bold">Step 3/3</h3>
+          <h2 className="fw-bold">星座に名前をつけよう</h2>
+        </div>
+        <p>最後に、描いた星座に名前をつけてみましょう。 </p>
+
+        <form
+          onSubmit={handleSubmit}
+          className="my-5 needs-validation"
+          noValidate
+        >
+          <label htmlFor="constellationName" className="form-label">
+            星座名
+          </label>
+          <div className="input-group has-validation mb-5">
+            <input
+              type="text"
+              className="form-control p-3"
+              id="constellationName"
+              value={constellationName}
+              onChange={(e) => setConstellationName(e.target.value)}
+              required
+            />
+            <span className="input-group-text">座</span>
+            <div className="invalid-feedback">星座名を入力してください。</div>
+          </div>
+          <p>
+            回答を送信することで<a className="text-primary">利用規約</a>
+            に同意したものとみなします。
+          </p>
+          <div className="d-flex justify-content-center">
+            <button
+              type="submit"
+              className="btn btn-primary rounded-5 px-5 py-3 fs-5 text-center"
+            >
+              回答を送信する
+            </button>
+          </div>
+        </form>
+
+        <div
+          className="hiddenContent"
+          style={{ visibility: "hidden", position: "fixed" }}
+        >
+          {designs.map((design) => (
+            <p>{design.name}</p>
+          ))}
+        </div>
+      </section>
     </main>
   );
 };

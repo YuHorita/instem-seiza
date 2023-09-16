@@ -26,7 +26,6 @@ const Home = () => {
       );
     });
   }, []);
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +38,7 @@ const Home = () => {
 
   return (
     <main data-bs-theme="designship" className="bg-body text-body ">
+      <img src="/top_thumbnail.png" style={{ width: "100%" }} />
       <section className="container-sm p-4">
         <div className="mb-5">
           <h1 className="text-center mt-4 mb-4 lh-base fw-bold">
@@ -132,7 +132,7 @@ const Home = () => {
           <div className="d-flex justify-content-center mt-5">
             <button
               type="submit"
-              className="btn btn-primary rounded-5 px-5 py-2 fs-5"
+              className="btn btn-primary rounded-5 px-5 py-3 fs-5"
             >
               回答を送信する
             </button>

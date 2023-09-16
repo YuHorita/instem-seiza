@@ -13,12 +13,6 @@ const Sketch = () => {
   }
 
   useEffect(() => {
-    // const importText = designs.map((design) => design.name).join("");
-    // const callbackJson = function (params) {
-    //   console.log("たぶんロード完了");
-    //   console.log("取得した単語:", importText);
-    //   console.log("返ってきたデータ:", params);
-
     const sketch = new p5((p) => {
       console.log("sketch start");
       const filteredDesigns = designs.filter((design) =>
@@ -37,7 +31,8 @@ const Sketch = () => {
       let bg, pg;
 
       const r = 20,
-        canvasWidth = p.windowWidth - convertRemToPx(3.0),
+        canvasWidth =
+          (p.windowWidth < 500 ? p.windowWidth : 500) - convertRemToPx(3.0),
         canvasHeight = parseInt(canvasWidth * 0.7),
         paddingX = 100,
         paddingY = 30,
@@ -143,7 +138,6 @@ const Sketch = () => {
         p.push();
         p.fill(255, 255, 255);
         p.textSize(12);
-        // p.textStyle(p.BOLD);
         p.textLeading(100);
         p.noStroke();
         if (elm.caption === 0) {
@@ -161,21 +155,6 @@ const Sketch = () => {
         }
         p.text(elm.name, 0, 0);
         p.pop();
-
-        // let caption = p.createP(elm.name);
-        // if (elm.caption === 0) {
-        //   caption.position(calcX(elm.x), calcY(elm.y) - r);
-        //   caption.style("text-align", "center");
-        // } else if (elm.caption === 1) {
-        //   caption.position(calcX(elm.x) + r * 0.7, calcY(elm.y) - 3);
-        //   caption.style("text-align", "left");
-        // } else if (elm.caption === 2) {
-        //   caption.position(calcX(elm.x), calcY(elm.y) + r - 3);
-        //   caption.style("text-align", "center");
-        // } else if (elm.caption === 3) {
-        //   caption.position(calcX(elm.x) - r * 0.7, calcY(elm.y) - 3);
-        //   caption.style("text-align", "right");
-        // }
       }
 
       function createConstellation(elm) {
@@ -215,12 +194,6 @@ const Sketch = () => {
     return () => {
       sketch.remove();
     };
-    // };
-    // Ts.loadFontAsync({
-    //   cssName: "Gothic MB101 Bold JIS2004",
-    //   text: importText,
-    //   callback: callbackJson,
-    // });
   }, []);
 
   Ts.loadFont();
