@@ -133,7 +133,7 @@ const Page2 = () => {
 
       <div
         className="hiddenContent"
-        style={{ visibility: "hidden", height: "0" }}
+        style={{ visibility: "hidden", position: "fixed" }}
       >
         {designs.map((design) => (
           <p>{design.name}</p>
