@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 import supabase from "./api/supabase";
+import { designs } from "../components/library";
 
 // const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
 //   loading: () => <></>,
@@ -129,6 +130,15 @@ const Page2 = () => {
           </button>
         </div>
       </form>
+
+      <div
+        className="hiddenContent"
+        style={{ visibility: "hidden", height: "0" }}
+      >
+        {designs.map((design) => (
+          <p>{design.name}</p>
+        ))}
+      </div>
     </main>
   );
 };
