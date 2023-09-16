@@ -110,7 +110,10 @@ const Page2 = () => {
             className="form-control p-3"
             id="constellationName"
             value={constellationName}
-            onChange={(e) => setConstellationName(e.target.value)}
+            onChange={(e) => {
+              setConstellationName(e.target.value);
+              Ts.loadFont();
+            }}
             required
           />
           <span className="input-group-text">座</span>
