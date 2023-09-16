@@ -36,6 +36,7 @@ const Page3 = (designerName) => {
       if (hiddenConstellationNameHolder) {
         hiddenConstellationNameHolder.innerText = constellationName;
       }
+      Ts.loadFont();
     }
   }, []);
 
