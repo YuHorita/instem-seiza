@@ -79,8 +79,7 @@ const Sketch = () => {
           const canvas = p.createCanvas(canvasWidth, canvasHeight);
           canvas.parent(sketchRef.current);
           pg = p.createGraphics(p.width, p.height);
-          p.textFont("Gothic MB101");
-          p.textStyle(p.BOLD);
+          p.textFont("Gothic MB101 Bold JIS2004");
         };
 
         p.draw = () => {
