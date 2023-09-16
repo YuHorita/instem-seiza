@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 import supabase from "./api/supabase";
-import Head from "next/head";
+import fontAsync from "./api/fontAsync";
 
 const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
   loading: () => <></>,
@@ -17,6 +17,8 @@ const Page2 = () => {
   const [constellationName, setConstellationName] = useState("");
 
   useEffect(() => {
+    fontAsync();
+
     try {
       designerName = JSON.parse(localStorage.getItem("designerName"));
       selectedDesigns = JSON.parse(localStorage.getItem("selectedDesigns"));
