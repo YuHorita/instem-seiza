@@ -221,7 +221,7 @@ const Sketch = () => {
       };
     };
     Ts.loadFontAsync({
-      cssName: "Gothic MB101 Bold",
+      cssName: "Gothic MB101 Bold JIS2004",
       text: importText,
       callback: callbackJson,
     });
