@@ -210,6 +210,7 @@ const Sketch = () => {
     };
   }, []);
 
+  Ts.loadFont();
   return <div ref={sketchRef}></div>;
 };
 
