@@ -13,6 +13,19 @@ const Sketch = () => {
   }
 
   useEffect(() => {
+    const importText = designs.map((design) => design.name).join("");
+    const callbackJson = function (params) {
+      console.log("たぶんロード完了");
+      console.log("取得した単語:", importText);
+      console.log("返ってきたデータ:", params);
+    };
+
+    Ts.loadFontAsync({
+      cssName: "Gothic MB101 Bold",
+      text: importText,
+      callback: callbackJson,
+    });
+
     const sketch = new p5((p) => {
       const filteredDesigns = designs.filter((design) =>
         selectedDesigns.includes(design.index)

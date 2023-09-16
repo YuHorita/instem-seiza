@@ -30,17 +30,17 @@ const Page2 = () => {
   });
 
   useEffect(() => {
-    const callbackJson = function (params) {
-      console.log("たぶんロード完了");
-      console.log("取得した単語:", importText);
-      console.log("返ってきたデータ:", params);
-    };
+    // const callbackJson = function (params) {
+    //   console.log("たぶんロード完了");
+    //   console.log("取得した単語:", importText);
+    //   console.log("返ってきたデータ:", params);
+    // };
 
-    Ts.loadFontAsync({
-      cssName: "Gothic MB101 Bold",
-      text: importText,
-      callback: callbackJson,
-    });
+    // Ts.loadFontAsync({
+    //   cssName: "Gothic MB101 Bold",
+    //   text: importText,
+    //   callback: callbackJson,
+    // });
 
     try {
       designerName = JSON.parse(localStorage.getItem("designerName"));
