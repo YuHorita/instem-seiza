@@ -41,6 +41,11 @@ const Page2 = () => {
     });
   }, []);
 
+  const handleInputChange = (e) => {
+    setConstellationName(e.target.value);
+    Ts.loadFont();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.setItem(
@@ -110,10 +115,11 @@ const Page2 = () => {
             className="form-control p-3"
             id="constellationName"
             value={constellationName}
-            onChange={(e) => {
-              setConstellationName(e.target.value);
-              Ts.loadFont();
-            }}
+            // onChange={(e) => {
+            //   setConstellationName(e.target.value);
+            //   loadFont();
+            // }}
+            onChange={handleInputChange}
             required
           />
           <span className="input-group-text">座</span>
