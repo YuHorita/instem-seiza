@@ -6,7 +6,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "ゴシックMB101 B", sans-serif;
+    font-family: "ゴシックMB101 B", "Gothic MB101 Bold", sans-serif !important;
     letter-spacing: 1.4px;
 }
 
