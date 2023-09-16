@@ -16,12 +16,15 @@ const Page3 = (designerName) => {
 
   var designerName = "";
   var constellationName = "";
-  try {
-    designerName = JSON.parse(localStorage.getItem("designerName"));
-    constellationName = JSON.parse(localStorage.getItem("constellationName"));
-  } catch (e) {
-    console.log(e);
-  }
+
+  useEffect(() => {
+    try {
+      designerName = JSON.parse(localStorage.getItem("designerName"));
+      constellationName = JSON.parse(localStorage.getItem("constellationName"));
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   return (
     <main
