@@ -41,6 +41,7 @@ const Result = () => {
         designerNameHolder.innerText =
           design_constellation.designer_name + "さんの星座";
       }
+      designerName = design_constellation.designer_name;
       const hiddenConstellationNameHolder = document.getElementById(
         "hiddenConstellationNameHolder"
       );
@@ -48,6 +49,7 @@ const Result = () => {
         hiddenConstellationNameHolder.innerText =
           design_constellation.constellation_name;
       }
+      constellationName = design_constellation.constellation_name;
     } catch (error) {
       console.error("データの取得に失敗しました", error);
     }
