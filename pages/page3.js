@@ -1,7 +1,10 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../components/library";
+import Script from "next/script";
 
 var designerName = "";
 var constellationName = "";
@@ -58,13 +61,12 @@ const Page3 = () => {
     }
     const loadTypeSquareFont = async () => {
       await Ts.loadFontAsync({
-        'cssName': "Gothic MB101 Bold",
-        'text': importText,
-        'outputType': 'json',
-        'callback': callbackJson
+        cssName: "Gothic MB101 Bold",
+        text: importText,
+        outputType: "json",
+        callback: callbackJson,
       });
 
-      
       // コンポーネントの読み込みとクライアント側のレンダリング
     };
 
