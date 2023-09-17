@@ -3,28 +3,38 @@ import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../components/library";
 
+// if (typeof window !== "undefined") {
+//   const designerNameHolder = document.getElementById("designerNameHolder");
+//   if (designerNameHolder) {
+//     designerNameHolder.innerText = designerName + "さんの星座";
+//   }
+//   const hiddenConstellationNameHolder = document.getElementById(
+//     "hiddenConstellationNameHolder"
+//   );
+//   if (hiddenConstellationNameHolder) {
+//     hiddenConstellationNameHolder.innerText = constellationName;
+//   }
+//   Ts.loadFont();
+// }
+
 var designerName = "";
 var constellationName = "";
 
 try {
   designerName = JSON.parse(localStorage.getItem("designerName"));
   constellationName = JSON.parse(localStorage.getItem("constellationName"));
+
+  const callbackJson = function (params) {
+    console.log(params);
+  };
+  Ts.loadFontAsync({
+    cssName: "Gothic MB101 Bold",
+    text: designerName + "さんの星座" + constellationName,
+    outputType: "json",
+    callback: callbackJson,
+  });
 } catch (e) {
   console.log(e);
-}
-
-if (typeof window !== "undefined") {
-  const designerNameHolder = document.getElementById("designerNameHolder");
-  if (designerNameHolder) {
-    designerNameHolder.innerText = designerName + "さんの星座";
-  }
-  const hiddenConstellationNameHolder = document.getElementById(
-    "hiddenConstellationNameHolder"
-  );
-  if (hiddenConstellationNameHolder) {
-    hiddenConstellationNameHolder.innerText = constellationName;
-  }
-  Ts.loadFont();
 }
 
 const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
@@ -32,7 +42,7 @@ const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
   ssr: false,
 });
 
-const Page3 = (designerName) => {
+const Page3 = () => {
   const [canvasImage, setCanvasImage] = useState(null);
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
@@ -46,10 +56,10 @@ const Page3 = (designerName) => {
     //   console.log(e);
     // }
     // if (typeof window !== "undefined") {
-    //   const designerNameHolder = document.getElementById("designerNameHolder");
-    //   if (designerNameHolder) {
-    //     designerNameHolder.innerText = designerName + "さんの星座";
-    //   }
+    // const designerNameHolder = document.getElementById("designerNameHolder");
+    // if (designerNameHolder) {
+    //   designerNameHolder.innerText = designerName + "さんの星座";
+    // }
     //   const hiddenConstellationNameHolder = document.getElementById(
     //     "hiddenConstellationNameHolder"
     //   );
@@ -65,12 +75,14 @@ const Page3 = (designerName) => {
       data-bs-theme="designship"
       className="bg-body text-body container-flued p-4"
     >
-      <div className="text-center mt-3 mb-4">
+      <div className="text-center mt-3 mb-4 typesquare_option">
         <h2
           className="fw-bold"
           suppressHydrationWarning={true}
           id="designerNameHolder"
-        ></h2>
+        >
+          {`${designerName}さんの星座`}
+        </h2>
       </div>
       <SketchComponent onSave={handleCanvasSave} />
       {canvasImage && (
