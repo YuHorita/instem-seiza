@@ -6,26 +6,26 @@ import { designs } from "../components/library";
 var designerName = "";
 var constellationName = "";
 
-// try {
-//   designerName = JSON.parse(localStorage.getItem("designerName"));
-//   constellationName = JSON.parse(localStorage.getItem("constellationName"));
-// } catch (e) {
-//   console.log(e);
-// }
+try {
+  designerName = JSON.parse(localStorage.getItem("designerName"));
+  constellationName = JSON.parse(localStorage.getItem("constellationName"));
+} catch (e) {
+  console.log(e);
+}
 
-// if (typeof window !== "undefined") {
-//   const designerNameHolder = document.getElementById("designerNameHolder");
-//   if (designerNameHolder) {
-//     designerNameHolder.innerText = designerName + "さんの星座";
-//   }
-//   const hiddenConstellationNameHolder = document.getElementById(
-//     "hiddenConstellationNameHolder"
-//   );
-//   if (hiddenConstellationNameHolder) {
-//     hiddenConstellationNameHolder.innerText = constellationName;
-//   }
-//   Ts.loadFont();
-// }
+if (typeof window !== "undefined") {
+  const designerNameHolder = document.getElementById("designerNameHolder");
+  if (designerNameHolder) {
+    designerNameHolder.innerText = designerName + "さんの星座";
+  }
+  const hiddenConstellationNameHolder = document.getElementById(
+    "hiddenConstellationNameHolder"
+  );
+  if (hiddenConstellationNameHolder) {
+    hiddenConstellationNameHolder.innerText = constellationName;
+  }
+  Ts.loadFont();
+}
 
 const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
@@ -34,37 +34,31 @@ const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
 
 const Page3 = () => {
   const [canvasImage, setCanvasImage] = useState(null);
-  const [constellationName, setConstellationName] = useState("");
-  const [designerName, setDesignerName] = useState("");
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
   };
 
-  useEffect(() => {
-    try {
-      // designerName = JSON.parse(localStorage.getItem("designerName"));
-      // constellationName = JSON.parse(localStorage.getItem("constellationName"));
-      setDesignerName(JSON.parse(localStorage.getItem("designerName")));
-      setConstellationName(
-        JSON.parse(localStorage.getItem("constellationName"))
-      );
-    } catch (e) {
-      console.log(e);
-    }
-    // if (typeof window !== "undefined") {
-    //   const designerNameHolder = document.getElementById("designerNameHolder");
-    //   if (designerNameHolder) {
-    //     designerNameHolder.innerText = designerName + "さんの星座";
-    //   }
-    //   const hiddenConstellationNameHolder = document.getElementById(
-    //     "hiddenConstellationNameHolder"
-    //   );
-    //   if (hiddenConstellationNameHolder) {
-    //     hiddenConstellationNameHolder.innerText = constellationName;
-    //   }
-    //   Ts.loadFont();
-    // }
-  }, []);
+  // useEffect(() => {
+  // try {
+  //   designerName = JSON.parse(localStorage.getItem("designerName"));
+  //   constellationName = JSON.parse(localStorage.getItem("constellationName"));
+  // } catch (e) {
+  //   console.log(e);
+  // }
+  // if (typeof window !== "undefined") {
+  //   const designerNameHolder = document.getElementById("designerNameHolder");
+  //   if (designerNameHolder) {
+  //     designerNameHolder.innerText = designerName + "さんの星座";
+  //   }
+  //   const hiddenConstellationNameHolder = document.getElementById(
+  //     "hiddenConstellationNameHolder"
+  //   );
+  //   if (hiddenConstellationNameHolder) {
+  //     hiddenConstellationNameHolder.innerText = constellationName;
+  //   }
+  //   Ts.loadFont();
+  // }
+  // }, []);
 
   return (
     <main
@@ -76,9 +70,7 @@ const Page3 = () => {
           // className="fw-bold"
           // suppressHydrationWarning={true}
           id="designerNameHolder"
-        >
-          {designerName}さんの星座
-        </h2>
+        ></h2>
       </div>
       <SketchComponent onSave={handleCanvasSave} />
       {canvasImage && (
@@ -100,7 +92,7 @@ const Page3 = () => {
         style={{ visibility: "hidden", position: "fixed" }}
         // suppressHydrationWarning={true}
       >
-        <p id="hiddenConstellationNameHolder">{constellationName}</p>
+        <p id="hiddenConstellationNameHolder"></p>
 
         {designs.map((design) => (
           <p>{design.name}</p>
