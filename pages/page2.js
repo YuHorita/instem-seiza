@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 import supabase from "./api/supabase";
 import { designs } from "../components/library";
+import Script from "next/script";
 
 const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,

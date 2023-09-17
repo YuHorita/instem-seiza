@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../components/library";
+import Script from "next/script";
 
 const Home = () => {
   const [designerName, setDesignerName] = useState("");
