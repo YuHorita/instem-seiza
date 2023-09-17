@@ -6,8 +6,8 @@ import { designs } from "../../components/library";
 import Script from "next/script";
 import supabase from "../api/supabase";
 
-var designerName = "";
-var constellationName = "";
+// var designerName = "";
+// var constellationName = "";
 
 const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
@@ -19,6 +19,8 @@ const Result = () => {
   const { id } = router.query;
 
   const [canvasImage, setCanvasImage] = useState(null);
+  const [designerName, setDesignerName] = useState("");
+  const [constellationName, setConstellationName] = useState("");
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
   };
@@ -34,20 +36,22 @@ const Result = () => {
       if (error) {
         throw error;
       }
-    //   const designerNameHolder = document.getElementById("designerNameHolder");
-    //   if (designerNameHolder) {
-    //     designerNameHolder.innerText =
-    //       design_constellation.designer_name + "さんの星座";
-    //   }
-      designerName = design_constellation.designer_name;
-    //   const hiddenConstellationNameHolder = document.getElementById(
-    //     "hiddenConstellationNameHolder"
-    //   );
-    //   if (hiddenConstellationNameHolder) {
-    //     hiddenConstellationNameHolder.innerText =
-    //       design_constellation.constellation_name;
-    //   }
-      constellationName = design_constellation.constellation_name;
+      //   const designerNameHolder = document.getElementById("designerNameHolder");
+      //   if (designerNameHolder) {
+      //     designerNameHolder.innerText =
+      //       design_constellation.designer_name + "さんの星座";
+      //   }
+      //   designerName = design_constellation.designer_name;
+      setDesignerName(design_constellation.designer_name);
+      //   const hiddenConstellationNameHolder = document.getElementById(
+      //     "hiddenConstellationNameHolder"
+      //   );
+      //   if (hiddenConstellationNameHolder) {
+      //     hiddenConstellationNameHolder.innerText =
+      //       design_constellation.constellation_name;
+      //   }
+      //   constellationName = design_constellation.constellation_name;
+      setConstellationName(design_constellation.constellation_name);
     } catch (error) {
       console.error("データの取得に失敗しました", error);
     }
