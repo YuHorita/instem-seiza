@@ -14,11 +14,11 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap"
           rel="stylesheet"
         />
-        <script
+        {/* <script
           type="text/javascript"
           src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5&onload=false"
           charset="utf-8"
-        ></script>
+        ></script> */}
       </Head>
       <body>
         <Main />

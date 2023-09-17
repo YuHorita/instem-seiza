@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
@@ -70,8 +68,8 @@ const Page3 = () => {
       // コンポーネントの読み込みとクライアント側のレンダリング
     };
 
-    loadTypeSquareFont();
-    Ts.loadFont();
+    // loadTypeSquareFont();
+    // Ts.loadFont();
 
     // try {
     //   designerName = JSON.parse(localStorage.getItem("designerName"));
@@ -129,9 +127,18 @@ const Page3 = () => {
         <p id="hiddenConstellationNameHolder"></p>
 
         {designs.map((design) => (
-          <p>{design.name}</p>
+          <p key={design.name}>{design.name}</p>
         ))}
       </div>
+
+      <Script
+        src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5&onload=false"
+        charset="utf-8"
+        onLoad={() => {
+          Ts.loadFont();
+          console.log("font loaded");
+        }}
+      ></Script>
     </main>
   );
 };
