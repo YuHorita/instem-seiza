@@ -3,6 +3,26 @@ import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../components/library";
 
+var designerName = "";
+var constellationName = "";
+
+try {
+  designerName = JSON.parse(localStorage.getItem("designerName"));
+  constellationName = JSON.parse(localStorage.getItem("constellationName"));
+
+  Ts.loadFontAsync({
+    cssName: "Gothic MB101 Bold",
+    text: designerName + "さんの星座" + constellationName,
+    outputType: "json",
+    callback: callbackJson,
+  });
+  const callbackJson = function (params) {
+    console.log(params);
+  };
+} catch (e) {
+  console.log(e);
+}
+
 // if (typeof window !== "undefined") {
 //   const designerNameHolder = document.getElementById("designerNameHolder");
 //   if (designerNameHolder) {
@@ -36,10 +56,10 @@ const Page3 = (designerName) => {
     //   console.log(e);
     // }
     // if (typeof window !== "undefined") {
-    const designerNameHolder = document.getElementById("designerNameHolder");
-    if (designerNameHolder) {
-      designerNameHolder.innerText = designerName + "さんの星座";
-    }
+      const designerNameHolder = document.getElementById("designerNameHolder");
+      if (designerNameHolder) {
+        designerNameHolder.innerText = designerName + "さんの星座";
+      }
     //   const hiddenConstellationNameHolder = document.getElementById(
     //     "hiddenConstellationNameHolder"
     //   );
