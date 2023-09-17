@@ -8,10 +8,7 @@ const Home = () => {
   const [selectedDesigns, setSelectedDesigns] = useState([]);
 
   useEffect(() => {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.querySelectorAll(".needs-validation");
-
-    // Loop over them and prevent submission
     Array.prototype.slice.call(forms).forEach(function (form) {
       form.addEventListener(
         "submit",
@@ -31,7 +28,6 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.setItem("designerName", JSON.stringify(designerName));
-    // localStorage.setItem("selectedDesigns", JSON.stringify(selectedCheckboxes));
     localStorage.setItem("selectedDesigns", JSON.stringify(selectedDesigns));
 
     window.location.href = "/page2";
@@ -77,7 +73,6 @@ const Home = () => {
               id="nameInput"
               value={designerName}
               onChange={(e) => setDesignerName(e.target.value)}
-              // placeholder="デザイン太郎"
               required
             />
             <div className="invalid-feedback">表示名を入力してください。</div>
@@ -110,24 +105,6 @@ const Home = () => {
             <div className="invalid-feedback">
               最低１つのデザインを選択してください。
             </div>
-            {/* {designs.map((design, index) => (
-                <div className="form-check" key={index}>
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id={`design-${index}`}
-                    value={index}
-                    checked={selectedCheckboxes.includes(index)}
-                    onChange={handleCheckboxChange}
-                  />
-                  <label
-                    className="form-check-label"
-                    htmlFor={`design-${index}`}
-                  >
-                    {design.name}
-                  </label>
-                </div>
-              ))} */}
           </div>
 
           <div className="d-flex justify-content-center mt-5">

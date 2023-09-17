@@ -25,7 +25,6 @@ if (typeof window !== "undefined") {
   if (hiddenConstellationNameHolder) {
     hiddenConstellationNameHolder.innerText = constellationName;
   }
-  // Ts.loadFont();
 }
 
 const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
@@ -38,38 +37,6 @@ const Page3 = () => {
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
   };
-
-  const [returnedJson, setReturnedJson] = useState(null);
-
-  useEffect(() => {
-    const importText = designerName + "さんの星座" + constellationName;
-
-    function callbackJson(json) {
-      console.log(json);
-      setReturnedJson(json);
-
-      const designerNameHolder = document.getElementById("designerNameHolder");
-      if (designerNameHolder) {
-        designerNameHolder.innerText = designerName + "さんの星座";
-      }
-      const hiddenConstellationNameHolder = document.getElementById(
-        "hiddenConstellationNameHolder"
-      );
-      if (hiddenConstellationNameHolder) {
-        hiddenConstellationNameHolder.innerText = constellationName;
-        console.log("テキスト差し替え完了");
-      }
-    }
-
-    // Ts.loadFontAsync({
-    //   cssName: "Gothic MB101 Bold",
-    //   text: importText,
-    //   outputType: "json",
-    //   callback: callbackJson,
-    // });
-
-    // Ts.loadFont();
-  }, []);
 
   return (
     <main
