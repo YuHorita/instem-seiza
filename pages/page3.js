@@ -42,7 +42,7 @@ const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
   ssr: false,
 });
 
-const Page3 = () => {
+const Page3 = (designerName) => {
   const [canvasImage, setCanvasImage] = useState(null);
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
