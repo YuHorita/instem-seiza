@@ -102,7 +102,9 @@ const Page3 = () => {
           // className="fw-bold"
           // suppressHydrationWarning={true}
           id="designerNameHolder"
-        ></h2>
+        >
+          {`${designerName}さんの星座`}
+        </h2>
       </div>
       <SketchComponent onSave={handleCanvasSave} />
       {canvasImage && (
