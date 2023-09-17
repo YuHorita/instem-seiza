@@ -64,18 +64,18 @@ const Sketch = ({ onSave }) => {
         }
       }
 
-      function callbackJson(json) {
-        console.log(json);
-      }
+      // function callbackJson(json) {
+      //   console.log(json);
+      // }
 
       p.preload = () => {
         bg = p.loadImage("bg_portrait.png");
-        Ts.loadFontAsync({
-          cssName: "Gothic MB101 Bold",
-          text: designerName + "さんの星座" + constellationName,
-          outputType: "json",
-          callback: callbackJson,
-        });
+        // Ts.loadFontAsync({
+        //   cssName: "Gothic MB101 Bold",
+        //   text: designerName + "さんの星座" + constellationName,
+        //   outputType: "json",
+        //   callback: callbackJson,
+        // });
       };
 
       p.setup = () => {
