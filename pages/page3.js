@@ -13,19 +13,19 @@ try {
   console.log(e);
 }
 
-// if (typeof window !== "undefined") {
-//   const designerNameHolder = document.getElementById("designerNameHolder");
-//   if (designerNameHolder) {
-//     designerNameHolder.innerText = designerName + "さんの星座";
-//   }
-//   const hiddenConstellationNameHolder = document.getElementById(
-//     "hiddenConstellationNameHolder"
-//   );
-//   if (hiddenConstellationNameHolder) {
-//     hiddenConstellationNameHolder.innerText = constellationName;
-//   }
-//   Ts.loadFont();
-// }
+if (typeof window !== "undefined") {
+  const designerNameHolder = document.getElementById("designerNameHolder");
+  if (designerNameHolder) {
+    designerNameHolder.innerText = designerName + "さんの星座";
+  }
+  const hiddenConstellationNameHolder = document.getElementById(
+    "hiddenConstellationNameHolder"
+  );
+  if (hiddenConstellationNameHolder) {
+    hiddenConstellationNameHolder.innerText = constellationName;
+  }
+  Ts.loadFont();
+}
 
 const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
