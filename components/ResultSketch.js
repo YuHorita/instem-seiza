@@ -21,6 +21,7 @@ const Sketch = ({ onSave }) => {
   }
 
   useEffect(() => {
+    console.log("sketch start");
     const sketch = new p5((p) => {
       let bg, pg;
 
