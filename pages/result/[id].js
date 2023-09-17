@@ -1,46 +1,61 @@
+import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
-import { designs } from "../components/library";
+import { designs } from "../../components/library";
 import Script from "next/script";
+import supabase from "../api/supabase";
 
 var designerName = "";
 var constellationName = "";
 
-try {
-  designerName = JSON.parse(localStorage.getItem("designerName"));
-  constellationName = JSON.parse(localStorage.getItem("constellationName"));
-} catch (e) {
-  console.log(e);
-}
-
-if (typeof window !== "undefined") {
-  const designerNameHolder = document.getElementById("designerNameHolder");
-  if (designerNameHolder) {
-    designerNameHolder.innerText = designerName + "さんの星座";
-  }
-  const hiddenConstellationNameHolder = document.getElementById(
-    "hiddenConstellationNameHolder"
-  );
-  if (hiddenConstellationNameHolder) {
-    hiddenConstellationNameHolder.innerText = constellationName;
-  }
-}
-
-const SketchComponent = dynamic(() => import("../components/ResultSketchOld"), {
+const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
   ssr: false,
 });
 
-const Page3 = () => {
+const Result = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const [data, setData] = useState(null);
+
   const [canvasImage, setCanvasImage] = useState(null);
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
   };
+  const getData = async (id) => {
+    console.log(id);
+    try {
+      const { data: design_constellation, error } = await supabase
+        .from("design_constellation")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        throw error;
+      }
+      setData(design_constellation);
+      const designerNameHolder = document.getElementById("designerNameHolder");
+      if (designerNameHolder) {
+        designerNameHolder.innerText =
+          design_constellation.designer_name + "さんの星座";
+      }
+    } catch (error) {
+      console.error("データの取得に失敗しました", error);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      getData(id); // idが変更されたらgetDataを呼び出す
+    }
+  }, [id]);
 
   return (
     <main data-bs-theme="designship" className="bg-body text-body">
       <section className="container-sm p-4">
+        <p>ID: {id}</p>
         <div className="text-center mt-3 mb-4">
           <h2 suppressHydrationWarning={true} id="designerNameHolder">
             {`${designerName}さんの星座`}
@@ -75,18 +90,6 @@ const Page3 = () => {
             シェアする
           </a>
         </div>
-        {/* <a
-          href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-          class="twitter-share-button"
-          data-show-count="false"
-        >
-          Tweet
-        </a>
-        <script
-          async
-          src="https://platform.twitter.com/widgets.js"
-          charset="utf-8"
-        ></script> */}
 
         <div
           className="hiddenContent"
@@ -100,13 +103,13 @@ const Page3 = () => {
         </div>
       </section>
 
-      <Script
+      {/* <Script
         type="text/javascript"
         src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
         charset="utf-8"
-      ></Script>
+      ></Script> */}
     </main>
   );
 };
 
-export default Page3;
+export default Result;
