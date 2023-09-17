@@ -17,7 +17,6 @@ const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
 const Result = () => {
   const router = useRouter();
   const { id } = router.query;
-  //   const [data, setData] = useState(null);
 
   const [canvasImage, setCanvasImage] = useState(null);
   const handleCanvasSave = (imageData) => {
@@ -35,20 +34,19 @@ const Result = () => {
       if (error) {
         throw error;
       }
-      //   setData(design_constellation);
-      const designerNameHolder = document.getElementById("designerNameHolder");
-      if (designerNameHolder) {
-        designerNameHolder.innerText =
-          design_constellation.designer_name + "さんの星座";
-      }
+    //   const designerNameHolder = document.getElementById("designerNameHolder");
+    //   if (designerNameHolder) {
+    //     designerNameHolder.innerText =
+    //       design_constellation.designer_name + "さんの星座";
+    //   }
       designerName = design_constellation.designer_name;
-      const hiddenConstellationNameHolder = document.getElementById(
-        "hiddenConstellationNameHolder"
-      );
-      if (hiddenConstellationNameHolder) {
-        hiddenConstellationNameHolder.innerText =
-          design_constellation.constellation_name;
-      }
+    //   const hiddenConstellationNameHolder = document.getElementById(
+    //     "hiddenConstellationNameHolder"
+    //   );
+    //   if (hiddenConstellationNameHolder) {
+    //     hiddenConstellationNameHolder.innerText =
+    //       design_constellation.constellation_name;
+    //   }
       constellationName = design_constellation.constellation_name;
     } catch (error) {
       console.error("データの取得に失敗しました", error);
