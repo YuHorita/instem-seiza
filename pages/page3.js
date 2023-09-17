@@ -38,25 +38,35 @@ const Page3 = () => {
     setCanvasImage(imageData);
   };
 
-  // useEffect(() => {
-  //   const importText = designerName + "さんの星座" + constellationName;
+  const [returnedJson, setReturnedJson] = useState(null);
 
-  //   function callbackJson(json) {
-  //     console.log(json);
+  useEffect(() => {
+    const importText = designerName + "さんの星座" + constellationName;
 
-  //     const designerNameHolder = document.getElementById("designerNameHolder");
-  //     if (designerNameHolder) {
-  //       designerNameHolder.innerText = designerName + "さんの星座";
-  //     }
-  //     const hiddenConstellationNameHolder = document.getElementById(
-  //       "hiddenConstellationNameHolder"
-  //     );
-  //     if (hiddenConstellationNameHolder) {
-  //       hiddenConstellationNameHolder.innerText = constellationName;
-  //       console.log("テキスト差し替え完了");
-  //     }
-  //   }
-  // }, []);
+    function callbackJson(json) {
+      console.log(json);
+      setReturnedJson(json);
+
+      const designerNameHolder = document.getElementById("designerNameHolder");
+      if (designerNameHolder) {
+        designerNameHolder.innerText = designerName + "さんの星座";
+      }
+      const hiddenConstellationNameHolder = document.getElementById(
+        "hiddenConstellationNameHolder"
+      );
+      if (hiddenConstellationNameHolder) {
+        hiddenConstellationNameHolder.innerText = constellationName;
+        console.log("テキスト差し替え完了");
+      }
+    }
+
+    Ts.loadFontAsync({
+      cssName: "Gothic MB101 Bold",
+      text: importText,
+      outputType: "json",
+      callback: callbackJson,
+    });
+  }, []);
 
   return (
     <main
