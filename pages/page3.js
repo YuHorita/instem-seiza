@@ -66,6 +66,8 @@ const Page3 = () => {
       outputType: "json",
       callback: callbackJson,
     });
+
+    Ts.loadFont();
   }, []);
 
   return (
