@@ -6,45 +6,51 @@ import { designs } from "../components/library";
 var designerName = "";
 var constellationName = "";
 
-try {
-  designerName = JSON.parse(localStorage.getItem("designerName"));
-  constellationName = JSON.parse(localStorage.getItem("constellationName"));
-} catch (e) {
-  console.log(e);
-}
+// try {
+//   designerName = JSON.parse(localStorage.getItem("designerName"));
+//   constellationName = JSON.parse(localStorage.getItem("constellationName"));
+// } catch (e) {
+//   console.log(e);
+// }
 
-if (typeof window !== "undefined") {
-  const designerNameHolder = document.getElementById("designerNameHolder");
-  if (designerNameHolder) {
-    designerNameHolder.innerText = designerName + "さんの星座";
-  }
-  const hiddenConstellationNameHolder = document.getElementById(
-    "hiddenConstellationNameHolder"
-  );
-  if (hiddenConstellationNameHolder) {
-    hiddenConstellationNameHolder.innerText = constellationName;
-  }
-  Ts.loadFont();
-}
+// if (typeof window !== "undefined") {
+//   const designerNameHolder = document.getElementById("designerNameHolder");
+//   if (designerNameHolder) {
+//     designerNameHolder.innerText = designerName + "さんの星座";
+//   }
+//   const hiddenConstellationNameHolder = document.getElementById(
+//     "hiddenConstellationNameHolder"
+//   );
+//   if (hiddenConstellationNameHolder) {
+//     hiddenConstellationNameHolder.innerText = constellationName;
+//   }
+//   Ts.loadFont();
+// }
 
 const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
   ssr: false,
 });
 
-const Page3 = (designerName) => {
+const Page3 = () => {
   const [canvasImage, setCanvasImage] = useState(null);
+  const [constellationName, setConstellationName] = useState("");
+  const [designerName, setDesignerName] = useState("");
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
   };
 
   useEffect(() => {
-    // try {
-    //   designerName = JSON.parse(localStorage.getItem("designerName"));
-    //   constellationName = JSON.parse(localStorage.getItem("constellationName"));
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    try {
+      // designerName = JSON.parse(localStorage.getItem("designerName"));
+      // constellationName = JSON.parse(localStorage.getItem("constellationName"));
+      setDesignerName(JSON.parse(localStorage.getItem("designerName")));
+      setConstellationName(
+        JSON.parse(localStorage.getItem("constellationName"))
+      );
+    } catch (e) {
+      console.log(e);
+    }
     // if (typeof window !== "undefined") {
     //   const designerNameHolder = document.getElementById("designerNameHolder");
     //   if (designerNameHolder) {
@@ -67,10 +73,12 @@ const Page3 = (designerName) => {
     >
       <div className="text-center mt-3 mb-4">
         <h2
-          className="fw-bold"
-          suppressHydrationWarning={true}
+          // className="fw-bold"
+          // suppressHydrationWarning={true}
           id="designerNameHolder"
-        ></h2>
+        >
+          {designerName}さんの星座
+        </h2>
       </div>
       <SketchComponent onSave={handleCanvasSave} />
       {canvasImage && (
@@ -92,7 +100,7 @@ const Page3 = (designerName) => {
         style={{ visibility: "hidden", position: "fixed" }}
         // suppressHydrationWarning={true}
       >
-        <p id="hiddenConstellationNameHolder"></p>
+        <p id="hiddenConstellationNameHolder">{constellationName}</p>
 
         {designs.map((design) => (
           <p>{design.name}</p>
