@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../components/library";
-import Script from "next/script";
 
 var designerName = "";
 var constellationName = "";
@@ -39,58 +38,25 @@ const Page3 = () => {
     setCanvasImage(imageData);
   };
 
-  useEffect(() => {
-    const importText = designerName + "さんの星座" + constellationName;
+  // useEffect(() => {
+  //   const importText = designerName + "さんの星座" + constellationName;
 
-    function callbackJson(json) {
-      console.log(json);
+  //   function callbackJson(json) {
+  //     console.log(json);
 
-      const designerNameHolder = document.getElementById("designerNameHolder");
-      if (designerNameHolder) {
-        designerNameHolder.innerText = designerName + "さんの星座";
-      }
-      const hiddenConstellationNameHolder = document.getElementById(
-        "hiddenConstellationNameHolder"
-      );
-      if (hiddenConstellationNameHolder) {
-        hiddenConstellationNameHolder.innerText = constellationName;
-        console.log("テキスト差し替え完了");
-      }
-    }
-    const loadTypeSquareFont = async () => {
-      await Ts.loadFontAsync({
-        cssName: "Gothic MB101 Bold",
-        text: importText,
-        outputType: "json",
-        callback: callbackJson,
-      });
-
-      // コンポーネントの読み込みとクライアント側のレンダリング
-    };
-
-    // loadTypeSquareFont();
-    // Ts.loadFont();
-
-    // try {
-    //   designerName = JSON.parse(localStorage.getItem("designerName"));
-    //   constellationName = JSON.parse(localStorage.getItem("constellationName"));
-    // } catch (e) {
-    //   console.log(e);
-    // }
-    // if (typeof window !== "undefined") {
-    //   const designerNameHolder = document.getElementById("designerNameHolder");
-    //   if (designerNameHolder) {
-    //     designerNameHolder.innerText = designerName + "さんの星座";
-    //   }
-    //   const hiddenConstellationNameHolder = document.getElementById(
-    //     "hiddenConstellationNameHolder"
-    //   );
-    //   if (hiddenConstellationNameHolder) {
-    //     hiddenConstellationNameHolder.innerText = constellationName;
-    //   }
-    //   Ts.loadFont();
-    // }
-  }, []);
+  //     const designerNameHolder = document.getElementById("designerNameHolder");
+  //     if (designerNameHolder) {
+  //       designerNameHolder.innerText = designerName + "さんの星座";
+  //     }
+  //     const hiddenConstellationNameHolder = document.getElementById(
+  //       "hiddenConstellationNameHolder"
+  //     );
+  //     if (hiddenConstellationNameHolder) {
+  //       hiddenConstellationNameHolder.innerText = constellationName;
+  //       console.log("テキスト差し替え完了");
+  //     }
+  //   }
+  // }, []);
 
   return (
     <main
@@ -98,22 +64,13 @@ const Page3 = () => {
       className="bg-body text-body container-flued p-4"
     >
       <div className="text-center mt-3 mb-4">
-        <h2
-          // className="fw-bold"
-          // suppressHydrationWarning={true}
-          id="designerNameHolder"
-        >
+        <h2 suppressHydrationWarning={true} id="designerNameHolder">
           {`${designerName}さんの星座`}
         </h2>
       </div>
       <SketchComponent onSave={handleCanvasSave} />
       {canvasImage && (
-        <img
-          src={canvasImage}
-          // alt={`${designerName}さんの星座`}
-          alt="完成した星座"
-          style={{ width: "100%" }}
-        />
+        <img src={canvasImage} alt="完成した星座" style={{ width: "100%" }} />
       )}
 
       <p className="mt-4">
@@ -124,23 +81,13 @@ const Page3 = () => {
       <div
         className="hiddenContent"
         style={{ visibility: "hidden", position: "fixed" }}
-        // suppressHydrationWarning={true}
       >
-        <p id="hiddenConstellationNameHolder"></p>
+        <p suppressHydrationWarning={true}>{`${constellationName}座`}</p>
 
         {designs.map((design) => (
           <p key={design.name}>{design.name}</p>
         ))}
       </div>
-
-      <Script
-        src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5&onload=false"
-        charset="utf-8"
-        onLoad={() => {
-          Ts.loadFont();
-          console.log("font loaded");
-        }}
-      ></Script>
     </main>
   );
 };
