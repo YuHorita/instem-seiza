@@ -64,8 +64,18 @@ const Sketch = ({ onSave }) => {
         }
       }
 
+      function callbackJson(json) {
+        console.log(json);
+      }
+
       p.preload = () => {
         bg = p.loadImage("bg_portrait.png");
+        Ts.loadFontAsync({
+          cssName: "Gothic MB101 Bold",
+          text: designerName + "さんの星座" + constellationName,
+          outputType: "json",
+          callback: callbackJson,
+        });
       };
 
       p.setup = () => {
@@ -104,15 +114,22 @@ const Sketch = ({ onSave }) => {
         p.textSize(52);
         p.text(constellationName + "座", 0, 0);
         p.pop();
-      };
 
-      p.draw = () => {
         if (canvas && onSave) {
           canvas.canvas.toBlob((blob) => {
             const url = URL.createObjectURL(blob);
             onSave(url);
           }, "image/png");
         }
+      };
+
+      p.draw = () => {
+        // if (canvas && onSave) {
+        //   canvas.canvas.toBlob((blob) => {
+        //     const url = URL.createObjectURL(blob);
+        //     onSave(url);
+        //   }, "image/png");
+        // }
       };
 
       function drawDesignStar(elm) {
