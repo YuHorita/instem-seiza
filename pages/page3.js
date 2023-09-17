@@ -48,6 +48,7 @@ const Page3 = () => {
       setConstellationName(
         JSON.parse(localStorage.getItem("constellationName"))
       );
+      Ts.loadFont();
     } catch (e) {
       console.log(e);
     }
