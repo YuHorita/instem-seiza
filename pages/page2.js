@@ -50,7 +50,7 @@ const Page2 = () => {
 
     try {
       starLines = JSON.parse(localStorage.getItem("starLines"));
-      console.log(starLines);
+      // console.log(starLines);
     } catch (e) {
       console.log(e);
     }
@@ -68,9 +68,12 @@ const Page2 = () => {
         ],
         { returning: "minimal" }
       )
-      .select();
+      .select()
+      .single();
 
-    window.location.href = "/page3";
+    console.log(data.id);
+
+    window.location.href = "/result/" + data.id;
   };
 
   return (
