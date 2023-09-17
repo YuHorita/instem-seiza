@@ -68,7 +68,7 @@ const Page3 = (designerName) => {
       <div className="text-center mt-3 mb-4">
         <h2
           className="fw-bold"
-          // suppressHydrationWarning={true}
+          suppressHydrationWarning={true}
           id="designerNameHolder"
         ></h2>
       </div>
@@ -76,7 +76,8 @@ const Page3 = (designerName) => {
       {canvasImage && (
         <img
           src={canvasImage}
-          alt={`${designerName}さんの星座`}
+          // alt={`${designerName}さんの星座`}
+          alt="完成した星座"
           style={{ width: "100%" }}
         />
       )}
