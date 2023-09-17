@@ -13,6 +13,7 @@ try {
   Ts.loadFontAsync({
     cssName: "Gothic MB101 Bold",
     text: designerName + "さんの星座" + constellationName,
+    hasHint: false,
     outputType: "json",
     callback: callbackJson,
   });
@@ -56,10 +57,10 @@ const Page3 = (designerName) => {
     //   console.log(e);
     // }
     // if (typeof window !== "undefined") {
-      const designerNameHolder = document.getElementById("designerNameHolder");
-      if (designerNameHolder) {
-        designerNameHolder.innerText = designerName + "さんの星座";
-      }
+    //   const designerNameHolder = document.getElementById("designerNameHolder");
+    //   if (designerNameHolder) {
+    //     designerNameHolder.innerText = designerName + "さんの星座";
+    //   }
     //   const hiddenConstellationNameHolder = document.getElementById(
     //     "hiddenConstellationNameHolder"
     //   );
