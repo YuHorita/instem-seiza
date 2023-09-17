@@ -61,6 +61,7 @@ const Page3 = () => {
     };
 
     loadTypeSquareFont();
+    Ts.loadFont();
 
     // try {
     //   designerName = JSON.parse(localStorage.getItem("designerName"));
