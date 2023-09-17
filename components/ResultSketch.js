@@ -10,8 +10,7 @@ const Sketch = ({ onSave }) => {
 
   const router = useRouter();
   const { id } = router.query;
-  const [data, setData] = useState(null);
-  console.log(id);
+  // const [data, setData] = useState(null);
 
   var designerName = "";
   var selectedDesigns = [];
@@ -31,7 +30,7 @@ const Sketch = ({ onSave }) => {
         throw error;
       }
       console.log(design_constellation);
-      setData(design_constellation);
+      // setData(design_constellation);
       designerName = design_constellation.designer_name;
       selectedDesigns = design_constellation.selected_designs;
       starLines = design_constellation.star_lines;
@@ -47,7 +46,7 @@ const Sketch = ({ onSave }) => {
         await getData(id);
 
         console.log("sketch start");
-        console.log(data);
+        // console.log(data);
         const sketch = new p5((p) => {
           let bg, pg;
 

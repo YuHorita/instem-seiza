@@ -17,7 +17,7 @@ const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
 const Result = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [data, setData] = useState(null);
+  //   const [data, setData] = useState(null);
 
   const [canvasImage, setCanvasImage] = useState(null);
   const handleCanvasSave = (imageData) => {
@@ -35,11 +35,18 @@ const Result = () => {
       if (error) {
         throw error;
       }
-      setData(design_constellation);
+      //   setData(design_constellation);
       const designerNameHolder = document.getElementById("designerNameHolder");
       if (designerNameHolder) {
         designerNameHolder.innerText =
           design_constellation.designer_name + "さんの星座";
+      }
+      const hiddenConstellationNameHolder = document.getElementById(
+        "hiddenConstellationNameHolder"
+      );
+      if (hiddenConstellationNameHolder) {
+        hiddenConstellationNameHolder.innerText =
+          design_constellation.constellation_name;
       }
     } catch (error) {
       console.error("データの取得に失敗しました", error);
@@ -103,11 +110,11 @@ const Result = () => {
         </div>
       </section>
 
-      {/* <Script
+      <Script
         type="text/javascript"
         src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
         charset="utf-8"
-      ></Script> */}
+      ></Script>
     </main>
   );
 };
