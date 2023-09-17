@@ -17,26 +17,6 @@ import { designs } from "../components/library";
 //   Ts.loadFont();
 // }
 
-var designerName = "";
-var constellationName = "";
-
-try {
-  designerName = JSON.parse(localStorage.getItem("designerName"));
-  constellationName = JSON.parse(localStorage.getItem("constellationName"));
-
-  const callbackJson = function (params) {
-    console.log(params);
-  };
-  Ts.loadFontAsync({
-    cssName: "Gothic MB101 Bold",
-    text: designerName + "さんの星座" + constellationName,
-    outputType: "json",
-    callback: callbackJson,
-  });
-} catch (e) {
-  console.log(e);
-}
-
 const SketchComponent = dynamic(() => import("../components/ResultSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
   ssr: false,
@@ -56,10 +36,10 @@ const Page3 = (designerName) => {
     //   console.log(e);
     // }
     // if (typeof window !== "undefined") {
-    // const designerNameHolder = document.getElementById("designerNameHolder");
-    // if (designerNameHolder) {
-    //   designerNameHolder.innerText = designerName + "さんの星座";
-    // }
+    const designerNameHolder = document.getElementById("designerNameHolder");
+    if (designerNameHolder) {
+      designerNameHolder.innerText = designerName + "さんの星座";
+    }
     //   const hiddenConstellationNameHolder = document.getElementById(
     //     "hiddenConstellationNameHolder"
     //   );
@@ -75,14 +55,12 @@ const Page3 = (designerName) => {
       data-bs-theme="designship"
       className="bg-body text-body container-flued p-4"
     >
-      <div className="text-center mt-3 mb-4 typesquare_option">
+      <div className="text-center mt-3 mb-4">
         <h2
           className="fw-bold"
           suppressHydrationWarning={true}
           id="designerNameHolder"
-        >
-          {`${designerName}さんの星座`}
-        </h2>
+        ></h2>
       </div>
       <SketchComponent onSave={handleCanvasSave} />
       {canvasImage && (
