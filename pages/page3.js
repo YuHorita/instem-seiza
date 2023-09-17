@@ -40,11 +40,9 @@ const Page3 = () => {
 
   useEffect(() => {
     const importText = designerName + "さんの星座" + constellationName;
-    const loadTypeSquareFont = async () => {
-      await Ts.loadFontAsync({
-        cssName: "Gothic MB101 Bold",
-        text: importText,
-      });
+
+    function callbackJson(json) {
+      console.log(json);
 
       const designerNameHolder = document.getElementById("designerNameHolder");
       if (designerNameHolder) {
@@ -57,6 +55,16 @@ const Page3 = () => {
         hiddenConstellationNameHolder.innerText = constellationName;
         console.log("テキスト差し替え完了");
       }
+    }
+    const loadTypeSquareFont = async () => {
+      await Ts.loadFontAsync({
+        'cssName': "Gothic MB101 Bold",
+        'text': importText,
+        'outputType': 'json',
+        'callback': callbackJson
+      });
+
+      
       // コンポーネントの読み込みとクライアント側のレンダリング
     };
 
