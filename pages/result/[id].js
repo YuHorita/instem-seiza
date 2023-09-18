@@ -12,46 +12,48 @@ const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
   ssr: false,
 });
 
-export default function Page({ id }) {
+export default function Page({ id, designerName, constellationName }) {
   // const router = useRouter();
   // const { id } = router.query;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
   const pathname = usePathname();
   const [canvasImage, setCanvasImage] = useState(null);
-  const [designerName, setDesignerName] = useState("");
-  const [pageTitle, setPageTitle] = useState("");
-  const [constellationName, setConstellationName] = useState("");
+  // const [designerName, setDesignerName] = useState("");
+  // const [pageTitle, setPageTitle] = useState("");
+  // const [constellationName, setConstellationName] = useState("");
   const [isCopied, setIsCopied] = useState(false);
+  const title = `${designerName}さんの星座 | Designship 2023`;
+  const description = `${constellationName}座を見つけました！`;
   const ogpImage = `${baseUrl}/api/og?id=${id}`;
   console.log(ogpImage);
 
   const handleCanvasSave = async (imageData) => {
     setCanvasImage(imageData);
   };
-  const getData = async (id) => {
-    console.log(id);
-    try {
-      const { data: design_constellation, error } = await supabase
-        .from("design_constellation")
-        .select("*")
-        .eq("id", id)
-        .single();
-      if (error) {
-        throw error;
-      }
-      setDesignerName(design_constellation.designer_name);
-      setConstellationName(design_constellation.constellation_name);
-      setPageTitle(`${designerName}さんの星座 | Designship 2023`);
-    } catch (error) {
-      console.error("データの取得に失敗しました", error);
-    }
-  };
+  // const getData = async (id) => {
+  //   console.log(id);
+  //   try {
+  //     const { data: design_constellation, error } = await supabase
+  //       .from("design_constellation")
+  //       .select("*")
+  //       .eq("id", id)
+  //       .single();
+  //     if (error) {
+  //       throw error;
+  //     }
+  //     setDesignerName(design_constellation.designer_name);
+  //     setConstellationName(design_constellation.constellation_name);
+  //     setPageTitle(`${designerName}さんの星座 | Designship 2023`);
+  //   } catch (error) {
+  //     console.error("データの取得に失敗しました", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (id) {
-      getData(id);
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (id) {
+  //     getData(id);
+  //   }
+  // }, [id]);
 
   const copyToClipboard = () => {
     console.log(pathname);
@@ -66,22 +68,22 @@ export default function Page({ id }) {
   return (
     <main className="bg-body text-body">
       <NextSeo
-        title={`${designerName}さんの星座 | Designship 2023`}
-        description={`${constellationName}座を見つけました！`}
+        title={title}
+        description={description}
         openGraph={{
-          title: `${designerName}さんの星座 | Designship 2023`,
-          description: `${constellationName}座を見つけました！`,
+          title: title,
+          description: description,
           images: [
             {
               url: ogpImage,
-              alt: `${constellationName}座`,
+              alt: description,
             },
           ],
         }}
         twitter={{
           card: "summary_large_image",
-          title: `${designerName}さんの星座 | Designship 2023`,
-          description: `${constellationName}座を見つけました！`,
+          title: title,
+          description: description,
           creator: "@Designship_jp",
           images: [ogpImage],
         }}
@@ -167,11 +169,36 @@ export default function Page({ id }) {
 export async function getServerSideProps(context) {
   // context.params.id を使用してクエリパラメータ id を取得
   const id = context.params.id;
+  var designerName = "";
+  var constellationName = "";
+
+  // const getData = async (id) => {
+  //   console.log(id);
+  try {
+    const { data: design_constellation, error } = await supabase
+      .from("design_constellation")
+      .select("*")
+      .eq("id", id)
+      .single();
+    if (error) {
+      throw error;
+    }
+    // setDesignerName(design_constellation.designer_name);
+    // setConstellationName(design_constellation.constellation_name);
+    // setPageTitle(`${designerName}さんの星座 | Designship 2023`);
+    designerName = design_constellation.designer_name;
+    constellationName = design_constellation.constellation_name;
+  } catch (error) {
+    console.error("データの取得に失敗しました", error);
+  }
+  // };
 
   // id をプロパティとしてページコンポーネントに渡す
   return {
     props: {
       id,
+      designerName,
+      constellationName,
     },
   };
 }
