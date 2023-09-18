@@ -67,9 +67,9 @@ const Result = () => {
         <title> {pageTitle}</title>
         <meta name="title" content={pageTitle} />
         <meta name="description" content="description" />
-        <meta property="og:image" content={`/api/og?t=${title}`} />
-        <meta property="og:site_name" content={siteConfig.title} />
-        <meta property="og:url" content={siteConfig.url} />
+        <meta property="og:image" content={`/api/og?t=${pageTitle}`} />
+        <meta property="og:site_name" content="Designship 2023" />
+        <meta property="og:url" content={`/result/${id}`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content="description" />
