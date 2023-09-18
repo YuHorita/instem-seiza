@@ -17,7 +17,7 @@ const Sketch = ({ onSave }) => {
   var constellationName = "";
 
   const getData = async (id) => {
-    console.log(id);
+    // console.log(id);
     try {
       const { data: design_constellation, error } = await supabase
         .from("design_constellation")
@@ -28,7 +28,7 @@ const Sketch = ({ onSave }) => {
       if (error) {
         throw error;
       }
-      console.log(design_constellation);
+      // console.log(design_constellation);
       designerName = design_constellation.designer_name;
       selectedDesigns = design_constellation.selected_designs;
       starLines = design_constellation.star_lines;
@@ -45,7 +45,7 @@ const Sketch = ({ onSave }) => {
 
         // これでうまくいった。消すな。
         Ts.loadFont();
-        console.log("sketch start");
+        // console.log("sketch start");
 
         const sketch = new p5((p) => {
           let bg, pg;
@@ -54,7 +54,7 @@ const Sketch = ({ onSave }) => {
             selectedDesigns.includes(design.index)
           );
 
-          console.log(filteredDesigns);
+          // console.log(filteredDesigns);
 
           const r = 40,
             canvasWidth = 1200,
@@ -169,15 +169,6 @@ const Sketch = ({ onSave }) => {
                   console.log(error);
                 }
               }, "image/png");
-              // const imageDataURL = canvas.canvas.toDataURL("image/png");
-              // fetch("/api/saveCanvas", {
-              //   method: "POST",
-              //   body: imageDataURL,
-              // })
-              //   .then((response) => response.json())
-              //   .then((data) => {
-              //     console.log(data);
-              //   });
             }
           };
 

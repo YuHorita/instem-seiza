@@ -20,14 +20,12 @@ export default function Page({ id, designerName, constellationName }) {
   const title = `${designerName}さんの星座 | Designship 2023`;
   const description = `${constellationName}座を見つけました！`;
   const ogpImage = `${baseUrl}/api/og?id=${id}`;
-  console.log(ogpImage);
 
   const handleCanvasSave = async (imageData) => {
     setCanvasImage(imageData);
   };
 
   const copyToClipboard = () => {
-    console.log(pathname);
     const url = baseUrl + pathname;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(url).then(function () {
