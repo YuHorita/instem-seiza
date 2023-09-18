@@ -6,6 +6,7 @@ import Script from "next/script";
 import supabase from "../api/supabase";
 import { usePathname } from "next/navigation";
 import Head from "next/head";
+import Meta from "../../components/Meta";
 
 const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
@@ -53,7 +54,7 @@ const Result = () => {
 
   const copyToClipboard = () => {
     console.log(pathname);
-    const url = `https://visual-thinking.design-ship.jp${pathname}`;
+    const url = baseUrl + pathname;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(url).then(function () {
         setIsCopied(true);
@@ -64,21 +65,11 @@ const Result = () => {
   return (
     <main className="bg-body text-body">
       <Head>
-        <title>"デザイナーの星座を描こう | Designship 2023"</title>
-        <meta
-          name="title"
-          content="デザイナーの星座を描こう | Designship 2023"
-        />
-        <meta name="description" content="description" />
-        <meta property="og:image" content={`/api/og?t=${pageTitle}`} />
-        <meta property="og:site_name" content="Designship 2023" />
-        <meta property="og:url" content={`/result/${id}`} />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="デザイナーの星座を描こう | Designship 2023"
-        />
-        <meta property="og:description" content="description" />
+        <Meta
+          title={`${designerName}さんの星座 | Designship 2023`}
+          description={"あなたのデザインの星座を描こう！ | Designship 2023"}
+          url={baseUrl + pathname}
+        ></Meta>
       </Head>
       <section className="container-sm p-4">
         <p style={{ fontSize: "0.8rem" }}>ID:{id}</p>
