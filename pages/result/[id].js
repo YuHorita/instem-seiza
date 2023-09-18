@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-// import "bootstrap/dist/css/bootstrap.css";
 import { designs } from "../../components/library";
 import Script from "next/script";
 import supabase from "../api/supabase";
@@ -41,8 +40,10 @@ const Result = () => {
     } catch (error) {
       console.error("データの取得に失敗しました", error);
     }
-    Ts.loadFont();
-    console.log("loadFont called from getData");
+
+    // 関係ない可能性が高いのでコメントアウトしてみます。
+    // Ts.loadFont();
+    // console.log("loadFont called from getData");
   };
 
   useEffect(() => {
@@ -50,18 +51,6 @@ const Result = () => {
       getData(id);
     }
   }, [id]);
-
-  // function copyToClipboard(tagValue) {
-  //   if (navigator.clipboard) {
-  //     return navigator.clipboard.writeText(tagValue).then(function () {
-  //       messageActive();
-  //     });
-  //   } else {
-  //     tagText.select();
-  //     document.execCommand("copy");
-  //     messageActive();
-  //   }
-  // }
 
   const copyToClipboard = () => {
     console.log(pathname);
@@ -74,10 +63,7 @@ const Result = () => {
   };
 
   return (
-    <main
-      // data-bs-theme="designship"
-      className="bg-body text-body"
-    >
+    <main className="bg-body text-body">
       <section className="container-sm p-4">
         <p style={{ fontSize: "0.8rem" }}>ID:{id}</p>
         <div className="text-center mb-4">

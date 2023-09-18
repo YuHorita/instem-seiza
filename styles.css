@@ -1,59 +1,9 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
-
-/* @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@700&display=swap'); */
-
-
 * {
     margin: 0;
     padding: 0;
     font-family: "ゴシックMB101 B", "Gothic MB101 Bold", "Noto Sans JP", sans-serif;
     letter-spacing: 1.4px;
 }
-
-/* 
-[data-bs-theme="designship"] {
-    --bs-body-color: white;
-    --bs-body-color-rgb: 255, 255, 255;
-    --bs-body-bg: #{1B1D28};
-    --bs-body-bg-rgb: 27, 29, 40;
-    --bs-tertiary-bg: #{$blue-600};
-    --bs-primary: #{DA297B};
-    --bs-primary-rgb: 218, 41, 123;
-    --bs-secondary-bg: #252732;
-    --bs-secondary-bg-rgb: 37, 39, 50;
-
-    .btn-primary {
-        --bs-btn-bg: #DA297B;
-        --bs-btn-border-color: none;
-        --bs-btn-hover-bg: #DA297B;
-        --bs-btn-hover-border-color: none;
-        --bs-btn-active-bg: #DA297B;
-        --bs-btn-active-border-color: none;
-    }
-
-    .btn-secondary{
-        --bs-btn-bg: #ffffff;
-        --bs-btn-border-color: none;
-        --bs-btn-hover-bg: #ffffff;
-        --bs-btn-hover-border-color: none;
-        --bs-btn-active-bg: #ffffff;
-        --bs-btn-active-border-color: none;
-        --bs-btn-color: #DA297B;
-        --bs-btn-hover-color: #DA297B;
-        --bs-btn-active-color: #DA297B;
-    }
-
-}
-
-.btn-primary {
-    --bs-btn-bg: #DA297B !important;
-    --bs-btn-border-color: none !important;
-    --bs-btn-hover-bg: #DA297B !important;
-    --bs-btn-hover-border-color: none !important;
-    --bs-btn-active-bg: #DA297B !important;
-    --bs-btn-active-border-color: none !important;
-}
- */
 
 
 .form-check {
