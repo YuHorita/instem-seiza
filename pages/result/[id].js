@@ -77,8 +77,8 @@ export default function Page({ id, designerName, constellationName }) {
             {
               url: ogpImage,
               alt: description,
-              width: 800,
-              height: 600,
+              width: 1200,
+              height: 630,
               type: "image/png",
             },
           ],
