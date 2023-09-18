@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
+import "../scss/custom.scss";
 import { designs } from "../components/library";
 import Script from "next/script";
 
@@ -34,7 +35,7 @@ const Home = () => {
   };
 
   return (
-    <main data-bs-theme="designship" className="bg-body text-body ">
+    <main className="bg-body text-body ">
       <img src="/top_thumbnail.png" style={{ width: "100%" }} />
       <section className="container-sm p-4">
         <div className="mb-5">

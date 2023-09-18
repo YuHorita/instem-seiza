@@ -1,9 +1,7 @@
-@import "../node_modules/bootstrap/scss/bootstrap";
+$body-bg: #1b1d28;
+$body-color: #fff;
+$primary: #da297b;
+$body-secondary-bg: #252732;
+$body-tertiary-bg: #1b1d28;
 
-[data-bs-theme=designship] {
-    --bs-body-color: var(--bs-white);
-    --bs-body-color-rgb: #{to-rgb($white)};
-    --bs-body-bg: var(--bs-blue);
-    --bs-body-bg-rgb: #{to-rgb($blue)};
-    --bs-tertiary-bg: #{$blue-600};
-  }
+@import "../node_modules/bootstrap/scss/bootstrap";

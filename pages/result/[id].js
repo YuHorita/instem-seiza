@@ -1,13 +1,12 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
+import "../../scss/custom.scss";
 import { designs } from "../../components/library";
 import Script from "next/script";
 import supabase from "../api/supabase";
-
-// var designerName = "";
-// var constellationName = "";
+import { usePathname } from "next/navigation";
 
 const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
@@ -17,10 +16,12 @@ const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
 const Result = () => {
   const router = useRouter();
   const { id } = router.query;
-
+  const pathname = usePathname();
   const [canvasImage, setCanvasImage] = useState(null);
   const [designerName, setDesignerName] = useState("");
   const [constellationName, setConstellationName] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
+
   const handleCanvasSave = (imageData) => {
     setCanvasImage(imageData);
   };
@@ -36,38 +37,51 @@ const Result = () => {
       if (error) {
         throw error;
       }
-      //   const designerNameHolder = document.getElementById("designerNameHolder");
-      //   if (designerNameHolder) {
-      //     designerNameHolder.innerText =
-      //       design_constellation.designer_name + "さんの星座";
-      //   }
-      //   designerName = design_constellation.designer_name;
       setDesignerName(design_constellation.designer_name);
-      //   const hiddenConstellationNameHolder = document.getElementById(
-      //     "hiddenConstellationNameHolder"
-      //   );
-      //   if (hiddenConstellationNameHolder) {
-      //     hiddenConstellationNameHolder.innerText =
-      //       design_constellation.constellation_name;
-      //   }
-      //   constellationName = design_constellation.constellation_name;
       setConstellationName(design_constellation.constellation_name);
     } catch (error) {
       console.error("データの取得に失敗しました", error);
     }
+    Ts.loadFont();
+    console.log("loadFont called from getData");
   };
 
   useEffect(() => {
     if (id) {
-      getData(id); // idが変更されたらgetDataを呼び出す
+      getData(id);
     }
   }, [id]);
 
+  // function copyToClipboard(tagValue) {
+  //   if (navigator.clipboard) {
+  //     return navigator.clipboard.writeText(tagValue).then(function () {
+  //       messageActive();
+  //     });
+  //   } else {
+  //     tagText.select();
+  //     document.execCommand("copy");
+  //     messageActive();
+  //   }
+  // }
+
+  const copyToClipboard = () => {
+    console.log(pathname);
+    const url = `https://visual-thinking.design-ship.jp${pathname}`;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(function () {
+        setIsCopied(true);
+      });
+    }
+  };
+
   return (
-    <main data-bs-theme="designship" className="bg-body text-body">
+    <main
+      // data-bs-theme="designship"
+      className="bg-body text-body"
+    >
       <section className="container-sm p-4">
-        <p>ID: {id}</p>
-        <div className="text-center mt-3 mb-4">
+        <p style={{ fontSize: "0.8rem" }}>ID:{id}</p>
+        <div className="text-center mb-4">
           <h2 suppressHydrationWarning={true} id="designerNameHolder">
             {`${designerName}さんの星座`}
           </h2>
@@ -91,15 +105,32 @@ const Result = () => {
           完成した星座をSNSで共有してみませんか？自分と星座の形が似ている参加者を探してつながってみましょう。
         </p>
 
-        <div className="d-flex justify-content-center mt-4">
+        <div className="mt-4 d-flex flex-column align-items-center justify-content-center ">
           <a
-            className="btn btn-primary rounded-5 px-5 py-3 fs-5 text-center d-flex align-items-center gap-2"
+            className="btn btn-primary rounded-5 w-75 py-3 fs-5 mb-4 text-center d-flex align-items-center justify-content-center gap-2"
             href="https://twitter.com/share?ref_src=twsrc%5Etfw"
             data-show-count="false"
           >
             <img src="/x-logo-white.png" height={24} />
             シェアする
           </a>
+
+          <btn
+            className="btn btn-secondary rounded-5 w-75 py-3 fs-5 mb-2 text-center"
+            onClick={copyToClipboard}
+          >
+            リンクをコピーする
+          </btn>
+          <p id="copy-message" style={{ fontSize: "0.8rem" }}>
+            {isCopied && "クリップボードにコピーしました！"}
+          </p>
+        </div>
+
+        <div className="balloon2 d-flex flex-column align-items-center gap-2">
+          <h6 className="text-center">こんなことも考えてみませんか？</h6>
+          <p>
+            あなたとデザインの出会いはどのようでしたか？デザインをしていてどんな喜びを感じますか？星座と一緒にデザイナーとしてのあなたの物語も共有してみましょう。
+          </p>
         </div>
 
         <div

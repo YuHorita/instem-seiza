@@ -10,6 +10,7 @@
     letter-spacing: 1.4px;
 }
 
+/* 
 [data-bs-theme="designship"] {
     --bs-body-color: white;
     --bs-body-color-rgb: 255, 255, 255;
@@ -30,6 +31,17 @@
         --bs-btn-active-border-color: none;
     }
 
+    .btn-secondary{
+        --bs-btn-bg: #ffffff;
+        --bs-btn-border-color: none;
+        --bs-btn-hover-bg: #ffffff;
+        --bs-btn-hover-border-color: none;
+        --bs-btn-active-bg: #ffffff;
+        --bs-btn-active-border-color: none;
+        --bs-btn-color: #DA297B;
+        --bs-btn-hover-color: #DA297B;
+        --bs-btn-active-color: #DA297B;
+    }
 
 }
 
@@ -41,6 +53,7 @@
     --bs-btn-active-bg: #DA297B !important;
     --bs-btn-active-border-color: none !important;
 }
+ */
 
 
 .form-check {
@@ -75,12 +88,11 @@ canvas {
     font-size: 200px !important;
 }
 
-.balloon {
+.balloon1 {
     position: relative;
     display: inline-block;
     margin: 1.5em 0;
     padding: 12px 0;
-    color: #555;
     font-size: 16px;
     background: #DA297B;
     border-radius: 8px;
@@ -88,7 +100,7 @@ canvas {
     text-align: center;
 }
 
-.balloon:before {
+.balloon1:before {
     content: "";
     position: absolute;
     top: 100%;
@@ -98,8 +110,38 @@ canvas {
     border-top: 12px solid #DA297B;
 }
 
-.balloon p {
+.balloon1 p {
     color: white;
     margin-bottom: 2px;
+    padding: 0;
+}
+
+.balloon2 {
+    position: relative;
+    display: inline-block;
+    margin: 1.5em 0;
+    padding: 20px 12px;
+    font-size: 16px;
+    background: var(--bs-secondary-bg);
+}
+
+.balloon2:before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    margin-left: -20px;
+    border: 20px solid transparent;
+    border-bottom: 30px solid var(--bs-secondary-bg);
+}
+
+.balloon2 h6 {
+    background-color: #DA297B;
+    padding: 0.7rem;
+    display: inline-block;
+}
+
+.balloon2 p {
+    margin: 0;
     padding: 0;
 }

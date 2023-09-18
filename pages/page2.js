@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
+import "../scss/custom.scss";
 import supabase from "./api/supabase";
 import { designs } from "../components/library";
 import Script from "next/script";
@@ -77,7 +78,7 @@ const Page2 = () => {
   };
 
   return (
-    <main data-bs-theme="designship" className="bg-body text-body">
+    <main className="bg-body text-body">
       <section className="container-sm p-4">
         <div className="text-center mt-3 mb-4">
           <h3 className="text-primary fs-5 fw-bold">Step 2/3</h3>
@@ -87,7 +88,7 @@ const Page2 = () => {
           広大なデザインの星空から、あなたにとってのデザインの星を見つけ出しました。次は、星同士を繋いで星座を描いてみましょう。
         </p>
 
-        <div class="balloon">
+        <div class="balloon1">
           <p>星をタップして繋いでみましょう！</p>
         </div>
         <SketchComponent />
