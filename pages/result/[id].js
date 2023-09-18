@@ -13,14 +13,9 @@ const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
 });
 
 export default function Page({ id, designerName, constellationName }) {
-  // const router = useRouter();
-  // const { id } = router.query;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
   const pathname = usePathname();
   const [canvasImage, setCanvasImage] = useState(null);
-  // const [designerName, setDesignerName] = useState("");
-  // const [pageTitle, setPageTitle] = useState("");
-  // const [constellationName, setConstellationName] = useState("");
   const [isCopied, setIsCopied] = useState(false);
   const title = `${designerName}さんの星座 | Designship 2023`;
   const description = `${constellationName}座を見つけました！`;
@@ -30,30 +25,6 @@ export default function Page({ id, designerName, constellationName }) {
   const handleCanvasSave = async (imageData) => {
     setCanvasImage(imageData);
   };
-  // const getData = async (id) => {
-  //   console.log(id);
-  //   try {
-  //     const { data: design_constellation, error } = await supabase
-  //       .from("design_constellation")
-  //       .select("*")
-  //       .eq("id", id)
-  //       .single();
-  //     if (error) {
-  //       throw error;
-  //     }
-  //     setDesignerName(design_constellation.designer_name);
-  //     setConstellationName(design_constellation.constellation_name);
-  //     setPageTitle(`${designerName}さんの星座 | Designship 2023`);
-  //   } catch (error) {
-  //     console.error("データの取得に失敗しました", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (id) {
-  //     getData(id);
-  //   }
-  // }, [id]);
 
   const copyToClipboard = () => {
     console.log(pathname);
@@ -122,8 +93,7 @@ export default function Page({ id, designerName, constellationName }) {
         <div className="mt-4 d-flex flex-column align-items-center justify-content-center gap-3">
           <a
             className="btn btn-primary rounded-5 w-75 py-3 fs-5 text-center d-flex align-items-center justify-content-center gap-2"
-            href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-            data-show-count="false"
+            href={`https://twitter.com/intent/tweet?url=${baseUrl}${pathname}%0a&hashtags=Designship2023,デザイナーの星座を描こう`}
             target="_blank"
           >
             <img src="/x-logo-white.png" height={24} />
@@ -170,13 +140,10 @@ export default function Page({ id, designerName, constellationName }) {
 }
 
 export async function getServerSideProps(context) {
-  // context.params.id を使用してクエリパラメータ id を取得
   const id = context.params.id;
   var designerName = "";
   var constellationName = "";
 
-  // const getData = async (id) => {
-  //   console.log(id);
   try {
     const { data: design_constellation, error } = await supabase
       .from("design_constellation")
@@ -186,17 +153,11 @@ export async function getServerSideProps(context) {
     if (error) {
       throw error;
     }
-    // setDesignerName(design_constellation.designer_name);
-    // setConstellationName(design_constellation.constellation_name);
-    // setPageTitle(`${designerName}さんの星座 | Designship 2023`);
     designerName = design_constellation.designer_name;
     constellationName = design_constellation.constellation_name;
   } catch (error) {
     console.error("データの取得に失敗しました", error);
   }
-  // };
-
-  // id をプロパティとしてページコンポーネントに渡す
   return {
     props: {
       id,
