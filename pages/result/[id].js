@@ -64,14 +64,20 @@ const Result = () => {
   return (
     <main className="bg-body text-body">
       <Head>
-        <title> {pageTitle}</title>
-        <meta name="title" content={pageTitle} />
+        <title>"デザイナーの星座を描こう | Designship 2023"</title>
+        <meta
+          name="title"
+          content="デザイナーの星座を描こう | Designship 2023"
+        />
         <meta name="description" content="description" />
         <meta property="og:image" content={`/api/og?t=${pageTitle}`} />
         <meta property="og:site_name" content="Designship 2023" />
         <meta property="og:url" content={`/result/${id}`} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={pageTitle} />
+        <meta
+          property="og:title"
+          content="デザイナーの星座を描こう | Designship 2023"
+        />
         <meta property="og:description" content="description" />
       </Head>
       <section className="container-sm p-4">
