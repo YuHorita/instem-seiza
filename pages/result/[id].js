@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 // import "bootstrap/dist/css/bootstrap.css";
-import "../../scss/custom.scss";
 import { designs } from "../../components/library";
 import Script from "next/script";
 import supabase from "../api/supabase";
