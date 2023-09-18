@@ -91,6 +91,22 @@ const Sketch = ({ onSave }) => {
             }
           }
 
+          // オブジェクト内の循環参照を除外する
+          function removeCircularReferences(obj) {
+            const seen = new WeakSet();
+            return JSON.parse(
+              JSON.stringify(obj, (key, value) => {
+                if (typeof value === "object" && value !== null) {
+                  if (seen.has(value)) {
+                    return; // 循環参照を除外
+                  }
+                  seen.add(value);
+                }
+                return value;
+              })
+            );
+          }
+
           p.preload = () => {
             bg = p.loadImage("/bg_portrait.png");
           };
@@ -135,8 +151,19 @@ const Sketch = ({ onSave }) => {
             if (canvas && onSave) {
               canvas.canvas.toBlob((blob) => {
                 const url = URL.createObjectURL(blob);
+                console.log(url);
                 onSave(url);
               }, "image/png");
+
+              const imageDataURL = canvas.canvas.toDataURL("image/png");
+              fetch("/api/saveCanvas", {
+                method: "POST",
+                body: imageDataURL,
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  console.log(data);
+                });
             }
           };
 

@@ -5,6 +5,7 @@ import { designs } from "../../components/library";
 import Script from "next/script";
 import supabase from "../api/supabase";
 import { usePathname } from "next/navigation";
+import Head from "next/head";
 
 const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
@@ -14,9 +15,11 @@ const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
 const Result = () => {
   const router = useRouter();
   const { id } = router.query;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
   const pathname = usePathname();
   const [canvasImage, setCanvasImage] = useState(null);
   const [designerName, setDesignerName] = useState("");
+  const [pageTitle, setPageTitle] = useState("");
   const [constellationName, setConstellationName] = useState("");
   const [isCopied, setIsCopied] = useState(false);
 
@@ -36,6 +39,7 @@ const Result = () => {
       }
       setDesignerName(design_constellation.designer_name);
       setConstellationName(design_constellation.constellation_name);
+      setPageTitle(`${designerName}さんの星座 | Designship 2023`);
     } catch (error) {
       console.error("データの取得に失敗しました", error);
     }
@@ -59,6 +63,24 @@ const Result = () => {
 
   return (
     <main className="bg-body text-body">
+      <Head>
+        <title> {pageTitle}</title>
+        <meta
+          property="og:image"
+          key="ogImage"
+          content={`${baseUrl}/ogp/${id}.png`}
+        />
+        <meta
+          name="twitter:card"
+          key="twitterCard"
+          content="summary_large_image"
+        />
+        <meta
+          name="twitter:image"
+          key="twitterImage"
+          content={`${baseUrl}/ogp/${id}.png`}
+        />
+      </Head>
       <section className="container-sm p-4">
         <p style={{ fontSize: "0.8rem" }}>ID:{id}</p>
         <div className="text-center mb-4">
@@ -85,11 +107,12 @@ const Result = () => {
           完成した星座をSNSで共有してみませんか？自分と星座の形が似ている参加者を探してつながってみましょう。
         </p>
 
-        <div className="mt-4 d-flex flex-column align-items-center justify-content-center ">
+        <div className="mt-4 d-flex flex-column align-items-center justify-content-center gap-3">
           <a
-            className="btn btn-primary rounded-5 w-75 py-3 fs-5 mb-4 text-center d-flex align-items-center justify-content-center gap-2"
+            className="btn btn-primary rounded-5 w-75 py-3 fs-5 text-center d-flex align-items-center justify-content-center gap-2"
             href="https://twitter.com/share?ref_src=twsrc%5Etfw"
             data-show-count="false"
+            target="_blank"
           >
             <img src="/x-logo-white.png" height={24} />
             シェアする
@@ -97,14 +120,11 @@ const Result = () => {
 
           <btn
             type="button"
-            className="btn btn-light rounded-5 w-75 py-3 fs-5 mb-2 text-center text-primary"
+            className="btn btn-light rounded-5 w-75 py-3 fs-5 text-center text-primary"
             onClick={copyToClipboard}
           >
             リンクをコピーする
           </btn>
-          <p id="copy-message" style={{ fontSize: "0.8rem" }}>
-            {isCopied && "クリップボードにコピーしました！"}
-          </p>
         </div>
 
         <div className="balloon2 d-flex flex-column align-items-center gap-2 bg-body-secondary">

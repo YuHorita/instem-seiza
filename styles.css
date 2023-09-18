@@ -51,11 +51,11 @@ canvas {
 .balloon1:before {
     content: "";
     position: absolute;
-    top: 100%;
+    top: 99%;
     left: 50%;
     margin-left: -12px;
     border: 12px solid transparent;
-    border-top: 12px solid #DA297B;
+    border-top: 14px solid #DA297B;
 }
 
 .balloon1 p {
@@ -67,7 +67,7 @@ canvas {
 .balloon2 {
     position: relative;
     display: inline-block;
-    margin: 1.5em 0;
+    margin-top: 3rem;
     padding: 20px 12px;
     font-size: 16px;
 }
