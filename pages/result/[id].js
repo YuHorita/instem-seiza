@@ -5,15 +5,14 @@ import { designs } from "../../components/library";
 import Script from "next/script";
 import supabase from "../api/supabase";
 import { usePathname } from "next/navigation";
-import Head from "next/head";
-import Meta from "../../components/Meta";
+import { NextSeo } from "next-seo";
 
 const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
   ssr: false,
 });
 
-const Result = () => {
+export default function Page({ params }) {
   const router = useRouter();
   const { id } = router.query;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
@@ -64,12 +63,27 @@ const Result = () => {
 
   return (
     <main className="bg-body text-body">
-      <Meta
+      <NextSeo
         title={`${designerName}さんの星座 | Designship 2023`}
-        description={"あなたのデザインの星座を描こう！ | Designship 2023"}
-        url={baseUrl + pathname}
-        id={id}
-      ></Meta>
+        description={`${constellationName}座を見つけました！`}
+        openGraph={{
+          title: `${designerName}さんの星座 | Designship 2023`,
+          description: `${constellationName}座を見つけました！`,
+          images: [
+            {
+              url: `/api/og?t=${id}`,
+              alt: `${constellationName}座`,
+            },
+          ],
+        }}
+        twitter={{
+          card: "summary_large_image",
+          title: `${designerName}さんの星座 | Designship 2023`,
+          description: `${constellationName}座を見つけました！`,
+          creator: "@Designship_jp",
+          images: [`/api/og?t=${id}`],
+        }}
+      />
 
       <section className="container-sm p-4">
         <p style={{ fontSize: "0.8rem" }}>ID:{id}</p>
@@ -146,6 +160,4 @@ const Result = () => {
       ></Script>
     </main>
   );
-};
-
-export default Result;
+}
