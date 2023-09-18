@@ -12,9 +12,21 @@ const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
   ssr: false,
 });
 
-export default function Page({ params }) {
-  const router = useRouter();
-  const { id } = router.query;
+export async function getServerSideProps(context) {
+  // context.params.id を使用してクエリパラメータ id を取得
+  const id = context.params.id;
+
+  // id をプロパティとしてページコンポーネントに渡す
+  return {
+    props: {
+      id,
+    },
+  };
+}
+
+export default function Page({ id }) {
+  // const router = useRouter();
+  // const { id } = router.query;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
   const pathname = usePathname();
   const [canvasImage, setCanvasImage] = useState(null);
