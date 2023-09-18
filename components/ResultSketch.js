@@ -151,7 +151,6 @@ const Sketch = ({ onSave }) => {
             if (canvas && onSave) {
               canvas.canvas.toBlob((blob) => {
                 const url = URL.createObjectURL(blob);
-                console.log(url);
                 onSave(url);
               }, "image/png");
 
