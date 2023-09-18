@@ -21,15 +21,15 @@ export default function MyApp({ Component, pageProps }) {
           description: "あなたの星座を描いてみませんか？",
           site_name: "デザイナーの星座を描こう | Designship 2023",
           url: "サイトのURL",
-          images: [
-            {
-              url: "https://www.example.ie/og-image-01.jpg",
-              width: 800,
-              height: 600,
-              alt: "Og Image Alt",
-              type: "image/jpeg",
-            },
-          ],
+          // images: [
+          //   {
+          //     url: "https://www.example.ie/og-image-01.jpg",
+          //     width: 800,
+          //     height: 600,
+          //     alt: "Og Image Alt",
+          //     type: "image/jpeg",
+          //   },
+          // ],
         }}
         twitter={{
           handle: "@handle",
