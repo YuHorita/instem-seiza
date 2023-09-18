@@ -31,9 +31,16 @@ export const designs = [
   { name: "サービスデザイン", index: 29, x: 51, y: 82, caption: 2 },
   { name: "デザインエンジニアリング", index: 30, x: 60, y: 86, caption: 2 },
   { name: "ビジネスデザイン", index: 31, x: 10, y: 93, caption: 2 },
-  { name: "行政デザイン", index: 32, x: 75, y: 90, caption: 2 },
+  { name: "行政デザイン", index: 32, x: 75, y: 97, caption: 2 },
   { name: "モーションデザイン", index: 33, x: 86, y: 91, caption: 1 },
   { name: "パッケージデザイン", index: 34, x: 95, y: 93, caption: 2 },
+  { name: "建築", index: 35, x: 20, y: 30, caption: 0 },
+  { name: "XR", index: 36, x: 93, y: 28, caption: 3 },
+  { name: "ファシリテーション", index: 37, x: 11, y: 34, caption: 1 },
+  { name: "コミュニティデザイン", index: 38, x: 15, y: 40, caption: 1 },
+  { name: "空間デザイン", index: 39, x: 60, y: 45, caption: 2 },
+  { name: "ブックデザイン", index: 40, x: 71, y: 50, caption: 0 },
+  { name: "ランドスケープデザイン", index: 41, x: 46, y: 98, caption: 0 },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export class DesignStar {

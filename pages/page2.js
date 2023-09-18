@@ -20,6 +20,10 @@ const Page2 = () => {
     try {
       designerName = JSON.parse(localStorage.getItem("designerName"));
       selectedDesigns = JSON.parse(localStorage.getItem("selectedDesigns"));
+      if (designerName == "" || selectedDesigns == null) {
+        // selectedDesignsなどが空だった場合は、トップページに戻す
+        window.location.href = "/";
+      }
     } catch (e) {
       console.log(e);
     }
@@ -86,7 +90,7 @@ const Page2 = () => {
           広大なデザインの星空から、あなたにとってのデザインの星を見つけ出しました。次は、星同士を繋いで星座を描いてみましょう。
         </p>
 
-        <div class="balloon1">
+        <div className="balloon1">
           <p>星をタップして繋いでみましょう！</p>
         </div>
         <SketchComponent />
@@ -118,7 +122,10 @@ const Page2 = () => {
             <div className="invalid-feedback">星座名を入力してください。</div>
           </div>
           <p>
-            回答を送信することで<a className="text-primary">利用規約</a>
+            回答を送信することで
+            <a className="text-primary" href="/terms" target="_blank">
+              利用規約
+            </a>
             に同意したものとみなします。
           </p>
           <div className="d-flex justify-content-center">
@@ -140,11 +147,6 @@ const Page2 = () => {
           ))}
         </div>
       </section>
-      <Script
-        type="text/javascript"
-        src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
-        charset="utf-8"
-      ></Script>
     </main>
   );
 };
