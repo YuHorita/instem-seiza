@@ -64,13 +64,13 @@ const Result = () => {
 
   return (
     <main className="bg-body text-body">
-      <Head>
-        <Meta
-          title={`${designerName}さんの星座 | Designship 2023`}
-          description={"あなたのデザインの星座を描こう！ | Designship 2023"}
-          url={baseUrl + pathname}
-        ></Meta>
-      </Head>
+      <Meta
+        title={`${designerName}さんの星座 | Designship 2023`}
+        description={"あなたのデザインの星座を描こう！ | Designship 2023"}
+        url={baseUrl + pathname}
+        id={id}
+      ></Meta>
+
       <section className="container-sm p-4">
         <p style={{ fontSize: "0.8rem" }}>ID:{id}</p>
         <div className="text-center mb-4">
