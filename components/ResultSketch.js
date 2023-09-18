@@ -43,17 +43,10 @@ const Sketch = ({ onSave }) => {
       (async () => {
         await getData(id);
 
-        // たぶんこれでうまくいった。消すな。
+        // これでうまくいった。消すな。
         Ts.loadFont();
-      
-        console.log("loadFont called from useEffect");
-
-        // コメントアウトしてみます。
-        // await new Promise((resolve) => setTimeout(resolve, 1000));
-
-
         console.log("sketch start");
-  
+
         const sketch = new p5((p) => {
           let bg, pg;
 
@@ -145,15 +138,6 @@ const Sketch = ({ onSave }) => {
                 onSave(url);
               }, "image/png");
             }
-          };
-
-          p.draw = () => {
-            // if (canvas && onSave) {
-            //   canvas.canvas.toBlob((blob) => {
-            //     const url = URL.createObjectURL(blob);
-            //     onSave(url);
-            //   }, "image/png");
-            // }
           };
 
           function drawDesignStar(elm) {

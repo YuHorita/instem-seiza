@@ -31,7 +31,6 @@ const Result = () => {
         .select("*")
         .eq("id", id)
         .single();
-
       if (error) {
         throw error;
       }
@@ -40,10 +39,6 @@ const Result = () => {
     } catch (error) {
       console.error("データの取得に失敗しました", error);
     }
-
-    // 関係ない可能性が高いのでコメントアウトしてみます。
-    // Ts.loadFont();
-    // console.log("loadFont called from getData");
   };
 
   useEffect(() => {
@@ -101,7 +96,8 @@ const Result = () => {
           </a>
 
           <btn
-            className="btn btn-secondary rounded-5 w-75 py-3 fs-5 mb-2 text-center"
+            type="button"
+            className="btn btn-light rounded-5 w-75 py-3 fs-5 mb-2 text-center text-primary"
             onClick={copyToClipboard}
           >
             リンクをコピーする
@@ -111,9 +107,11 @@ const Result = () => {
           </p>
         </div>
 
-        <div className="balloon2 d-flex flex-column align-items-center gap-2">
-          <h6 className="text-center">こんなことも考えてみませんか？</h6>
-          <p>
+        <div className="balloon2 d-flex flex-column align-items-center gap-2 bg-body-secondary">
+          <h6 className="text-center bg-primary px-3 py-2 d-inline-block">
+            こんなことも考えてみませんか？
+          </h6>
+          <p className="m-0">
             あなたとデザインの出会いはどのようでしたか？デザインをしていてどんな喜びを感じますか？星座と一緒にデザイナーとしてのあなたの物語も共有してみましょう。
           </p>
         </div>

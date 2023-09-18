@@ -6,7 +6,7 @@
 }
 
 
-.form-check {
+/* .form-check {
     padding: 0.7rem 0;
     margin-left: 0.7rem;
 }
@@ -18,7 +18,7 @@
 .form-check-input:checked {
     background-color: #DA297B !important;
     border-color: #DA297B !important;
-}
+} */
 
 main {
     min-height: 100vh;
@@ -34,8 +34,6 @@ section {
 
 canvas {
     letter-spacing: 0 !important;
-    font-weight: bold !important;
-    font-size: 200px !important;
 }
 
 .balloon1 {
@@ -72,7 +70,6 @@ canvas {
     margin: 1.5em 0;
     padding: 20px 12px;
     font-size: 16px;
-    background: var(--bs-secondary-bg);
 }
 
 .balloon2:before {
@@ -83,15 +80,4 @@ canvas {
     margin-left: -20px;
     border: 20px solid transparent;
     border-bottom: 30px solid var(--bs-secondary-bg);
-}
-
-.balloon2 h6 {
-    background-color: #DA297B;
-    padding: 0.7rem;
-    display: inline-block;
-}
-
-.balloon2 p {
-    margin: 0;
-    padding: 0;
 }
