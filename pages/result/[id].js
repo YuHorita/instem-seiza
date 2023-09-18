@@ -12,18 +12,6 @@ const SketchComponent = dynamic(() => import("../../components/ResultSketch"), {
   ssr: false,
 });
 
-export async function getServerSideProps(context) {
-  // context.params.id を使用してクエリパラメータ id を取得
-  const id = context.params.id;
-
-  // id をプロパティとしてページコンポーネントに渡す
-  return {
-    props: {
-      id,
-    },
-  };
-}
-
 export default function Page({ id }) {
   // const router = useRouter();
   // const { id } = router.query;
@@ -34,6 +22,8 @@ export default function Page({ id }) {
   const [pageTitle, setPageTitle] = useState("");
   const [constellationName, setConstellationName] = useState("");
   const [isCopied, setIsCopied] = useState(false);
+  const ogpImage = `${baseUrl}/api/og?id=${id}`;
+  console.log(ogpImage);
 
   const handleCanvasSave = async (imageData) => {
     setCanvasImage(imageData);
@@ -83,7 +73,7 @@ export default function Page({ id }) {
           description: `${constellationName}座を見つけました！`,
           images: [
             {
-              url: `/api/og?t=${id}`,
+              url: ogpImage,
               alt: `${constellationName}座`,
             },
           ],
@@ -93,7 +83,7 @@ export default function Page({ id }) {
           title: `${designerName}さんの星座 | Designship 2023`,
           description: `${constellationName}座を見つけました！`,
           creator: "@Designship_jp",
-          images: [`/api/og?t=${id}`],
+          images: [ogpImage],
         }}
       />
 
@@ -172,4 +162,16 @@ export default function Page({ id }) {
       ></Script>
     </main>
   );
+}
+
+export async function getServerSideProps(context) {
+  // context.params.id を使用してクエリパラメータ id を取得
+  const id = context.params.id;
+
+  // id をプロパティとしてページコンポーネントに渡す
+  return {
+    props: {
+      id,
+    },
+  };
 }
