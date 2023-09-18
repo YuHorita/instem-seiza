@@ -43,8 +43,10 @@ const Sketch = ({ onSave }) => {
       (async () => {
         await getData(id);
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        Ts.loadFont();
+        console.log("loadFont called from useEffect");
 
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         console.log("sketch start");
         // console.log(data);
         const sketch = new p5((p) => {
