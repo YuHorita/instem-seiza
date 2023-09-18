@@ -1,0 +1,2 @@
+User-agent: Twitterbot  # Twitterは許可する
+Allow: /allow           # /allow パスはクロールを許可する
