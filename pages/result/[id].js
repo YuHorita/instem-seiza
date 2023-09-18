@@ -25,17 +25,6 @@ const Result = () => {
 
   const handleCanvasSave = async (imageData) => {
     setCanvasImage(imageData);
-
-    // 受け取ったimageDataをsupabaseのstorageに保存する
-    // const filePath = `${id}.png`;
-    // console.log(imageData);
-    // const arrayBuffer = await imageData.arrayBuffer();
-    // const uint8Array = new Uint8Array(arrayBuffer);
-    // const file = new File([uint8Array], "image.png", { type: "image/png" });
-    // const { error } = await supabase.storage.from("ogp").upload(filePath, file);
-    // if (error) {
-    //   console.log(error);
-    // }
   };
   const getData = async (id) => {
     console.log(id);
