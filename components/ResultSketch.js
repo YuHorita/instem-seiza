@@ -149,20 +149,35 @@ const Sketch = ({ onSave }) => {
             p.pop();
 
             if (canvas && onSave) {
-              canvas.canvas.toBlob((blob) => {
+              canvas.canvas.toBlob(async (blob) => {
                 const url = URL.createObjectURL(blob);
                 onSave(url);
-              }, "image/png");
 
-              const imageDataURL = canvas.canvas.toDataURL("image/png");
-              fetch("/api/saveCanvas", {
-                method: "POST",
-                body: imageDataURL,
-              })
-                .then((response) => response.json())
-                .then((data) => {
-                  console.log(data);
+                const filePath = `${id}.png`;
+                const arrayBuffer = await blob.arrayBuffer();
+                const uint8Array = new Uint8Array(arrayBuffer);
+                const file = new File([uint8Array], `${id}.png`, {
+                  type: "image/png",
                 });
+                const { error } = await supabase.storage
+                  .from("ogp")
+                  .upload(filePath, file, {
+                    cacheControl: "3600",
+                    upsert: true,
+                  });
+                if (error) {
+                  console.log(error);
+                }
+              }, "image/png");
+              // const imageDataURL = canvas.canvas.toDataURL("image/png");
+              // fetch("/api/saveCanvas", {
+              //   method: "POST",
+              //   body: imageDataURL,
+              // })
+              //   .then((response) => response.json())
+              //   .then((data) => {
+              //     console.log(data);
+              //   });
             }
           };
 

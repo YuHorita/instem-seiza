@@ -23,8 +23,19 @@ const Result = () => {
   const [constellationName, setConstellationName] = useState("");
   const [isCopied, setIsCopied] = useState(false);
 
-  const handleCanvasSave = (imageData) => {
+  const handleCanvasSave = async (imageData) => {
     setCanvasImage(imageData);
+
+    // 受け取ったimageDataをsupabaseのstorageに保存する
+    // const filePath = `${id}.png`;
+    // console.log(imageData);
+    // const arrayBuffer = await imageData.arrayBuffer();
+    // const uint8Array = new Uint8Array(arrayBuffer);
+    // const file = new File([uint8Array], "image.png", { type: "image/png" });
+    // const { error } = await supabase.storage.from("ogp").upload(filePath, file);
+    // if (error) {
+    //   console.log(error);
+    // }
   };
   const getData = async (id) => {
     console.log(id);
@@ -88,6 +99,7 @@ const Result = () => {
             {`${designerName}さんの星座`}
           </h2>
         </div>
+
         <SketchComponent onSave={handleCanvasSave} />
         {canvasImage && (
           <img src={canvasImage} alt="完成した星座" style={{ width: "100%" }} />
