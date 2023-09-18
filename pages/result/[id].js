@@ -65,21 +65,14 @@ const Result = () => {
     <main className="bg-body text-body">
       <Head>
         <title> {pageTitle}</title>
-        <meta
-          property="og:image"
-          key="ogImage"
-          content={`${baseUrl}/ogp/${id}.png`}
-        />
-        <meta
-          name="twitter:card"
-          key="twitterCard"
-          content="summary_large_image"
-        />
-        <meta
-          name="twitter:image"
-          key="twitterImage"
-          content={`${baseUrl}/ogp/${id}.png`}
-        />
+        <meta name="title" content={pageTitle} />
+        <meta name="description" content="description" />
+        <meta property="og:image" content={`/api/og?t=${title}`} />
+        <meta property="og:site_name" content={siteConfig.title} />
+        <meta property="og:url" content={siteConfig.url} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content="description" />
       </Head>
       <section className="container-sm p-4">
         <p style={{ fontSize: "0.8rem" }}>ID:{id}</p>
