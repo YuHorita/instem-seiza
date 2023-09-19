@@ -152,11 +152,11 @@ export default function Page({ id, designerName, constellationName }) {
           ))}
         </div>
       </section>
-      <Script
+      {/* <Script
         type="text/javascript"
         src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
         charset="utf-8"
-      />
+      /> */}
     </main>
   );
 }
