@@ -161,6 +161,10 @@ export async function getServerSideProps(context) {
   var designerName = "";
   var constellationName = "";
 
+  const callbackJson = function (params) {
+    console.log(params);
+  };
+
   try {
     const { data: design_constellation, error } = await supabase
       .from("design_constellation")
@@ -172,6 +176,13 @@ export async function getServerSideProps(context) {
     }
     designerName = design_constellation.designer_name;
     constellationName = design_constellation.constellation_name;
+
+    Ts.loadFontAsync({
+      cssName: "Gothic MB101 Bold",
+      text: designerName + "さんの星座" + constellationName + "座",
+      outputType: "json",
+      callback: callbackJson,
+    });
   } catch (error) {
     console.error("データの取得に失敗しました", error);
     // トップページにリダイレクト
@@ -182,8 +193,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
-  // Ts.loadFont();
 
   return {
     props: {
