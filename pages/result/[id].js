@@ -140,10 +140,15 @@ export default function Page({ id, designerName, constellationName }) {
           className="hiddenContent"
           style={{ visibility: "hidden", position: "fixed" }}
         >
-          <p suppressHydrationWarning={true}>{`${constellationName}座`}</p>
+          <p
+            suppressHydrationWarning={true}
+            className="fw-bold"
+          >{`${constellationName}座`}</p>
 
           {designs.map((design) => (
-            <p key={design.name}>{design.name}</p>
+            <p key={design.name} className="fw-bold">
+              {design.name}
+            </p>
           ))}
         </div>
       </section>
