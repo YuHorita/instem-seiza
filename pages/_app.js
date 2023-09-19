@@ -13,11 +13,11 @@ export default function MyApp({ Component, pageProps }) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <Script
+      {/* <Script
         type="text/javascript"
         src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
         charset="utf-8"
-      />
+      /> */}
       <DefaultSeo
         defaultTitle="デザイナーの星座を描こう | Designship 2023"
         description="あなたの星座を描いてみませんか？"
