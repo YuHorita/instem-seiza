@@ -52,18 +52,22 @@ const Home = () => {
           <h2 className="fw-bold">デザインの星を探そう</h2>
         </div>
 
-        <p className="mt-3">
+        <p className="mt-3 mb-5">
           まずは以下の質問に答えて、あなたにとってのデザインの星を夜空の中から見つけてみましょう。
         </p>
 
+        <p className="fw-normal">
+          <span className="text-danger">*</span>必須の項目です
+        </p>
         <form
           onSubmit={handleSubmit}
-          className="bg-body-secondary px-4 py-5 my-5 rounded needs-validation"
+          className="bg-body-secondary px-4 py-4 mb-5 rounded needs-validation"
           noValidate
         >
           <div>
             <label htmlFor="nameInput" className="form-label">
               表示名
+              <span className="text-danger">*</span>
             </label>
             <input
               type="text"
@@ -78,6 +82,7 @@ const Home = () => {
           <div className="mt-4">
             <label className="form-label" htmlFor="designSelect">
               あなたにとっての「デザイン」
+              <span className="text-danger">*</span>
             </label>
             <select
               className="form-select p-3"
@@ -85,7 +90,6 @@ const Home = () => {
               required
               multiple
               aria-label="design select"
-              // selectedOptionsの値はobject型になっているので、valueを取り出した配列に変換し、selectedDesignsに格納する
               onChange={(e) =>
                 setSelectedDesigns(
                   Array.from(e.target.selectedOptions, (elm) =>

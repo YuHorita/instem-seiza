@@ -5,20 +5,9 @@
     letter-spacing: 1.4px;
 }
 
-
-/* .form-check {
-    padding: 0.7rem 0;
-    margin-left: 0.7rem;
+.fw-normal, .fw-normal * {
+    font-family: "Gothic MB101 Medium", "Noto Sans JP", sans-serif;
 }
-
-.form-check-label {
-    margin-left: 0.5rem;
-}
-
-.form-check-input:checked {
-    background-color: #DA297B !important;
-    border-color: #DA297B !important;
-} */
 
 main {
     min-height: 100vh;

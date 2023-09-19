@@ -107,6 +107,7 @@ const Page2 = () => {
         >
           <label htmlFor="constellationName" className="form-label">
             星座名
+            <span className="text-danger">*</span>
           </label>
           <div className="input-group has-validation mb-5">
             <input
