@@ -58,7 +58,7 @@ const Sketch = ({ onSave }) => {
             (constellationName.length + 1) * 52
           );
 
-          const r = 10 + 100 / filteredDesigns.length,
+          const r = 15 + 50 / filteredDesigns.length,
             canvasWidth = 1200,
             canvasHeight = 630,
             paddingX = r * 5,
