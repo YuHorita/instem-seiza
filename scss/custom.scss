@@ -5,3 +5,13 @@ $body-secondary-bg: #252732;
 $body-tertiary-bg: #1b1d28;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+.fw-bold {
+  font-weight: 700 !important;
+}
+.fw-normal {
+  font-weight: 600 !important;
+}
+.fw-light {
+  font-weight: 500 !important;
+}

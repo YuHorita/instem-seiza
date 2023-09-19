@@ -90,7 +90,7 @@ const Page2 = () => {
         </p>
 
         <div className="balloon1">
-          <p>星をタップして繋いでみましょう！</p>
+          <p className="fw-bold">星をタップして繋いでみましょう！</p>
         </div>
         <SketchComponent />
 
@@ -123,7 +123,12 @@ const Page2 = () => {
           </div>
           <p>
             回答を送信することで
-            <a className="text-primary" href="/terms" target="_blank">
+            <a
+              className="text-primary"
+              href="/terms"
+              target="_blank"
+              style={{ textDecoration: "none" }}
+            >
               利用規約
             </a>
             に同意したものとみなします。
@@ -131,7 +136,7 @@ const Page2 = () => {
           <div className="d-flex justify-content-center">
             <button
               type="submit"
-              className="btn btn-primary rounded-5 px-5 py-3 fs-5 text-center"
+              className="btn btn-primary rounded-5 px-5 py-3 fs-5 text-center fw-bold"
             >
               回答を送信する
             </button>

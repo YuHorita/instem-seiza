@@ -56,7 +56,7 @@ const Home = () => {
           まずは以下の質問に答えて、あなたにとってのデザインの星を夜空の中から見つけてみましょう。
         </p>
 
-        <p className="fw-normal">
+        <p className="fw-light">
           <span className="text-danger">*</span>必須の項目です
         </p>
         <form
@@ -112,9 +112,9 @@ const Home = () => {
           <div className="d-flex justify-content-center mt-5">
             <button
               type="submit"
-              className="btn btn-primary rounded-5 px-5 py-3 fs-5"
+              className="btn btn-primary rounded-5 px-5 py-3 fs-5 fw-bold"
             >
-              回答を送信する
+              次へ進む
             </button>
           </div>
         </form>

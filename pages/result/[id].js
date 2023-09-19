@@ -30,6 +30,10 @@ export default function Page({ id, designerName, constellationName }) {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(url).then(function () {
         setIsCopied(true);
+
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 2000); // 例: 2秒後にfalseに戻す
       });
     }
   };
@@ -64,7 +68,11 @@ export default function Page({ id, designerName, constellationName }) {
       <section className="container-sm p-4">
         <p style={{ display: "none" }}>ID:{id}</p>
         <div className="text-center mb-4">
-          <h2 suppressHydrationWarning={true} id="designerNameHolder">
+          <h2
+            suppressHydrationWarning={true}
+            id="designerNameHolder"
+            className="fw-bold"
+          >
             {`${designerName}さんの星座`}
           </h2>
         </div>
@@ -90,7 +98,7 @@ export default function Page({ id, designerName, constellationName }) {
 
         <div className="mt-4 d-flex flex-column align-items-center justify-content-center gap-3">
           <a
-            className="btn btn-primary rounded-5 w-75 py-3 fs-5 text-center d-flex align-items-center justify-content-center gap-2"
+            className="btn btn-primary rounded-5 w-75 py-3 fs-5 text-center d-flex align-items-center justify-content-center gap-2 fw-bold"
             href={`https://twitter.com/intent/tweet?url=${baseUrl}${pathname}%0a&hashtags=Designship2023,デザイナーの星座を描こう`}
             target="_blank"
           >
@@ -100,7 +108,7 @@ export default function Page({ id, designerName, constellationName }) {
 
           <btn
             type="button"
-            className="btn btn-light rounded-5 w-75 py-3 fs-5 text-center text-primary"
+            className="btn btn-light rounded-5 w-75 py-3 fs-5 text-center text-primary fw-bold"
             onClick={copyToClipboard}
           >
             リンクをコピーする
@@ -108,12 +116,25 @@ export default function Page({ id, designerName, constellationName }) {
         </div>
 
         <div className="balloon2 d-flex flex-column align-items-center gap-2 bg-body-secondary">
-          <h6 className="text-center bg-primary px-3 py-2 d-inline-block">
+          <h6
+            className="text-center bg-primary d-inline-block rounded-2"
+            style={{ padding: "0.8rem 1.4rem" }}
+          >
             こんなことも考えてみませんか？
           </h6>
-          <p className="m-0">
+          <p className="m-0 fw-normal">
             あなたとデザインの出会いはどのようでしたか？デザインをしていてどんな喜びを感じますか？星座と一緒にデザイナーとしてのあなたの物語も共有してみましょう。
           </p>
+        </div>
+
+        <div
+          className={`fixed-bottom  p-3 text-center copied-text ${
+            isCopied ? "fade-in" : "fade-out"
+          }`}
+        >
+          <div className="bg-white text-black p-3 rounded-3">
+            クリップボードにリンクをコピーしました
+          </div>
         </div>
 
         <div

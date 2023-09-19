@@ -1,11 +1,19 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "ゴシックMB101 B", "Gothic MB101 Bold", "Noto Sans JP", sans-serif;
+    font-family: "Gothic MB101 DemiBold", "Noto Sans JP", sans-serif;
     letter-spacing: 1.4px;
 }
 
+.fw-bold, .fw-bold * {
+    font-family: "Gothic MB101 Bold", "Noto Sans JP", sans-serif;
+}
+
 .fw-normal, .fw-normal * {
+    font-family: "Gothic MB101 DemiBold", "Noto Sans JP", sans-serif;
+}
+
+.fw-light, .fw-light * {
     font-family: "Gothic MB101 Medium", "Noto Sans JP", sans-serif;
 }
 
@@ -69,4 +77,17 @@ canvas {
     margin-left: -20px;
     border: 20px solid transparent;
     border-bottom: 30px solid var(--bs-secondary-bg);
+}
+
+.copied-text {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.copied-text.fade-in {
+    opacity: 1;
+}
+
+.copied-text.fade-out {
+    opacity: 0;
 }
