@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { designs } from "../../components/library";
@@ -148,11 +147,11 @@ export default function Page({ id, designerName, constellationName }) {
           ))}
         </div>
       </section>
-      <Script
+      {/* <Script
         type="text/javascript"
         src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
         charset="utf-8"
-      />
+      /> */}
     </main>
   );
 }
@@ -183,6 +182,9 @@ export async function getServerSideProps(context) {
       },
     };
   }
+
+  // Ts.loadFont();
+
   return {
     props: {
       id,
