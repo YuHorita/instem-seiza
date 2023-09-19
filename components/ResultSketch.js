@@ -45,7 +45,6 @@ const Sketch = ({ onSave }) => {
 
         // これでうまくいった。消すな。
         Ts.loadFont();
-        // console.log("sketch start");
 
         const sketch = new p5((p) => {
           let bg, pg;
@@ -54,14 +53,17 @@ const Sketch = ({ onSave }) => {
             selectedDesigns.includes(design.index)
           );
 
-          // console.log(filteredDesigns);
+          const textWidth = Math.max(
+            (designerName.length + 5) * 32,
+            (constellationName.length + 1) * 52
+          );
 
-          const r = 40,
+          const r = 10 + 100 / filteredDesigns.length,
             canvasWidth = 1200,
             canvasHeight = 630,
-            paddingX = 150,
+            paddingX = r * 5,
             paddingY = 100,
-            areaXMin = canvasWidth / 2,
+            areaXMin = textWidth + paddingX * 2,
             areaXMax = canvasWidth - paddingX,
             areaYMin = paddingY,
             areaYMax = canvasHeight - paddingY - r,
@@ -78,33 +80,17 @@ const Sketch = ({ onSave }) => {
 
           function calcX(x) {
             if (filteredDesigns.length == 1) {
-              return canvasWidth / 2;
+              return areaXMin + areaWidth / 2;
             } else {
               return areaXMin + (x - itemXMin) * xRatio;
             }
           }
           function calcY(y) {
             if (filteredDesigns.length == 1) {
-              return canvasHeight / 2;
+              return areaYMin + areaHeight / 2;
             } else {
               return areaYMin + (y - itemYMin) * yRatio;
             }
-          }
-
-          // オブジェクト内の循環参照を除外する
-          function removeCircularReferences(obj) {
-            const seen = new WeakSet();
-            return JSON.parse(
-              JSON.stringify(obj, (key, value) => {
-                if (typeof value === "object" && value !== null) {
-                  if (seen.has(value)) {
-                    return; // 循環参照を除外
-                  }
-                  seen.add(value);
-                }
-                return value;
-              })
-            );
           }
 
           p.preload = () => {
@@ -199,10 +185,10 @@ const Sketch = ({ onSave }) => {
             p.push();
             p.fill(255, 255, 255);
             p.textAlign(p.CENTER, p.CENTER);
-            p.textSize(r / 2);
+            p.textSize(r);
             p.textLeading(100);
             p.noStroke();
-            p.translate(calcX(elm.x), calcY(elm.y) + r - 3);
+            p.translate(calcX(elm.x), calcY(elm.y) + r * 1.2);
             p.text(elm.name, 0, 0);
             p.pop();
           }

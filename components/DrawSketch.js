@@ -30,16 +30,16 @@ const Sketch = () => {
 
       let bg, pg;
 
-      const r = 20,
+      const r = 10 + 40 / filteredDesigns.length,
         canvasWidth =
           (p.windowWidth < 500 ? p.windowWidth : 500) - convertRemToPx(3.0),
         canvasHeight = parseInt(canvasWidth * 0.7),
-        paddingX = 100,
-        paddingY = 30,
+        paddingX = r * 4,
+        paddingY = 20,
         areaXMin = paddingX,
         areaXMax = canvasWidth - paddingX,
         areaYMin = paddingY,
-        areaYMax = canvasHeight - paddingY - r * 1.3,
+        areaYMax = canvasHeight - paddingY - r,
         areaWidth = areaXMax - areaXMin,
         areaHeight = areaYMax - areaYMin,
         itemXMin = filteredDesigns.sort((a, b) => a.x - b.x)[0].x,
@@ -137,22 +137,22 @@ const Sketch = () => {
       function drawCaption(elm) {
         p.push();
         p.fill(255, 255, 255);
-        p.textSize(12);
+        p.textSize(r / 1.5);
         p.textLeading(100);
         p.noStroke();
-        if (elm.caption === 0) {
-          p.textAlign(p.CENTER, p.CENTER);
-          p.translate(calcX(elm.x), calcY(elm.y) - r);
-        } else if (elm.caption === 1) {
-          p.textAlign(p.LEFT, p.CENTER);
-          p.translate(calcX(elm.x) + r * 0.7, calcY(elm.y) - 3);
-        } else if (elm.caption === 2) {
-          p.textAlign(p.CENTER, p.CENTER);
-          p.translate(calcX(elm.x), calcY(elm.y) + r - 3);
-        } else if (elm.caption === 3) {
-          p.textAlign(p.RIGHT, p.CENTER);
-          p.translate(calcX(elm.x) - r * 0.7, calcY(elm.y) - 3);
-        }
+        // if (elm.caption === 0) {
+        //   p.textAlign(p.CENTER, p.CENTER);
+        //   p.translate(calcX(elm.x), calcY(elm.y) - r);
+        // } else if (elm.caption === 1) {
+        //   p.textAlign(p.LEFT, p.CENTER);
+        //   p.translate(calcX(elm.x) + r * 0.7, calcY(elm.y) - 3);
+        // } else if (elm.caption === 2) {
+        p.textAlign(p.CENTER, p.CENTER);
+        p.translate(calcX(elm.x), calcY(elm.y) + r * 1.2);
+        // } else if (elm.caption === 3) {
+        //   p.textAlign(p.RIGHT, p.CENTER);
+        //   p.translate(calcX(elm.x) - r * 0.7, calcY(elm.y) - 3);
+        // }
         p.text(elm.name, 0, 0);
         p.pop();
       }
