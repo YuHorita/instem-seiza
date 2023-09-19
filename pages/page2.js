@@ -53,7 +53,6 @@ const Page2 = () => {
 
     try {
       starLines = JSON.parse(localStorage.getItem("starLines"));
-      // console.log(starLines);
     } catch (e) {
       console.log(e);
     }

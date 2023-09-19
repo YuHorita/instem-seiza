@@ -62,7 +62,7 @@ export default function Page({ id, designerName, constellationName }) {
       />
 
       <section className="container-sm p-4">
-        <p style={{ fontSize: "0.8rem" }}>ID:{id}</p>
+        <p style={{ display: "none" }}>ID:{id}</p>
         <div className="text-center mb-4">
           <h2 suppressHydrationWarning={true} id="designerNameHolder">
             {`${designerName}さんの星座`}
@@ -149,6 +149,13 @@ export async function getServerSideProps(context) {
     constellationName = design_constellation.constellation_name;
   } catch (error) {
     console.error("データの取得に失敗しました", error);
+    // トップページにリダイレクト
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
   return {
     props: {
