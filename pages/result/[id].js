@@ -106,7 +106,6 @@ export default function Page({ id, designerName, constellationName }) {
           </a>
 
           <btn
-            type="button"
             className="btn btn-light rounded-5 w-75 py-3 fs-5 text-center text-primary fw-bold"
             onClick={copyToClipboard}
           >
@@ -116,8 +115,8 @@ export default function Page({ id, designerName, constellationName }) {
 
         <div className="balloon2 d-flex flex-column align-items-center gap-2 bg-body-secondary">
           <h6
-            className="text-center bg-primary d-inline-block rounded-2"
-            style={{ padding: "0.8rem 1.4rem" }}
+            className="text-center bg-primary d-inline-block rounded-2 w-100"
+            style={{ padding: "0.8rem 0" }}
           >
             こんなことも考えてみませんか？
           </h6>
