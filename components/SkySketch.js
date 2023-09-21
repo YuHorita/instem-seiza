@@ -173,7 +173,7 @@ const Sketch = () => {
 
           if (elm.caption === 0) {
             p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, -calcRadius(elm.index) / 1.3 - 5);
+            p.translate(0, -calcRadius(elm.index) / 1.3 - 7);
           } else if (elm.caption === 1) {
             p.textAlign(p.LEFT, p.CENTER);
             p.translate(
