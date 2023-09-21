@@ -167,14 +167,31 @@ const Sketch = () => {
         function drawCaption(elm) {
           p.push();
           p.fill(255, 255, 255);
-          p.textAlign(p.CENTER, p.CENTER);
-          p.textSize(20);
+          p.textSize(10 + calcRadius(elm.index) / 3);
           p.textLeading(100);
           p.noStroke();
-          p.translate(
-            calcX(elm.x),
-            calcY(elm.y) + calcRadius(elm.index) / 2 + 10
-          );
+
+          if (elm.caption === 0) {
+            p.textAlign(p.CENTER, p.CENTER);
+            p.translate(0, -calcRadius(elm.index) / 1.3 - 5);
+          } else if (elm.caption === 1) {
+            p.textAlign(p.LEFT, p.CENTER);
+            p.translate(
+              calcRadius(elm.index) / 1.8 + 5,
+              calcRadius(elm.index) / 12
+            );
+          } else if (elm.caption === 2) {
+            p.textAlign(p.CENTER, p.CENTER);
+            p.translate(0, calcRadius(elm.index) / 1.3 + 10);
+          } else if (elm.caption === 3) {
+            p.textAlign(p.RIGHT, p.CENTER);
+            p.translate(
+              -calcRadius(elm.index) / 1.8 - 5,
+              calcRadius(elm.index) / 12
+            );
+          }
+          p.translate(calcX(elm.x), calcY(elm.y));
+
           p.text(elm.name, 0, 0);
           p.pop();
         }
