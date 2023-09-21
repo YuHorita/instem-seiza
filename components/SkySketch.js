@@ -35,14 +35,14 @@ const Sketch = () => {
       let { data: selectedDesignsArray, error } = await supabase
         .from("design_constellation")
         .select("selected_designs");
-      if (error) {
-        throw error;
-      }
       selectedDesignsArray.forEach((elm) => {
         elm.selected_designs.forEach((design) => {
           starCount[design] += 1;
         });
       });
+      if (error) {
+        throw error;
+      }
     } catch (error) {
       console.error("selectedDesignsの取得に失敗", error);
     }
@@ -51,10 +51,6 @@ const Sketch = () => {
       let { data: starLinesArray, error } = await supabase
         .from("design_constellation")
         .select("star_lines");
-      if (error) {
-        throw error;
-      }
-
       // [1,2]と[2,1]のように、向きが逆の線は、[小,大]の順に統一してからカウントする
       starLinesArray.forEach((elm) => {
         elm.star_lines.forEach((line) => {
@@ -65,6 +61,9 @@ const Sketch = () => {
           }
         });
       });
+      if (error) {
+        throw error;
+      }
     } catch (error) {
       console.error("starLinesの取得に失敗", error);
     }
@@ -185,7 +184,7 @@ const Sketch = () => {
         sketch.remove();
       };
     })();
-  });
+  }, []);
   return <div ref={sketchRef}></div>;
 };
 

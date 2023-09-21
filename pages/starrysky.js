@@ -7,7 +7,7 @@ const SketchComponent = dynamic(() => import("../components/SkySketch"), {
   ssr: false,
 });
 
-const StarrySky = () => {
+export default function StarrySky() {
   return (
     <main>
       <SketchComponent />
@@ -16,7 +16,9 @@ const StarrySky = () => {
         style={{ visibility: "hidden", position: "fixed" }}
       >
         {designs.map((design) => (
-          <p key={design.name}>{design.name}</p>
+          <p key={design.name} className="fw-bold">
+            {design.name}
+          </p>
         ))}
       </div>
       <Script
@@ -26,6 +28,4 @@ const StarrySky = () => {
       />
     </main>
   );
-};
-
-export default StarrySky;
+}
