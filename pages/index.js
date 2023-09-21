@@ -66,7 +66,7 @@ const Home = () => {
         >
           <div>
             <label htmlFor="nameInput" className="form-label">
-              表示名
+              名前
               <span className="text-danger">*</span>
             </label>
             <input
@@ -77,7 +77,7 @@ const Home = () => {
               onChange={(e) => setDesignerName(e.target.value)}
               required
             />
-            <div className="invalid-feedback">表示名を入力してください。</div>
+            <div className="invalid-feedback">名前を入力してください。</div>
           </div>
           <div className="mt-4">
             <label className="form-label" htmlFor="designSelect">
