@@ -5,7 +5,7 @@ export const designs = [
   { name: "DTPデザイン", index: 3, x: 64, y: 26, caption: 3 },
   { name: "カーデザイン", index: 4, x: 76, y: 28, caption: 1 },
   { name: "UIデザイン", index: 5, x: 36, y: 32, caption: 3 },
-  { name: "Co-Design", index: 6, x: 68, y: 30, caption: 3 },
+  { name: "Co-Design", index: 6, x: 68, y: 30, caption: 2 },
   { name: "組織デザイン", index: 7, x: 77, y: 36, caption: 1 },
   { name: "Futures Design", index: 8, x: 90, y: 40, caption: 1 },
   { name: "デジタルプロダクトデザイン", index: 9, x: 36, y: 43, caption: 3 },

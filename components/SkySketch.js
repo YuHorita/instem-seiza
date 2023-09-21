@@ -6,6 +6,7 @@ import supabase from "../pages/api/supabase";
 const Sketch = () => {
   let canvas;
   const sketchRef = useRef(null);
+  var starCountMax, starCountMin, lineCountMax, lineCountMin;
 
   var starCount = {};
   for (var i = 0; i <= designs.length; i++) {
@@ -40,6 +41,8 @@ const Sketch = () => {
           starCount[design] += 1;
         });
       });
+      starCountMax = Math.max(...Object.values(starCount));
+      starCountMin = Math.min(...Object.values(starCount));
       if (error) {
         throw error;
       }
@@ -61,6 +64,7 @@ const Sketch = () => {
           }
         });
       });
+      lineCountMax = Math.max(...Object.values(lineCount));
       if (error) {
         throw error;
       }
@@ -100,23 +104,21 @@ const Sketch = () => {
           return paddingY + (y - itemYMin) * yRatio - r / 2;
         }
         function calcRadius(index) {
-          const starCountArray = Object.values(starCount);
-          const max = Math.max(...starCountArray);
-          const min = Math.min(...starCountArray);
-          const radius = 5 + ((starCount[index] - min) / (max - min)) * 65;
+          const radius =
+            5 +
+            ((starCount[index] - starCountMin) /
+              (starCountMax - starCountMin)) *
+              45;
           return radius;
         }
 
         function calcLineWeight(index1, index2) {
-          const lineCountArray = Object.values(lineCount);
-          const max = Math.max(...lineCountArray);
-          const min = 1;
           if (lineCount[index1 + "-" + index2] == 0) {
             return 0;
           }
           const weight =
             0.5 +
-            ((lineCount[index1 + "-" + index2] - min) / (max - min)) * 9.5;
+            ((lineCount[index1 + "-" + index2] - 1) / (lineCountMax - 1)) * 9.5;
           return weight;
         }
 
