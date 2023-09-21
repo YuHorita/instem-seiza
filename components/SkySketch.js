@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import p5 from "p5";
 import { designs } from "./library";
 import supabase from "../pages/api/supabase";
@@ -13,7 +12,6 @@ const Sketch = () => {
     starCount[i] = 0;
   }
 
-  //[0,1]~[designs.length-1,designs.length]までの配列starLinesを作る
   var starLines = [];
   for (var i = 0; i < designs.length; i++) {
     for (var j = i; j < designs.length; j++) {
@@ -31,7 +29,6 @@ const Sketch = () => {
       }
     }
   }
-  console.log(lineCount);
 
   const getData = async () => {
     try {
@@ -46,7 +43,6 @@ const Sketch = () => {
           starCount[design] += 1;
         });
       });
-      // console.log(starCount);
     } catch (error) {
       console.error("selectedDesignsの取得に失敗", error);
     }
@@ -105,7 +101,6 @@ const Sketch = () => {
           return paddingY + (y - itemYMin) * yRatio - r / 2;
         }
         function calcRadius(index) {
-          // 10~70の範囲で、全ての星の選択された数から相対的に半径を決める
           const starCountArray = Object.values(starCount);
           const max = Math.max(...starCountArray);
           const min = Math.min(...starCountArray);
@@ -114,7 +109,6 @@ const Sketch = () => {
         }
 
         function calcLineWeight(index1, index2) {
-          // 0.5~10の範囲で、全ての線の選択された数から相対的に線の太さを決める
           const lineCountArray = Object.values(lineCount);
           const max = Math.max(...lineCountArray);
           const min = 1;
@@ -167,7 +161,6 @@ const Sketch = () => {
           pg.noFill();
           const elm1 = designs.filter((elm) => elm.index === line[0])[0];
           const elm2 = designs.filter((elm) => elm.index === line[1])[0];
-          console.log(elm1, elm2);
           pg.line(calcX(elm1.x), calcY(elm1.y), calcX(elm2.x), calcY(elm2.y));
           pg.pop();
         }

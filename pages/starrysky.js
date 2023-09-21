@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { designs } from "../components/library";
-import "bootstrap/dist/css/bootstrap.css";
+import Script from "next/script";
 
 const SketchComponent = dynamic(() => import("../components/SkySketch"), {
   loading: () => <></>,
@@ -16,9 +16,14 @@ const StarrySky = () => {
         style={{ visibility: "hidden", position: "fixed" }}
       >
         {designs.map((design) => (
-          <p>{design.name}</p>
+          <p key={design.name}>{design.name}</p>
         ))}
       </div>
+      <Script
+        type="text/javascript"
+        src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
+        charset="utf-8"
+      />
     </main>
   );
 };

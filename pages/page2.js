@@ -147,7 +147,7 @@ const Page2 = () => {
           style={{ visibility: "hidden", position: "fixed" }}
         >
           {designs.map((design) => (
-            <p>{design.name}</p>
+            <p key={design.name}>{design.name}</p>
           ))}
         </div>
       </section>
