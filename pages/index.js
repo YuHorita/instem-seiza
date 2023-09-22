@@ -34,23 +34,6 @@ const Home = () => {
 
   return (
     <main className="bg-body text-body ">
-      <NextSeo
-        openGraph={{
-          images: [
-            {
-              url: "/defaultOGP.png",
-              width: 1200,
-              height: 630,
-              type: "image/png",
-            },
-          ],
-        }}
-        twitter={{
-          card: "summary_large_image",
-          creator: "@Designship_jp",
-          images: ["/defaultOGP.png"],
-        }}
-      />
       <img src="/top_thumbnail.png" style={{ width: "100%" }} />
       <section className="container-sm p-4">
         <div className="mb-5">
