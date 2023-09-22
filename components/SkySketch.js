@@ -131,12 +131,6 @@ const Sketch = () => {
           pg = p.createGraphics(p.width, p.height);
         };
 
-        var sampleLineX = 0,
-          sampleLineY = 0,
-          sampleLineX2 = 0;
-        const easing1 = 0.05;
-        const easing2 = 0.08;
-
         // designs分のcircleSize, growing, maxSizeを用意
         let circleSizeArray = [];
         let growingArray = [];
@@ -150,9 +144,17 @@ const Sketch = () => {
           maxSizeArray.push(calcRadius(designs.index) * 1.5);
         }
 
+        // 線のアニメーションをバラバラに描画するために、starLines分の1~frameBasisのランダムなframeCountに加える値を用意
+        const frameBasis = 100;
+        let frameCountArray = [];
+
+        for (var i = 0; i < starLines.length; i++) {
+          frameCountArray.push(Math.floor(Math.random() * frameBasis));
+        }
+
         let circleSize = 10; // 円の初期サイズ
         let maxSize = 20; // 円の最大サイズ
-        let growing = true; // 拡大中かどうかのフラグ
+        const easing = 0.05;
 
         p.draw = () => {
           p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
@@ -161,64 +163,19 @@ const Sketch = () => {
           designs.forEach((elm) => {
             drawDesignStar(elm);
           });
-          starLines.forEach((line) => {
-            drawLine(line);
+          starLines.forEach((line, index) => {
+            drawLine(line, index);
           });
 
-          // p.push();
-          // pg.strokeWeight(3);
-          // const dx = 800 - sampleLineX;
-          // let dx2 = 0;
-          // if (dx < 200) {
-          //   dx2 = sampleLineX - sampleLineX2;
-          // }
-          // if (dx < 1 && dx2 < 100) {
-          //   sampleLineX = 0;
-          //   sampleLineX2 = 0;
-          // }
-
-          // const vx = dx * easing1;
-          // const vx2 = dx2 * easing2;
-          // sampleLineX += vx;
-          // sampleLineX2 += vx2;
-          // pg.line(sampleLineX2, 200, sampleLineX, 200);
-
-          // p.pop();
-
-          // ランダムな位置に星を描画
-          // pg.push();
-          // pg.fill(255);
-          // pg.noStroke();
-          // pg.ellipse(
-          //   p.random(0, p.width),
-          //   p.random(0, p.height),
-          //   p.random(10, 50)
-          // );
-          // pg.pop();
-
-          // 拡大縮小のアニメーション
-          if (growing) {
-            circleSize += 0.2; // 拡大
-            if (circleSize >= maxSize) {
-              growing = false; // 最大サイズに達したら縮小へ
-            }
-          } else {
-            circleSize -= 0.2; // 縮小
-            if (circleSize < 1) {
-              growing = true; // 最小サイズに達したら拡大へ
-            }
-          }
-
-          // 上記のコードをdesigns分繰り返す
           designs.forEach((elm, index) => {
             if (growingArray[index]) {
               circleSizeArray[index] +=
-                (maxSize - circleSizeArray[index]) * easing1; // 拡大
+                (maxSize - circleSizeArray[index]) * easing; // 拡大
               if (maxSize - circleSizeArray[index] < 1) {
                 growingArray[index] = false; // 最大サイズに達したら縮小へ
               }
             } else {
-              circleSizeArray[index] -= circleSizeArray[index] * easing1; // 縮小
+              circleSizeArray[index] -= circleSizeArray[index] * easing; // 縮小
               if (circleSizeArray[index] < 1) {
                 growingArray[index] = true; // 最小サイズに達したら拡大へ
               }
@@ -247,14 +204,111 @@ const Sketch = () => {
           pg.pop();
         }
 
-        function drawLine(line) {
+        function drawLine(line, index) {
           pg.push();
           pg.stroke(255);
           pg.strokeWeight(calcLineWeight(line[0], line[1]));
           pg.noFill();
           const elm1 = designs.filter((elm) => elm.index === line[0])[0];
           const elm2 = designs.filter((elm) => elm.index === line[1])[0];
-          pg.line(calcX(elm1.x), calcY(elm1.y), calcX(elm2.x), calcY(elm2.y));
+
+          const d = p.dist(
+            calcX(elm1.x),
+            calcY(elm1.y),
+            calcX(elm2.x),
+            calcY(elm2.y)
+          );
+
+          const frameValue1 =
+            ((p.frameCount + frameCountArray[index]) % frameBasis) / frameBasis;
+
+          const frameValue2 =
+            ((p.frameCount + frameCountArray[index] + 1500 / d) % frameBasis) /
+            frameBasis;
+
+          const frameValue3 =
+            ((p.frameCount + frameCountArray[index] + frameBasis / 2) %
+              frameBasis) /
+            frameBasis;
+
+          const frameValue4 =
+            ((p.frameCount +
+              frameCountArray[index] +
+              frameBasis / 2 +
+              1500 / d) %
+              frameBasis) /
+            frameBasis;
+
+          if (frameValue1 < frameValue4) {
+            pg.line(
+              calcX(elm1.x),
+              calcY(elm1.y),
+              calcX(elm1.x) + frameValue1 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue1 * (calcY(elm2.y) - calcY(elm1.y))
+            );
+
+            pg.line(
+              calcX(elm1.x) + frameValue2 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue2 * (calcY(elm2.y) - calcY(elm1.y)),
+              calcX(elm1.x) + frameValue3 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue3 * (calcY(elm2.y) - calcY(elm1.y))
+            );
+
+            pg.line(
+              calcX(elm1.x) + frameValue4 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue4 * (calcY(elm2.y) - calcY(elm1.y)),
+              calcX(elm2.x),
+              calcY(elm2.y)
+            );
+          } else if (frameValue3 < frameValue2) {
+            pg.line(
+              calcX(elm1.x),
+              calcY(elm1.y),
+              calcX(elm1.x) + frameValue3 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue3 * (calcY(elm2.y) - calcY(elm1.y))
+            );
+
+            pg.line(
+              calcX(elm1.x) + frameValue4 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue4 * (calcY(elm2.y) - calcY(elm1.y)),
+              calcX(elm1.x) + frameValue1 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue1 * (calcY(elm2.y) - calcY(elm1.y))
+            );
+
+            pg.line(
+              calcX(elm1.x) + frameValue2 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue2 * (calcY(elm2.y) - calcY(elm1.y)),
+              calcX(elm2.x),
+              calcY(elm2.y)
+            );
+          } else if (frameValue1 < frameValue2) {
+            pg.line(
+              calcX(elm1.x),
+              calcY(elm1.y),
+              calcX(elm1.x) + frameValue1 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue1 * (calcY(elm2.y) - calcY(elm1.y))
+            );
+            pg.line(
+              calcX(elm1.x) + frameValue2 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue2 * (calcY(elm2.y) - calcY(elm1.y)),
+              calcX(elm2.x),
+              calcY(elm2.y)
+            );
+          } else if (frameValue3 < frameValue4) {
+            pg.line(
+              calcX(elm1.x),
+              calcY(elm1.y),
+              calcX(elm1.x) + frameValue3 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue3 * (calcY(elm2.y) - calcY(elm1.y))
+            );
+            pg.line(
+              calcX(elm1.x) + frameValue4 * (calcX(elm2.x) - calcX(elm1.x)),
+              calcY(elm1.y) + frameValue4 * (calcY(elm2.y) - calcY(elm1.y)),
+              calcX(elm2.x),
+              calcY(elm2.y)
+            );
+          }
+
           pg.pop();
         }
 
