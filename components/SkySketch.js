@@ -114,9 +114,7 @@ const Sketch = () => {
           if (lineCount[index1 + "-" + index2] == 0) {
             return 0;
           }
-          const weight =
-            1 +
-            ((lineCount[index1 + "-" + index2] - 1) / (lineCountMax - 1)) * 10;
+          const weight = (lineCount[index1 + "-" + index2] / lineCountMax) * 10;
           return weight;
         }
 
@@ -315,26 +313,26 @@ const Sketch = () => {
         function drawCaption(elm) {
           p.push();
           p.fill(255, 255, 255);
-          p.textSize(10 + calcRadius(elm.index) / 3);
+          p.textSize(20 + calcRadius(elm.index) / 2);
           p.textLeading(100);
           p.noStroke();
 
           if (elm.caption === 0) {
             p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, -calcRadius(elm.index) / 1.3 - 7);
+            p.translate(0, -calcRadius(elm.index) / 1.3 - 14);
           } else if (elm.caption === 1) {
             p.textAlign(p.LEFT, p.CENTER);
             p.translate(
-              calcRadius(elm.index) / 1.8 + 5,
+              calcRadius(elm.index) / 1.8 + 10,
               calcRadius(elm.index) / 12
             );
           } else if (elm.caption === 2) {
             p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, calcRadius(elm.index) / 1.3 + 10);
+            p.translate(0, calcRadius(elm.index) / 1.3 + 24);
           } else if (elm.caption === 3) {
             p.textAlign(p.RIGHT, p.CENTER);
             p.translate(
-              -calcRadius(elm.index) / 1.8 - 5,
+              -calcRadius(elm.index) / 1.8 - 10,
               calcRadius(elm.index) / 12
             );
           }
