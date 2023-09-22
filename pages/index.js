@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { designs } from "../components/library";
 import Script from "next/script";
+import { NextSeo } from "next-seo";
 
 const Home = () => {
   const [designerName, setDesignerName] = useState("");
@@ -38,7 +39,6 @@ const Home = () => {
           images: [
             {
               url: "/defaultOGP.png",
-              alt: description,
               width: 1200,
               height: 630,
               type: "image/png",
@@ -47,7 +47,6 @@ const Home = () => {
         }}
         twitter={{
           card: "summary_large_image",
-          description: description,
           creator: "@Designship_jp",
           images: ["/defaultOGP.png"],
         }}
