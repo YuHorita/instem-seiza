@@ -94,7 +94,7 @@ const Sketch = ({ onSave }) => {
           }
 
           p.preload = () => {
-            bg = p.loadImage("/bg_portrait.png");
+            bg = p.loadImage("/bg.png");
           };
 
           p.setup = () => {
