@@ -6,7 +6,11 @@ import supabase from "../pages/api/supabase";
 const Sketch = () => {
   let canvas;
   const sketchRef = useRef(null);
-  var starCountMax, starCountMin, lineCountMax, lineCountMin;
+  var starCountMax,
+    starCountMin,
+    lineCountMax,
+    userNum,
+    lineNum = 0;
 
   var starCount = {};
   for (var i = 0; i <= designs.length; i++) {
@@ -43,6 +47,7 @@ const Sketch = () => {
       });
       starCountMax = Math.max(...Object.values(starCount));
       starCountMin = Math.min(...Object.values(starCount));
+      userNum = selectedDesignsArray.length;
       if (error) {
         throw error;
       }
@@ -54,7 +59,6 @@ const Sketch = () => {
       let { data: starLinesArray, error } = await supabase
         .from("design_constellation")
         .select("star_lines");
-      // [1,2]と[2,1]のように、向きが逆の線は、[小,大]の順に統一してからカウントする
       starLinesArray.forEach((elm) => {
         elm.star_lines.forEach((line) => {
           if (line[0] > line[1]) {
@@ -62,6 +66,7 @@ const Sketch = () => {
           } else {
             lineCount[line[0] + "-" + line[1]] += 1;
           }
+          lineNum += 1;
         });
       });
       lineCountMax = Math.max(...Object.values(lineCount));
@@ -185,6 +190,11 @@ const Sketch = () => {
           designs.forEach((elm) => {
             drawCaption(elm);
           });
+
+          p.textSize(64);
+          p.fill(255);
+          p.text("つくられた星座の数: " + userNum + "個", 80, 160);
+          p.text("繋がれた星の数: " + lineNum + "本", 80, 240);
         };
 
         function drawDesignStar(elm) {
