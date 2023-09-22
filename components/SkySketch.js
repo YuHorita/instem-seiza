@@ -180,9 +180,6 @@ const Sketch = () => {
             }
           });
 
-          // 円を描画
-          pg.ellipse(p.width / 2, p.height / 2, circleSize);
-
           pg.noErase();
           p.image(pg, 0, 0);
           designs.forEach((elm) => {
