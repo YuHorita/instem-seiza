@@ -29,6 +29,7 @@ export default function MyApp({ Component, pageProps }) {
           url: "サイトのURL",
         }}
         twitter={{
+          title: "デザイナーの星座を描こう | Designship 2023",
           handle: "@handle",
           site: "@site",
           cardType: "summary_large_image",
