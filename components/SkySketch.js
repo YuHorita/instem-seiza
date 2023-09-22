@@ -191,10 +191,19 @@ const Sketch = () => {
             drawCaption(elm);
           });
 
-          p.textSize(64);
+          p.push();
           p.fill(255);
-          p.text("つくられた星座の数：" + userNum + "個", 80, 160);
-          p.text("繋がれた星の数：" + lineNum + "本", 80, 240);
+
+          p.textSize(32);
+          p.textAlign(p.LEFT, p.CENTER);
+          p.text("つくられた\n星座の数", 80, 130);
+          p.text("繋がれた\n星の数", 80, 260);
+
+          p.textSize(80);
+          p.textAlign(p.RIGHT, p.CENTER);
+          p.text(userNum + "個", 450, 135);
+          p.text(lineNum + "本", 450, 265);
+          p.pop();
         };
 
         function drawDesignStar(elm) {

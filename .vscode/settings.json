@@ -3,5 +3,8 @@
         "designship",
         "noto",
         "SUPABASE"
+    ],
+    "cSpell.ignoreWords": [
+        "tsst"
     ]
 }
