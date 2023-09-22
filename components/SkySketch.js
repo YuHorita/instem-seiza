@@ -157,7 +157,7 @@ const Sketch = () => {
 
         let circleSize = 10; // 円の初期サイズ
         let maxSize = 20; // 円の最大サイズ
-        const easing = 0.05;
+        const easing = 0.03;
 
         p.draw = () => {
           p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
@@ -193,8 +193,8 @@ const Sketch = () => {
 
           p.textSize(64);
           p.fill(255);
-          p.text("つくられた星座の数: " + userNum + "個", 80, 160);
-          p.text("繋がれた星の数: " + lineNum + "本", 80, 240);
+          p.text("つくられた星座の数：" + userNum + "個", 80, 160);
+          p.text("繋がれた星の数：" + lineNum + "本", 80, 240);
         };
 
         function drawDesignStar(elm) {
