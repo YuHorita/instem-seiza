@@ -20,6 +20,7 @@ export default function StarrySky() {
             {design.name}
           </p>
         ))}
+        <p className="fw-bold">0123456789</p>
       </div>
       <Script
         type="text/javascript"
