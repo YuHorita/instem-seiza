@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import supabase from "./api/supabase";
 import { designs } from "../components/library";
 import Script from "next/script";
+import { useRouter } from "next/router";
 
 const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
@@ -15,6 +16,7 @@ var starLines = [];
 
 const Page2 = () => {
   const [constellationName, setConstellationName] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     try {
@@ -134,12 +136,19 @@ const Page2 = () => {
             </a>
             に同意したものとみなします。
           </p>
-          <div className="d-flex justify-content-center">
+          <div className="mt-4 d-flex flex-column align-items-center justify-content-center gap-3">
             <button
               type="submit"
               className="btn btn-primary rounded-5 px-5 py-3 fs-5 text-center fw-bold"
             >
               回答を送信する
+            </button>
+
+            <button
+              className="btn bg-transparent px-5 py-3 text-center fw-bold"
+              onClick={() => router.back()}
+            >
+              前のページに戻る
             </button>
           </div>
         </form>

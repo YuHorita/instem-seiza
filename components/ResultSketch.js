@@ -126,7 +126,6 @@ const Sketch = ({ onSave }) => {
             p.translate(80, canvasHeight / 2 - 40);
             p.textSize(32);
             p.textLeading(32);
-            console.log(Math.floor((String(designerName).length + 5) / 12) * 5);
             p.text(
               designerName + "さんの星座",
               0,
@@ -139,10 +138,6 @@ const Sketch = ({ onSave }) => {
             p.translate(80, canvasHeight / 2 + 20);
             p.textSize(52);
             p.textLeading(52);
-            console.log(
-              Math.floor(Math.floor(String(constellationName).length + 1) / 7) *
-                52
-            );
             p.text(
               constellationName + "座",
               0,

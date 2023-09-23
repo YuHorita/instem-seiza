@@ -21,13 +21,20 @@ const Home = () => {
         false
       );
     });
+
+    // 次のページから戻ってきたときに、入力した内容を復元する
+    try {
+      setDesignerName(JSON.parse(localStorage.getItem("designerName")));
+      setSelectedDesigns(JSON.parse(localStorage.getItem("selectedDesigns")));
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.setItem("designerName", JSON.stringify(designerName));
     localStorage.setItem("selectedDesigns", JSON.stringify(selectedDesigns));
-
     window.location.href = "/page2";
   };
 

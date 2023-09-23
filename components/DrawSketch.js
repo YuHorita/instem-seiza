@@ -28,7 +28,7 @@ const Sketch = () => {
       var starLines = [];
       localStorage.setItem("starLines", JSON.stringify(starLines));
 
-      let bg, pg;
+      let canvas, bg, pg;
 
       var r = 10 + 40 / filteredDesigns.length,
         canvasWidth =
@@ -71,7 +71,7 @@ const Sketch = () => {
       };
 
       p.setup = () => {
-        const canvas = p.createCanvas(canvasWidth, canvasHeight);
+        canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
         p.textFont("Gothic MB101 Bold");
       };
@@ -106,6 +106,7 @@ const Sketch = () => {
         canvasWidth =
           (p.windowWidth < 720 ? p.windowWidth : 720) - convertRemToPx(3.0);
         canvasHeight = parseInt(canvasWidth * 0.525);
+
         paddingX = r * 4;
         paddingY = 20;
         areaXMin = paddingX;
