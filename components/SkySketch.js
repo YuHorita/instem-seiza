@@ -148,16 +148,16 @@ const Sketch = () => {
         }
 
         // 線のアニメーションをバラバラに描画するために、starLines分の1~frameBasisのランダムなframeCountに加える値を用意
-        const frameBasis = 100;
+        const frameBasis = 500;
+        const brakeBasis = 10000;
         let frameCountArray = [];
 
         for (var i = 0; i < starLines.length; i++) {
           frameCountArray.push(Math.floor(Math.random() * frameBasis));
         }
 
-        let circleSize = 10; // 円の初期サイズ
         let maxSize = 20; // 円の最大サイズ
-        const easing = 0.03;
+        const easing = 0.01;
 
         p.draw = () => {
           p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
@@ -237,7 +237,7 @@ const Sketch = () => {
             ((p.frameCount + frameCountArray[index]) % frameBasis) / frameBasis;
 
           const frameValue2 =
-            ((p.frameCount + frameCountArray[index] + 1500 / d) % frameBasis) /
+            ((p.frameCount + frameCountArray[index] + brakeBasis / d) % frameBasis) /
             frameBasis;
 
           const frameValue3 =
@@ -249,7 +249,7 @@ const Sketch = () => {
             ((p.frameCount +
               frameCountArray[index] +
               frameBasis / 2 +
-              1500 / d) %
+              brakeBasis / d) %
               frameBasis) /
             frameBasis;
 
