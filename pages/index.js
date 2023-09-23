@@ -66,7 +66,7 @@ const Home = () => {
         >
           <div>
             <label htmlFor="nameInput" className="form-label">
-              名前（10文字以内）
+              お名前（10文字以内）
               <span className="text-danger">*</span>
             </label>
             <input
