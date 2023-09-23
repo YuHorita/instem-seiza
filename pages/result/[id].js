@@ -55,10 +55,9 @@ export default function Page({ id, designerName, constellationName }) {
           ],
         }}
         twitter={{
-          card: "summary_large_image",
+          cardType: "summary_large_image",
           title: title,
           description: description,
-          creator: "@Designship_jp",
           images: [ogpImage],
         }}
       />
