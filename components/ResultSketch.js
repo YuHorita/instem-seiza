@@ -63,7 +63,7 @@ const Sketch = ({ onSave }) => {
             canvasHeight = 630,
             paddingX = r * 5,
             paddingY = 100,
-            areaXMin = Math.min(textWidth + paddingX, canvasWidth / 2),
+            areaXMin = canvasWidth / 2,
             areaXMax = canvasWidth - paddingX,
             areaYMin = paddingY,
             areaYMax = canvasHeight - paddingY - r,
@@ -119,19 +119,37 @@ const Sketch = ({ onSave }) => {
 
             p.fill(255, 255, 255);
             p.textAlign(p.LEFT, p.CENTER);
-            p.textLeading(100);
+            p.textWrap(p.CHAR);
             p.noStroke();
 
             p.push();
             p.translate(80, canvasHeight / 2 - 40);
             p.textSize(32);
-            p.text(designerName + "さんの星座", 0, 0);
+            p.textLeading(32);
+            console.log(Math.floor((String(designerName).length + 5) / 12) * 5);
+            p.text(
+              designerName + "さんの星座",
+              0,
+              -(Math.floor((String(designerName).length + 5) / 12) * 32),
+              400
+            );
             p.pop();
 
             p.push();
             p.translate(80, canvasHeight / 2 + 20);
             p.textSize(52);
-            p.text(constellationName + "座", 0, 0);
+            p.textLeading(52);
+            console.log(
+              Math.floor(Math.floor(String(constellationName).length + 1) / 7) *
+                52
+            );
+            p.text(
+              constellationName + "座",
+              0,
+              Math.floor(Math.floor(String(constellationName).length + 1) / 7) *
+                15,
+              400
+            );
             p.pop();
 
             if (canvas && onSave) {
@@ -186,7 +204,7 @@ const Sketch = ({ onSave }) => {
             p.fill(255, 255, 255);
             p.textAlign(p.CENTER, p.CENTER);
             p.textSize(r);
-            p.textLeading(100);
+            // p.textLeading(100);
             p.noStroke();
             p.translate(calcX(elm.x), calcY(elm.y) + r * 1.2);
             p.text(elm.name, 0, 0);

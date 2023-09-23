@@ -106,7 +106,7 @@ const Page2 = () => {
           noValidate
         >
           <label htmlFor="constellationName" className="form-label">
-            星座名（10文字以内）
+            星座名（20文字以内）
             <span className="text-danger">*</span>
           </label>
           <div className="input-group has-validation mb-5">
@@ -117,7 +117,7 @@ const Page2 = () => {
               value={constellationName}
               onChange={(e) => setConstellationName(e.target.value)}
               required
-              maxLength="10"
+              maxLength="20"
             />
             <span className="input-group-text">座</span>
             <div className="invalid-feedback">星座名を入力してください。</div>
