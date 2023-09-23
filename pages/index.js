@@ -73,7 +73,7 @@ const Home = () => {
         >
           <div>
             <label htmlFor="nameInput" className="form-label">
-              お名前（20文字以内）
+              お名前
               <span className="text-danger">*</span>
             </label>
             <input
@@ -83,7 +83,7 @@ const Home = () => {
               value={designerName}
               onChange={(e) => setDesignerName(e.target.value)}
               required
-              maxLength="20"
+              maxLength="50"
             />
             <div className="invalid-feedback">名前を入力してください。</div>
           </div>

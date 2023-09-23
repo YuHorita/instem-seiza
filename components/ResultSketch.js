@@ -53,11 +53,6 @@ const Sketch = ({ onSave }) => {
             selectedDesigns.includes(design.index)
           );
 
-          const textWidth = Math.max(
-            (designerName.length + 5) * 32,
-            (constellationName.length + 1) * 52
-          );
-
           const r = 15 + 50 / filteredDesigns.length,
             canvasWidth = 1200,
             canvasHeight = 630,
@@ -76,7 +71,9 @@ const Sketch = ({ onSave }) => {
             itemWidth = itemXMax - itemXMin,
             itemHeight = itemYMax - itemYMin,
             xRatio = areaWidth / itemWidth,
-            yRatio = areaHeight / itemHeight;
+            yRatio = areaHeight / itemHeight,
+            textBoxWidth1 = 390,
+            textBoxWidth2 = 370;
 
           function calcX(x) {
             if (filteredDesigns.length == 1) {
@@ -122,29 +119,48 @@ const Sketch = ({ onSave }) => {
             p.textWrap(p.CHAR);
             p.noStroke();
 
-            p.push();
-            p.translate(80, canvasHeight / 2 - 40);
-            p.textSize(32);
-            p.textLeading(32);
-            p.text(
-              designerName + "さんの星座",
-              0,
-              -(Math.floor((String(designerName).length + 5) / 12) * 32),
-              400
-            );
-            p.pop();
+            const string1 = designerName + "さんの星座";
+            const string2 = constellationName + "座";
 
             p.push();
-            p.translate(80, canvasHeight / 2 + 20);
+            p.textSize(32);
+            const stringWidth1 = p.textWidth(string1);
+            const stringRow1 = Math.floor(stringWidth1 / textBoxWidth1) + 1;
+            const stringHeight1 = stringRow1 * 32;
+
+            p.textSize(52);
+            const stringWidth2 = p.textWidth(string2);
+            const stringRow2 = Math.floor(stringWidth2 / textBoxWidth2) + 1;
+            const stringHeight2 = stringRow2 * 52;
+
+            const textBoxHeight = stringHeight1 + stringHeight2 + 40;
+
+            p.translate(60, canvasHeight / 2);
+            p.textSize(32);
+            p.textLeading(32);
+            p.textAlign(p.LEFT, p.TOP);
+            p.text(string1, 0, -textBoxHeight / 2, textBoxWidth1);
+            p.stroke(255);
+            p.strokeWeight(3);
+            // p.line(0, -textBoxHeight / 2, p.width, -textBoxHeight / 2);
+            // p.line(
+            //   0,
+            //   -textBoxHeight / 2 + stringHeight1,
+            //   p.width,
+            //   -textBoxHeight / 2 + stringHeight1
+            // );
+
             p.textSize(52);
             p.textLeading(52);
-            p.text(
-              constellationName + "座",
-              0,
-              Math.floor(Math.floor(String(constellationName).length + 1) / 7) *
-                15,
-              400
-            );
+            p.textAlign(p.LEFT, p.BOTTOM);
+            p.text(string2, 0, textBoxHeight / 2, textBoxWidth2);
+            // p.line(0, textBoxHeight / 2, p.width, textBoxHeight / 2);
+            // p.line(
+            //   0,
+            //   textBoxHeight / 2 - stringHeight2,
+            //   p.width,
+            //   textBoxHeight / 2 - stringHeight2
+            // );
             p.pop();
 
             if (canvas && onSave) {
