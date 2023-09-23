@@ -140,8 +140,9 @@ const Sketch = ({ onSave }) => {
             p.textLeading(32);
             p.textAlign(p.LEFT, p.TOP);
             p.text(string1, 0, -textBoxHeight / 2, textBoxWidth1);
-            p.stroke(255);
-            p.strokeWeight(3);
+
+            // p.stroke(255);
+            // p.strokeWeight(3);
             // p.line(0, -textBoxHeight / 2, p.width, -textBoxHeight / 2);
             // p.line(
             //   0,
@@ -154,6 +155,7 @@ const Sketch = ({ onSave }) => {
             p.textLeading(52);
             p.textAlign(p.LEFT, p.BOTTOM);
             p.text(string2, 0, textBoxHeight / 2, textBoxWidth2);
+
             // p.line(0, textBoxHeight / 2, p.width, textBoxHeight / 2);
             // p.line(
             //   0,
