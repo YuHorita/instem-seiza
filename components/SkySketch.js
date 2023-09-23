@@ -201,8 +201,8 @@ const Sketch = () => {
 
           p.textSize(80);
           p.textAlign(p.RIGHT, p.CENTER);
-          p.text(userNum + "個", 500, 130);
-          p.text(lineNum + "本", 500, 260);
+          p.text(userNum + "個", 200 + String(lineNum).length * 100, 130);
+          p.text(lineNum + "本", 200 + String(lineNum).length * 100, 260);
           p.pop();
         };
 
@@ -237,7 +237,8 @@ const Sketch = () => {
             ((p.frameCount + frameCountArray[index]) % frameBasis) / frameBasis;
 
           const frameValue2 =
-            ((p.frameCount + frameCountArray[index] + brakeBasis / d) % frameBasis) /
+            ((p.frameCount + frameCountArray[index] + brakeBasis / d) %
+              frameBasis) /
             frameBasis;
 
           const frameValue3 =
