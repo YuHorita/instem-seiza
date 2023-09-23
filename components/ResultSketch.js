@@ -63,7 +63,7 @@ const Sketch = ({ onSave }) => {
             canvasHeight = 630,
             paddingX = r * 5,
             paddingY = 100,
-            areaXMin = textWidth + paddingX * 2,
+            areaXMin = Math.min(textWidth + paddingX, canvasWidth / 2),
             areaXMax = canvasWidth - paddingX,
             areaYMin = paddingY,
             areaYMax = canvasHeight - paddingY - r,

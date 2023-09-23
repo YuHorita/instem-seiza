@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { designs } from "../components/library";
 import Script from "next/script";
-import { NextSeo } from "next-seo";
 
 const Home = () => {
   const [designerName, setDesignerName] = useState("");
@@ -67,7 +66,7 @@ const Home = () => {
         >
           <div>
             <label htmlFor="nameInput" className="form-label">
-              名前
+              名前（10文字以内）
               <span className="text-danger">*</span>
             </label>
             <input
@@ -77,6 +76,7 @@ const Home = () => {
               value={designerName}
               onChange={(e) => setDesignerName(e.target.value)}
               required
+              maxLength="10"
             />
             <div className="invalid-feedback">名前を入力してください。</div>
           </div>
