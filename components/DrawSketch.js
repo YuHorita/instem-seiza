@@ -30,10 +30,10 @@ const Sketch = () => {
 
       let bg, pg;
 
-      const r = 10 + 40 / filteredDesigns.length,
+      var r = 10 + 40 / filteredDesigns.length,
         canvasWidth =
-          (p.windowWidth < 500 ? p.windowWidth : 500) - convertRemToPx(3.0),
-        canvasHeight = parseInt(canvasWidth * 0.7),
+          (p.windowWidth < 720 ? p.windowWidth : 720) - convertRemToPx(3.0),
+        canvasHeight = parseInt(canvasWidth * 0.525),
         paddingX = r * 4,
         paddingY = 20,
         areaXMin = paddingX,
@@ -73,11 +73,11 @@ const Sketch = () => {
       p.setup = () => {
         const canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
-        pg = p.createGraphics(p.width, p.height);
         p.textFont("Gothic MB101 Bold");
       };
 
       p.draw = () => {
+        pg = p.createGraphics(p.width, p.height);
         p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg.background(37, 39, 50);
         pg.erase();
@@ -100,6 +100,23 @@ const Sketch = () => {
             createConstellation(elm);
           });
         }
+      };
+
+      p.windowResized = () => {
+        canvasWidth =
+          (p.windowWidth < 720 ? p.windowWidth : 720) - convertRemToPx(3.0);
+        canvasHeight = parseInt(canvasWidth * 0.525);
+        paddingX = r * 4;
+        paddingY = 20;
+        areaXMin = paddingX;
+        areaXMax = canvasWidth - paddingX;
+        areaYMin = paddingY;
+        areaYMax = canvasHeight - paddingY - r;
+        areaWidth = areaXMax - areaXMin;
+        areaHeight = areaYMax - areaYMin;
+        xRatio = areaWidth / itemWidth;
+        yRatio = areaHeight / itemHeight;
+        p.resizeCanvas(canvasWidth, canvasHeight);
       };
 
       function drawDesignStar(elm) {
