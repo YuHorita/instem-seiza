@@ -16,6 +16,7 @@ var starLines = [];
 
 const Page2 = () => {
   const [constellationName, setConstellationName] = useState("");
+  const [isTouchable, setIsTouchable] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -28,6 +29,16 @@ const Page2 = () => {
       }
     } catch (e) {
       console.log(e);
+    }
+
+    // モバイルでかつselectedDesignが8つ以上の場合は、回転を促すためにisTouchableをfalseにする
+    if (
+      navigator.userAgent.match(/iPhone|iPad|Android/) &&
+      selectedDesigns.length >= 8
+    ) {
+      setIsTouchable(false);
+    } else {
+      setIsTouchable(true);
     }
 
     var forms = document.querySelectorAll(".needs-validation");
@@ -94,7 +105,30 @@ const Page2 = () => {
         <div className="balloon1">
           <p className="fw-bold">星をタップして繋いでみましょう！</p>
         </div>
-        <SketchComponent />
+        <SketchComponent isTouchable={isTouchable}>
+          <div
+            className={`rotate-guide d-flex flex-column justify-content-center align-items-center gap-4 py-3 ${
+              isTouchable ? "is-hidden" : "is-visible"
+            }`}
+          >
+            <div className="d-flex align-items-center justify-content-center gap-3">
+              <img src="/rotate_icon.png" style={{ height: "2.5rem" }}></img>
+              <p className="m-0">
+                スマホを横に回転させると
+                <br />
+                操作しやすくなります。
+              </p>
+            </div>
+            <button
+              type="button"
+              className="btn border-white d-inline rounded-5 fs-5 text-center fw-bold"
+              style={{ padding: "0.8rem 2.8rem" }}
+              onClick={() => setIsTouchable(true)}
+            >
+              はじめる
+            </button>
+          </div>
+        </SketchComponent>
 
         <div className="text-center mt-5 mb-3">
           <h3 className="text-primary fs-5 fw-bold">Step 3/3</h3>

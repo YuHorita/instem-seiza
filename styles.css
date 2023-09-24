@@ -91,3 +91,26 @@ canvas {
 .copied-text.fade-out {
     opacity: 0;
 }
+
+#draw-sketch {
+    position: relative;
+}
+
+#draw-sketch .rotate-guide {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 5px);
+    background: rgba(37, 39, 50, 0.80);
+    transition: .1s ease-in-out;
+}
+
+#draw-sketch .rotate-guide.is-hidden {
+    opacity: 0;
+}
+
+#draw-sketch .rotate-guide.is-visible {
+    opacity: 1;
+}

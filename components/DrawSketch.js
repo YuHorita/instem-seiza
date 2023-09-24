@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import p5 from "p5";
 import { designs } from "./library";
 
-const Sketch = () => {
+const Sketch = ({ children, isTouchable }) => {
   let canvas;
   const sketchRef = useRef(null);
   var selectedDesigns = [];
@@ -99,10 +99,12 @@ const Sketch = () => {
       };
 
       p.mouseClicked = () => {
-        if (filteredDesigns.length > 1) {
-          filteredDesigns.forEach((elm) => {
-            createConstellation(elm);
-          });
+        if (isTouchable) {
+          if (filteredDesigns.length > 1) {
+            filteredDesigns.forEach((elm) => {
+              createConstellation(elm);
+            });
+          }
         }
       };
 
@@ -219,9 +221,13 @@ const Sketch = () => {
     return () => {
       sketch.remove();
     };
-  }, []);
+  }, [isTouchable]);
 
-  return <div ref={sketchRef}></div>;
+  return (
+    <div ref={sketchRef} id="draw-sketch">
+      {children}
+    </div>
+  );
 };
 
 export default Sketch;
