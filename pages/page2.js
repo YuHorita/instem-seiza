@@ -34,7 +34,7 @@ const Page2 = () => {
 
     // モバイルでかつselectedDesignが8つ以上の場合は、回転を促すためにisTouchableをfalseにする
     if (
-      navigator.userAgent.match(/iPhone|iPad|Android/) &&
+      navigator.userAgent.match(/iPhone|Android.+Mobile/) &&
       selectedDesigns.length >= 8
     ) {
       setIsTouchable(false);
