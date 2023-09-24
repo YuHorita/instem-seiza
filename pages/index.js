@@ -39,9 +39,9 @@ const Home = () => {
   };
 
   return (
-    <main className="bg-body text-body ">
-      <img src="/top_thumbnail.png" style={{ width: "100%" }} />
-      <section className="container-sm p-4">
+    <main className="bg-body text-body px-4">
+      <section className="container-fluid p-0">
+        <img src="/top_thumbnail.png" style={{ width: "100%" }} />
         <div className="mb-5">
           <h1 className="text-center mt-4 mb-4 lh-base fw-bold">
             デザイナーの
@@ -107,7 +107,11 @@ const Home = () => {
               }
             >
               {designs.map((design) => (
-                <option value={design.index} key={design.name}>
+                <option
+                  value={design.index}
+                  key={design.name}
+                  suppressHydrationWarning={true}
+                >
                   {design.name}
                 </option>
               ))}

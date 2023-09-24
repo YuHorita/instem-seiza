@@ -3,6 +3,7 @@ import p5 from "p5";
 import { designs } from "./library";
 
 const Sketch = () => {
+  let canvas;
   const sketchRef = useRef(null);
   var selectedDesigns = [];
 
@@ -28,11 +29,13 @@ const Sketch = () => {
       var starLines = [];
       localStorage.setItem("starLines", JSON.stringify(starLines));
 
-      let canvas, bg, pg;
+      let bg, pg;
 
       var r = 10 + 40 / filteredDesigns.length,
         canvasWidth =
-          (p.windowWidth < 720 ? p.windowWidth : 720) - convertRemToPx(3.0),
+          p.windowWidth < 600 + convertRemToPx(3.0)
+            ? p.windowWidth - convertRemToPx(3.0)
+            : 600,
         canvasHeight = parseInt(canvasWidth * 0.525),
         paddingX = r * 4,
         paddingY = 20,
@@ -74,10 +77,10 @@ const Sketch = () => {
         canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
         p.textFont("Gothic MB101 Bold");
+        pg = p.createGraphics(p.width, p.height);
       };
 
       p.draw = () => {
-        pg = p.createGraphics(p.width, p.height);
         p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
         pg.background(37, 39, 50);
         pg.erase();
@@ -104,7 +107,9 @@ const Sketch = () => {
 
       p.windowResized = () => {
         canvasWidth =
-          (p.windowWidth < 720 ? p.windowWidth : 720) - convertRemToPx(3.0);
+          p.windowWidth < 600 + convertRemToPx(3.0)
+            ? p.windowWidth - convertRemToPx(3.0)
+            : 600;
         canvasHeight = parseInt(canvasWidth * 0.525);
 
         paddingX = r * 4;
@@ -118,6 +123,7 @@ const Sketch = () => {
         xRatio = areaWidth / itemWidth;
         yRatio = areaHeight / itemHeight;
         p.resizeCanvas(canvasWidth, canvasHeight);
+        pg = p.createGraphics(p.width, p.height);
       };
 
       function drawDesignStar(elm) {

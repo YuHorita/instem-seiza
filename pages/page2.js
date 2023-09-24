@@ -81,8 +81,8 @@ const Page2 = () => {
   };
 
   return (
-    <main className="bg-body text-body">
-      <section className="container-sm p-4">
+    <main className="bg-body text-body px-4">
+      <section className="container-fluid p-0">
         <div className="text-center mt-3 mb-4">
           <h3 className="text-primary fs-5 fw-bold">Step 2/3</h3>
           <h2 className="fw-bold">星を繋ごう</h2>
@@ -157,7 +157,9 @@ const Page2 = () => {
           style={{ visibility: "hidden", position: "fixed" }}
         >
           {designs.map((design) => (
-            <p key={design.name}>{design.name}</p>
+            <p key={design.name} suppressHydrationWarning={true}>
+              {design.name}
+            </p>
           ))}
         </div>
       </section>

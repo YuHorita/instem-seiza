@@ -25,9 +25,9 @@ input {
     font-family: 'Noto Sans JP', sans-serif !important;
 }
 
-/* section {
-    max-width: 500px !important;
-} */
+section {
+    max-width: 600px !important;
+}
 
 canvas {
     letter-spacing: 0 !important;
