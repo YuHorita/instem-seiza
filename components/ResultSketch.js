@@ -133,7 +133,7 @@ const Sketch = ({ onSave }) => {
             const stringRow2 = Math.floor(stringWidth2 / textBoxWidth2) + 1;
             const stringHeight2 = stringRow2 * 52;
 
-            const textBoxHeight = stringHeight1 + stringHeight2 + 40;
+            const textBoxHeight = stringHeight1 + stringHeight2 + 30;
 
             p.translate(60, canvasHeight / 2);
             p.textSize(32);
@@ -141,28 +141,11 @@ const Sketch = ({ onSave }) => {
             p.textAlign(p.LEFT, p.TOP);
             p.text(string1, 0, -textBoxHeight / 2, textBoxWidth1);
 
-            // p.stroke(255);
-            // p.strokeWeight(3);
-            // p.line(0, -textBoxHeight / 2, p.width, -textBoxHeight / 2);
-            // p.line(
-            //   0,
-            //   -textBoxHeight / 2 + stringHeight1,
-            //   p.width,
-            //   -textBoxHeight / 2 + stringHeight1
-            // );
-
             p.textSize(52);
             p.textLeading(52);
             p.textAlign(p.LEFT, p.BOTTOM);
             p.text(string2, 0, textBoxHeight / 2, textBoxWidth2);
 
-            // p.line(0, textBoxHeight / 2, p.width, textBoxHeight / 2);
-            // p.line(
-            //   0,
-            //   textBoxHeight / 2 - stringHeight2,
-            //   p.width,
-            //   textBoxHeight / 2 - stringHeight2
-            // );
             p.pop();
 
             if (canvas && onSave) {
