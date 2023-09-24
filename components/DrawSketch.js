@@ -14,6 +14,7 @@ const Sketch = () => {
   }
 
   useEffect(() => {
+    Ts.loadFont();
     const sketch = new p5((p) => {
       console.log("sketch start");
       const filteredDesigns = designs.filter((design) =>
