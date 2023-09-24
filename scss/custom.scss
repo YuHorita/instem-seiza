@@ -16,3 +16,35 @@ $btn-hover-bg-shade-amount: 0%;
 .fw-light {
   font-weight: 500 !important;
 }
+
+.was-validated div.is-invalid div {
+  border-color: var(--bs-form-invalid-color) !important;
+}
+
+.was-validated div.is-valid div {
+  border-color: var(--bs-form-valid-color) !important;
+}
+
+.was-validated div.is-invalid .form-check-input {
+  border-color: var(--bs-form-invalid-color) !important;
+}
+
+.was-validated div.is-valid .form-check-input {
+  border-color: var(--bs-form-valid-color) !important;
+}
+
+.was-validated div.is-invalid .form-check-label {
+  color: var(--bs-form-invalid-color) !important;
+}
+
+.was-validated div.is-valid .form-check-label {
+  color: var(--bs-form-valid-color) !important;
+}
+
+.was-validated div.is-invalid .invalid-feedback {
+  display: block;
+}
+
+.was-validated div.is-valid .valid-feedback {
+  display: none;
+}
