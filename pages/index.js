@@ -5,24 +5,24 @@ import Script from "next/script";
 const Home = () => {
   const [designerName, setDesignerName] = useState("");
   const [selectedDesigns, setSelectedDesigns] = useState([]);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    var forms = document.querySelectorAll(".needs-validation");
-    Array.prototype.slice.call(forms).forEach(function (form) {
-      form.addEventListener(
-        "submit",
-        function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add("was-validated");
-        },
-        false
-      );
-    });
+    setIsMobile(navigator.userAgent.match(/iPhone|iPad|Android/));
 
-    // 次のページから戻ってきたときに、入力した内容を復元する
+    var form = document.getElementById("designs-form");
+    form.addEventListener(
+      "submit",
+      function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add("was-validated");
+      },
+      false
+    );
     try {
       setDesignerName(JSON.parse(localStorage.getItem("designerName")));
       setSelectedDesigns(JSON.parse(localStorage.getItem("selectedDesigns")));
@@ -31,12 +31,91 @@ const Home = () => {
     }
   }, []);
 
+  const handleCheckboxChange = (event) => {
+    const value = parseInt(event.target.value);
+    if (event.target.checked) {
+      setSelectedDesigns((prevSelectedDesigns) => {
+        // コールバック内で正確な状態を更新
+        const updatedSelectedDesigns = prevSelectedDesigns
+          ? [...prevSelectedDesigns, value]
+          : [value];
+        console.log(updatedSelectedDesigns); // 正確な状態をコンソールに表示
+        setIsFormValid(updatedSelectedDesigns.length > 0);
+        return updatedSelectedDesigns;
+      });
+    } else {
+      setSelectedDesigns((prevSelectedDesigns) => {
+        // コールバック内で正確な状態を更新
+        const updatedSelectedDesigns = prevSelectedDesigns.filter(
+          (design) => design !== value
+        );
+        console.log(updatedSelectedDesigns); // 正確な状態をコンソールに表示
+        setIsFormValid(updatedSelectedDesigns.length > 0);
+        return updatedSelectedDesigns;
+      });
+    }
+  };
+
+  const handleSelectChange = (event) => {
+    setSelectedDesigns(
+      Array.from(event.target.selectedOptions, (option) =>
+        parseInt(option.value)
+      )
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
+    if (form.checkValidity()) {
+      // バリデーションが成功した場合の処理
+      setIsFormValid(true);
+      // 他のフォームの送信処理などを実行
+    } else {
+      // バリデーションが失敗した場合の処理
+      setIsFormValid(false);
+      // エラーメッセージを表示するなどの処理
+    }
+    console.log(isFormValid);
     localStorage.setItem("designerName", JSON.stringify(designerName));
     localStorage.setItem("selectedDesigns", JSON.stringify(selectedDesigns));
     window.location.href = "/page2";
   };
+
+  // const handleCheckboxChange = (event) => {
+  //   const value = parseInt(event.target.value);
+  //   if (event.target.checked) {
+  //     // チェックが付いたら選択済みデザインに追加
+  //     setSelectedDesigns([...selectedDesigns, value]);
+  //   } else {
+  //     // チェックが外れたら選択済みデザインから削除
+  //     setSelectedDesigns(selectedDesigns.filter((design) => design !== value));
+  //   }
+  //   validateDesigns(selectedDesigns); // チェックボックスの変更時にバリデーションを実行
+  // };
+
+  // const handleSelectChange = (event) => {
+  //   const selectedOptions = Array.from(event.target.selectedOptions, (option) =>
+  //     parseInt(option.value)
+  //   );
+  //   setSelectedDesigns(selectedOptions);
+  //   validateDesigns(selectedOptions); // multipleSelectの変更時にバリデーションを実行
+  // };
+
+  // const validateDesigns = (designs) => {
+  //   // バリデーションロジックを実行
+  //   const isValid = designs.length > 0;
+  //   setIsDesignsValid(isValid);
+  // };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   localStorage.setItem("designerName", JSON.stringify(designerName));
+  //   localStorage.setItem("selectedDesigns", JSON.stringify(selectedDesigns));
+  //   if (isDesignsValid) {
+  //     window.location.href = "/page2";
+  //   }
+  // };
 
   return (
     <>
@@ -72,6 +151,7 @@ const Home = () => {
           <form
             onSubmit={handleSubmit}
             className="bg-body-secondary px-4 py-4 mb-5 rounded needs-validation"
+            id="designs-form"
             noValidate
           >
             <div>
@@ -91,7 +171,12 @@ const Home = () => {
               />
               <div className="invalid-feedback">名前を入力してください。</div>
             </div>
-            <div className="mt-4">
+
+            <div
+              className="mt-4"
+              style={isMobile ? {} : { height: "0", overflow: "hidden" }}
+              suppressHydrationWarning={true}
+            >
               <label className="form-label" htmlFor="designSelect">
                 あなたにとっての「デザイン」
                 <span className="text-danger">*</span>
@@ -102,24 +187,74 @@ const Home = () => {
                 required
                 multiple
                 aria-label="design select"
-                onChange={(e) =>
-                  setSelectedDesigns(
-                    Array.from(e.target.selectedOptions, (elm) =>
-                      parseInt(elm.value)
-                    )
-                  )
-                }
+                onChange={handleSelectChange}
+                value={selectedDesigns} // 選択状態を指定
               >
                 {designs.map((design) => (
                   <option
                     value={design.index}
-                    key={design.name}
+                    key={design.index}
                     suppressHydrationWarning={true}
                   >
                     {design.name}
                   </option>
                 ))}
               </select>
+              <div className="invalid-feedback">
+                最低１つのデザインを選択してください。
+              </div>
+            </div>
+
+            <div
+              className={isFormValid ? "is-valid" : "is-invalid"}
+              style={isMobile ? { height: "0", overflow: "hidden" } : {}}
+              suppressHydrationWarning={true}
+            >
+              <label className="form-label" htmlFor="designSelect">
+                あなたにとっての「デザイン」
+                <span className="text-danger">*</span>
+              </label>
+
+              <div
+                className="bg-body rounded-3 border p-3"
+                style={{
+                  width: "100%",
+                  height: "300px",
+                  overflowY: "scroll",
+                }}
+              >
+                {designs.map((design) => (
+                  <div
+                    className="form-check py-1"
+                    key={`${design.name}-div`}
+                    suppressHydrationWarning={true}
+                  >
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value={design.index}
+                      id={`design-option-${design.index}`}
+                      key={`${design.name}-input`}
+                      onChange={handleCheckboxChange}
+                      checked={
+                        selectedDesigns
+                          ? selectedDesigns.includes(design.index)
+                          : false
+                      }
+                      suppressHydrationWarning={true}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor={`design-option-${design.index}`}
+                      key={`${design.name}-label`}
+                      suppressHydrationWarning={true}
+                    >
+                      {design.name}
+                    </label>
+                  </div>
+                ))}
+              </div>
+
               <div className="invalid-feedback">
                 最低１つのデザインを選択してください。
               </div>
