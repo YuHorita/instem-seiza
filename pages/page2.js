@@ -120,6 +120,7 @@ const Page2 = () => {
               onChange={(e) => setConstellationName(e.target.value)}
               required
               maxLength="50"
+              placeholder="例：わたしのデザイン"
             />
             <span className="input-group-text">座</span>
             <div className="invalid-feedback">星座名を入力してください。</div>

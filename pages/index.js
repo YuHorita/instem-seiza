@@ -84,6 +84,7 @@ const Home = () => {
               onChange={(e) => setDesignerName(e.target.value)}
               required
               maxLength="50"
+              placeholder="例：デザイン太郎"
             />
             <div className="invalid-feedback">名前を入力してください。</div>
           </div>
