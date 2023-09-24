@@ -4,6 +4,7 @@ import supabase from "./api/supabase";
 import { designs } from "../components/library";
 import Script from "next/script";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const SketchComponent = dynamic(() => import("../components/DrawSketch"), {
   loading: () => <div>Loading SketchComponent...</div>,
@@ -179,12 +180,12 @@ const Page2 = () => {
               回答を送信する
             </button>
 
-            <button
+            <Link
               className="btn bg-transparent px-5 py-3 text-center fw-bold"
-              onClick={() => router.back()}
+              href="/"
             >
               前のページに戻る
-            </button>
+            </Link>
           </div>
         </form>
         <div

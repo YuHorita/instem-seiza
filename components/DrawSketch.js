@@ -109,6 +109,11 @@ const Sketch = ({ children, isTouchable }) => {
       };
 
       p.windowResized = () => {
+        if (canvas) {
+          // canvas.remove();
+          pg.remove();
+        }
+
         canvasWidth =
           p.windowWidth < 600 + convertRemToPx(3.0)
             ? p.windowWidth - convertRemToPx(3.0)
@@ -125,6 +130,8 @@ const Sketch = ({ children, isTouchable }) => {
         areaHeight = areaYMax - areaYMin;
         xRatio = areaWidth / itemWidth;
         yRatio = areaHeight / itemHeight;
+        // canvas = p.createCanvas(canvasWidth, canvasHeight);
+        // canvas.parent(sketchRef.current);
         p.resizeCanvas(canvasWidth, canvasHeight);
         pg = p.createGraphics(p.width, p.height);
       };
