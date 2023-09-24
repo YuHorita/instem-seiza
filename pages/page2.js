@@ -158,7 +158,11 @@ const Page2 = () => {
           style={{ visibility: "hidden", position: "fixed" }}
         >
           {designs.map((design) => (
-            <p key={design.name} suppressHydrationWarning={true}>
+            <p
+              key={design.name}
+              className="fw-bold"
+              suppressHydrationWarning={true}
+            >
               {design.name}
             </p>
           ))}
