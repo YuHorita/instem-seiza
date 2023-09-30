@@ -80,8 +80,7 @@ export default function Page({ id, designerName, constellationName }) {
         )}
 
         <p className="mt-4">
-          素敵な星座が完成しました！あなたの星座はDesignship
-          2023の会場でも投影されています。
+          素敵な星座が完成しました！会場ではみなさんが描かれた星座を統合した星空としてデータが投影されます。(入力されたお名前は表示されません)
         </p>
         <p className="mt-3">画像を長押しすると保存できます。</p>
 
