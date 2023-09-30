@@ -156,7 +156,7 @@ const Home = () => {
           >
             <div>
               <label htmlFor="nameInput" className="form-label">
-                お名前
+                お名前（展示はされません）
                 <span className="text-danger">*</span>
               </label>
               <input
