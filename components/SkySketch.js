@@ -4,6 +4,7 @@ import { designs } from "./library";
 import supabase from "../pages/api/supabase";
 
 const Sketch = () => {
+  console.log(designs);
   let canvas;
   const sketchRef = useRef(null);
   var starCountMax,
@@ -13,9 +14,12 @@ const Sketch = () => {
     lineNum = 0;
 
   var starCount = {};
-  for (var i = 0; i <= designs.length; i++) {
+  console.log(starCount);
+  for (var i = 0; i < designs.length; i++) {
     starCount[i] = 0;
   }
+
+  delete starCount[NaN];
 
   var starLines = [];
   for (var i = 0; i < designs.length; i++) {
@@ -35,6 +39,8 @@ const Sketch = () => {
     }
   }
 
+  console.log(starCount);
+
   const getData = async () => {
     try {
       let { data: selectedDesignsArray, error } = await supabase
@@ -42,11 +48,17 @@ const Sketch = () => {
         .select("selected_designs");
       selectedDesignsArray.forEach((elm) => {
         elm.selected_designs.forEach((design) => {
-          starCount[design] += 1;
+          if (design != NaN && design != null) {
+            starCount[parseInt(design)] += 1;
+          }
         });
       });
+      console.log(starCount);
       starCountMax = Math.max(...Object.values(starCount));
+      // 配列の最大値を取得
+      // starCountMax = Math.max.apply(null, Object.values(starCount));
       starCountMin = Math.min(...Object.values(starCount));
+      console.log(starCountMin);
       userNum = selectedDesignsArray.length;
       if (error) {
         throw error;
@@ -207,9 +219,11 @@ const Sketch = () => {
         };
 
         function drawDesignStar(elm) {
+          // console.log(elm);
           pg.push();
           pg.fill(255);
           pg.noStroke();
+          // console.log(calcRadius(elm.index) + circleSizeArray[elm.index]);
           pg.ellipse(
             calcX(elm.x),
             calcY(elm.y),
