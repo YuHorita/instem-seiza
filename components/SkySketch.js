@@ -213,8 +213,8 @@ const Sketch = () => {
 
           p.textSize(96);
           p.textAlign(p.RIGHT, p.CENTER);
-          p.text(userNum + "個", 200 + String(lineNum).length * 100, 130);
-          p.text(lineNum + "本", 200 + String(lineNum).length * 100, 280);
+          p.text(userNum + "個", 300 + String(lineNum).length * 100, 130);
+          p.text(lineNum + "本", 300 + String(lineNum).length * 100, 280);
           p.pop();
         };
 
