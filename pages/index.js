@@ -223,36 +223,38 @@ const Home = () => {
                   overflowY: "scroll",
                 }}
               >
-                {designs.map((design) => (
-                  <div
-                    className="form-check py-1"
-                    key={`${design.name}-div`}
-                    suppressHydrationWarning={true}
-                  >
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value={design.index}
-                      id={`design-option-${design.index}`}
-                      key={`${design.name}-input`}
-                      onChange={handleCheckboxChange}
-                      checked={
-                        selectedDesigns
-                          ? selectedDesigns.includes(design.index)
-                          : false
-                      }
-                      suppressHydrationWarning={true}
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor={`design-option-${design.index}`}
-                      key={`${design.name}-label`}
+                {designs
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((design) => (
+                    <div
+                      className="form-check py-1"
+                      key={`${design.name}-div`}
                       suppressHydrationWarning={true}
                     >
-                      {design.name}
-                    </label>
-                  </div>
-                ))}
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value={design.index}
+                        id={`design-option-${design.index}`}
+                        key={`${design.name}-input`}
+                        onChange={handleCheckboxChange}
+                        checked={
+                          selectedDesigns
+                            ? selectedDesigns.includes(design.index)
+                            : false
+                        }
+                        suppressHydrationWarning={true}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor={`design-option-${design.index}`}
+                        key={`${design.name}-label`}
+                        suppressHydrationWarning={true}
+                      >
+                        {design.name}
+                      </label>
+                    </div>
+                  ))}
               </div>
 
               <div className="invalid-feedback">

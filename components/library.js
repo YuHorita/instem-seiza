@@ -41,7 +41,9 @@ export const designs = [
   { name: "空間デザイン", index: 39, x: 60, y: 45, caption: 2 },
   { name: "ブックデザイン", index: 40, x: 71, y: 50, caption: 0 },
   { name: "ランドスケープデザイン", index: 41, x: 46, y: 98, caption: 2 },
-].sort((a, b) => a.name.localeCompare(b.name));
+]
+
+// .sort((a, b) => a.name.localeCompare(b.name));
 
 export class DesignStar {
   constructor(name, x, y, isDisplayed, captionPos) {
