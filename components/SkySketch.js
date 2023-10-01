@@ -206,15 +206,15 @@ const Sketch = () => {
           p.push();
           p.fill(255);
 
-          p.textSize(32);
+          p.textSize(40);
           p.textAlign(p.LEFT, p.CENTER);
           p.text("描かれた\n星座の数", 80, 130);
-          p.text("繋がれた\n星の数", 80, 260);
+          p.text("繋がれた\n星の数", 80, 280);
 
-          p.textSize(80);
+          p.textSize(96);
           p.textAlign(p.RIGHT, p.CENTER);
-          p.text(userNum + "個", 150 + String(lineNum).length * 100, 130);
-          p.text(lineNum + "本", 150 + String(lineNum).length * 100, 260);
+          p.text(userNum + "個", 200 + String(lineNum).length * 100, 130);
+          p.text(lineNum + "本", 200 + String(lineNum).length * 100, 280);
           p.pop();
         };
 
