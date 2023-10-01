@@ -44,7 +44,7 @@ export default function StarrySky() {
             {design.name}
           </p>
         ))}
-        <p className="fw-bold">0123456789：</p>
+        <p className="fw-bold">0123456789描かれた星座の数繋がれた星の数</p>
       </div>
       <Script
         type="text/javascript"

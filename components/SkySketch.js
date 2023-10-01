@@ -196,7 +196,7 @@ const Sketch = () => {
 
           p.textSize(32);
           p.textAlign(p.LEFT, p.CENTER);
-          p.text("つくられた\n星座の数", 80, 130);
+          p.text("描かれた\n星座の数", 80, 130);
           p.text("繋がれた\n星の数", 80, 260);
 
           p.textSize(80);
