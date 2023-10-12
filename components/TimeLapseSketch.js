@@ -93,10 +93,11 @@ const Sketch = () => {
   useEffect(() => {
     (async () => {
       await getData();
-      // Ts.loadFont();
+      Ts.loadFont();
 
       const sketch = new p5((p) => {
         let bg, pg;
+        let timeLapseCount = 0;
 
         const canvasWidth = 3840,
           canvasHeight = 2160,
@@ -172,6 +173,10 @@ const Sketch = () => {
         const easing = 0.01;
 
         p.draw = () => {
+          timeLapseCount++;
+          if (timeLapseCount > userNum) {
+            timeLapseCount = 0;
+          }
           p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
           pg.background(37, 39, 50);
           pg.erase();
@@ -213,7 +218,11 @@ const Sketch = () => {
 
           p.textSize(96);
           p.textAlign(p.RIGHT, p.CENTER);
-          p.text(userNum + "個", 300 + String(lineNum).length * 100, 130);
+          p.text(
+            timeLapseCount + "個",
+            300 + String(lineNum).length * 100,
+            130
+          );
           p.text(lineNum + "本", 300 + String(lineNum).length * 100, 280);
           p.pop();
         };

@@ -44,7 +44,7 @@ const Sketch = ({ onSave }) => {
         await getData(id);
 
         // これでうまくいった。消すな。
-        Ts.loadFont();
+        // Ts.loadFont();
 
         const sketch = new p5((p) => {
           let bg, pg;

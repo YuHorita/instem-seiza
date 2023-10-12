@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { designs } from "../components/library";
 import Script from "next/script";
 
-const SketchComponent = dynamic(() => import("../components/SkySketch"), {
+const SketchComponent = dynamic(() => import("../components/TimeLapseSketch"), {
   loading: () => <></>,
   ssr: false,
 });
@@ -46,11 +46,11 @@ export default function StarrySky() {
         ))}
         <p className="fw-bold">0123456789個本描かれた星座の数繋がれた星の数</p>
       </div>
-      {/* <Script
+      <Script
         type="text/javascript"
         src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
         charset="utf-8"
-      /> */}
+      />
     </main>
   );
 }
