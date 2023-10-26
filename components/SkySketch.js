@@ -96,7 +96,7 @@ const Sketch = () => {
       // Ts.loadFont();
 
       const sketch = new p5((p) => {
-        let bg, pg;
+        let bg, pg, lineSeedJP;
 
         const canvasWidth = 3840,
           canvasHeight = 2160,
@@ -137,12 +137,14 @@ const Sketch = () => {
 
         p.preload = () => {
           bg = p.loadImage("/bg.png");
+          lineSeedJP = p.loadFont("LINESeedJP_OTF_Eb.otf");
         };
 
         p.setup = () => {
           canvas = p.createCanvas(canvasWidth, canvasHeight);
           canvas.parent(sketchRef.current);
-          p.textFont("Gothic MB101 Bold");
+          // p.textFont("Gothic MB101 Bold");
+          p.textFont(lineSeedJP);
           pg = p.createGraphics(p.width, p.height);
         };
 
@@ -213,8 +215,10 @@ const Sketch = () => {
 
           p.textSize(96);
           p.textAlign(p.RIGHT, p.CENTER);
-          p.text(userNum + "個", 300 + String(lineNum).length * 100, 130);
-          p.text(lineNum + "本", 300 + String(lineNum).length * 100, 280);
+          // p.text(userNum + "個", 300 + String(lineNum).length * 100, 130);
+          p.text(userNum + "個", 300 + String(lineNum).length * 100, 120);
+          // p.text(lineNum + "本", 300 + String(lineNum).length * 100, 280);
+          p.text(lineNum + "本", 300 + String(lineNum).length * 100, 270);
           p.pop();
         };
 
@@ -348,23 +352,24 @@ const Sketch = () => {
           p.textLeading(100);
           p.noStroke();
 
+          // LINE Seed JP用にy座標が-10
           if (elm.caption === 0) {
             p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, -calcRadius(elm.index) / 1.3 - 14);
+            p.translate(0, -calcRadius(elm.index) / 1.3 - 14 - 10);
           } else if (elm.caption === 1) {
             p.textAlign(p.LEFT, p.CENTER);
             p.translate(
               calcRadius(elm.index) / 1.8 + 10,
-              calcRadius(elm.index) / 12
+              calcRadius(elm.index) / 12 - 10
             );
           } else if (elm.caption === 2) {
             p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, calcRadius(elm.index) / 1.3 + 24);
+            p.translate(0, calcRadius(elm.index) / 1.3 + 24 - 10);
           } else if (elm.caption === 3) {
             p.textAlign(p.RIGHT, p.CENTER);
             p.translate(
               -calcRadius(elm.index) / 1.8 - 10,
-              calcRadius(elm.index) / 12
+              calcRadius(elm.index) / 12 - 10
             );
           }
           p.translate(calcX(elm.x), calcY(elm.y));
