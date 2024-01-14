@@ -355,7 +355,7 @@ const Sketch = () => {
           
           if (elm.caption === 0) {
             p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, -calcRadius(elm.index) / 1.3);
+            p.translate(0, -calcRadius(elm.index) / 1.3　+ 10);
 
             // LINE Seed JPのときは以下のコードを使う
             // p.translate(0, -calcRadius(elm.index) / 1.3 - 24);
