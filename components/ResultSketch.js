@@ -98,8 +98,8 @@ const Sketch = ({ onSave }) => {
           p.setup = () => {
             canvas = p.createCanvas(canvasWidth, canvasHeight);
             canvas.parent(sketchRef.current);
-            // p.textFont("Gothic MB101 Bold");
-            p.textFont(lineSeedJP);
+            p.textFont("Gothic MB101 Bold");
+            // p.textFont(lineSeedJP);
             pg = p.createGraphics(p.width, p.height);
             p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
             pg.background(37, 39, 50);
