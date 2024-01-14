@@ -79,8 +79,8 @@ const Sketch = ({ children, isTouchable }) => {
       p.setup = () => {
         canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
-        // p.textFont("Gothic MB101 Bold");
         p.textFont(lineSeedJP);
+        p.textFont("Gothic MB101 Bold");
         pg = p.createGraphics(p.width, p.height);
       };
 

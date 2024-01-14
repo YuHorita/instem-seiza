@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { designs } from "../components/library";
-import Script from "next/script";
+// import Script from "next/script";
 
 const SketchComponent = dynamic(() => import("../components/SkySketch"), {
   loading: () => <></>,
@@ -46,11 +46,11 @@ export default function StarrySky() {
         ))}
         <p className="fw-bold">0123456789個本描かれた星座の数繋がれた星の数</p>
       </div>
-      {/* <Script
+      <script
         type="text/javascript"
-        src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
+        src="//typesquare.com/3/tsst/script/ja/typesquare.js?60d03ddf9b2c47128bf96dcae90393a3"
         charset="utf-8"
-      /> */}
+      ></script>
     </main>
   );
 }
