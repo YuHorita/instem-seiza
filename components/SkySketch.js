@@ -215,10 +215,13 @@ const Sketch = () => {
 
           p.textSize(96);
           p.textAlign(p.RIGHT, p.CENTER);
-          // p.text(userNum + "個", 300 + String(lineNum).length * 100, 130);
-          p.text(userNum + "個", 300 + String(lineNum).length * 100, 120);
-          // p.text(lineNum + "本", 300 + String(lineNum).length * 100, 280);
-          p.text(lineNum + "本", 300 + String(lineNum).length * 100, 270);
+          
+          p.text(userNum + "個", 300 + String(lineNum).length * 100, 130);
+          p.text(lineNum + "本", 300 + String(lineNum).length * 100, 280);
+
+          // 以下はLINE Seed JPのときのコード
+          // p.text(userNum + "個", 300 + String(lineNum).length * 100, 120);
+          // p.text(lineNum + "本", 300 + String(lineNum).length * 100, 270);
           p.pop();
         };
 
@@ -355,10 +358,10 @@ const Sketch = () => {
           
           if (elm.caption === 0) {
             p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, -calcRadius(elm.index) / 1.3　+ 10);
+            p.translate(0, -calcRadius(elm.index) / 1.3 - 14);
 
             // LINE Seed JPのときは以下のコードを使う
-            // p.translate(0, -calcRadius(elm.index) / 1.3 - 24);
+            // p.translate(0, -calcRadius(elm.index) / 1.3 - 14 - 10);
           } else if (elm.caption === 1) {
             p.textAlign(p.LEFT, p.CENTER);
             p.translate(
