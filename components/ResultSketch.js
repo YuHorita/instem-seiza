@@ -47,7 +47,7 @@ const Sketch = ({ onSave }) => {
         // Ts.loadFont();
 
         const sketch = new p5((p) => {
-          let bg, pg;
+          let bg, pg, lineSeedJP;
 
           const filteredDesigns = designs.filter((design) =>
             selectedDesigns.includes(design.index)
@@ -92,12 +92,14 @@ const Sketch = ({ onSave }) => {
 
           p.preload = () => {
             bg = p.loadImage("/bg.png");
+            lineSeedJP = p.loadFont("/LINESeedJP_OTF_Bd.otf");
           };
 
           p.setup = () => {
             canvas = p.createCanvas(canvasWidth, canvasHeight);
             canvas.parent(sketchRef.current);
-            p.textFont("Gothic MB101 Bold");
+            // p.textFont("Gothic MB101 Bold");
+            p.textFont(lineSeedJP);
             pg = p.createGraphics(p.width, p.height);
             p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
             pg.background(37, 39, 50);

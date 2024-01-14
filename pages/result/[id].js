@@ -141,11 +141,11 @@ export default function Page({ id, designerName, constellationName }) {
             className="fw-bold"
           >{`${constellationName}座`}</p>
 
-          {designs.map((design) => (
+          {/* {designs.map((design) => (
             <p key={design.name} className="fw-bold">
               {design.name}
             </p>
-          ))}
+          ))} */}
         </div>
       </section>
     </main>

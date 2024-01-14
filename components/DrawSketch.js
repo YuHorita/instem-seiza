@@ -16,6 +16,7 @@ const Sketch = ({ children, isTouchable }) => {
   useEffect(() => {
     // Ts.loadFont();
     const sketch = new p5((p) => {
+      let lineSeedJP;
       console.log("sketch start");
       const filteredDesigns = designs.filter((design) =>
         selectedDesigns.includes(design.index)
@@ -72,12 +73,14 @@ const Sketch = ({ children, isTouchable }) => {
 
       p.preload = () => {
         bg = p.loadImage("/bg.png");
+        lineSeedJP = p.loadFont("/LINESeedJP_OTF_Bd.otf");
       };
 
       p.setup = () => {
         canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
-        p.textFont("Gothic MB101 Bold");
+        // p.textFont("Gothic MB101 Bold");
+        p.textFont(lineSeedJP);
         pg = p.createGraphics(p.width, p.height);
       };
 
