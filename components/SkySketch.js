@@ -352,10 +352,13 @@ const Sketch = () => {
           p.textLeading(100);
           p.noStroke();
 
-          // LINE Seed JP用にy座標が-10
+          
           if (elm.caption === 0) {
             p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, -calcRadius(elm.index) / 1.3 - 14 - 10);
+            p.translate(0, -calcRadius(elm.index) / 1.3 - 14);
+
+            // LINE Seed JPのときは以下のコードを使う
+            // p.translate(0, -calcRadius(elm.index) / 1.3 - 14 - 10);
           } else if (elm.caption === 1) {
             p.textAlign(p.LEFT, p.CENTER);
             p.translate(

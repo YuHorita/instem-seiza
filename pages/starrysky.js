@@ -46,11 +46,11 @@ export default function StarrySky() {
         ))}
         <p className="fw-bold">0123456789個本描かれた星座の数繋がれた星の数</p>
       </div>
-      <script
+      {/* <script
         type="text/javascript"
         src="//typesquare.com/3/tsst/script/ja/typesquare.js?60d03ddf9b2c47128bf96dcae90393a3"
         charset="utf-8"
-      ></script>
+      ></script> */}
     </main>
   );
 }
