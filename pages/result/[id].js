@@ -15,7 +15,7 @@ export default function Page({ id, designerName, constellationName }) {
   const pathname = usePathname();
   const [canvasImage, setCanvasImage] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
-  const title = `${designerName}さんの星座 | Designship 2023`;
+  const title = `${designerName}さんの星座｜Designship 2023`;
   const description = `${constellationName}座を見つけました！`;
   const ogpImage = `${baseUrl}/api/og?id=${id}`;
 
