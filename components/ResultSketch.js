@@ -144,7 +144,7 @@ const Sketch = ({ onSave }) => {
             const lineHeight2 = textSize2 * 1.25;
             const stringHeight2 = stringRow2 * lineHeight2;
 
-            const textBoxHeight = stringHeight1 + stringHeight2 + 10;
+            const textBoxHeight = stringHeight1 + stringHeight2 ;
 
             p.translate(60, canvasHeight / 2);
             p.textSize(textSize1);
