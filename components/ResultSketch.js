@@ -54,18 +54,18 @@ const Sketch = ({ onSave }) => {
           );
 
           // const r = 15 + 50 / filteredDesigns.length,
-          const r = p.constrain(200 / filteredDesigns.length, 20, 32),
+          const r = p.constrain(200 / filteredDesigns.length, 20, 28),
             canvasWidth = 1200,
             canvasHeight = 630,
-            // paddingX = r * 5,
-            paddingX = 100 + 800 / filteredDesigns.length,
-            // paddingY = 100,
-            paddingY = 40 + 200 / filteredDesigns.length,
-            // areaXMin = canvasWidth / 2,
-            areaXMin = paddingX,
+            paddingX = r * 5,
+            // paddingX = 100 + 800 / filteredDesigns.length,
+            paddingY = 100,
+            // paddingY = 40 + 200 / filteredDesigns.length,
+            areaXMin = canvasWidth / 2,
+            // areaXMin = paddingX,
             areaXMax = canvasWidth - paddingX,
-            // areaYMin = paddingY,
-            areaYMin = paddingY + 80,
+            areaYMin = paddingY,
+            // areaYMin = paddingY + 80,
             areaYMax = canvasHeight - paddingY - r,
             areaWidth = areaXMax - areaXMin,
             areaHeight = areaYMax - areaYMin,
@@ -128,46 +128,48 @@ const Sketch = ({ onSave }) => {
 
             const string1 = designerName + "さんの星座";
             const string2 = constellationName + "座";
+            const textSize1 = 24;
+            const textSize2 = 36;
+
+            p.push();
+            p.textSize(textSize1);
+            const stringWidth1 = p.textWidth(string1);
+            const stringRow1 = Math.floor(stringWidth1 / textBoxWidth1) + 1;
+            const lineHeight1 = textSize1 * 1.25;
+            const stringHeight1 = stringRow1 * lineHeight1;
+
+            p.textSize(textSize2);
+            const stringWidth2 = p.textWidth(string2);
+            const stringRow2 = Math.floor(stringWidth2 / textBoxWidth2) + 1;
+            const lineHeight2 = textSize2 * 1.25;
+            const stringHeight2 = stringRow2 * lineHeight2;
+
+            const textBoxHeight = stringHeight1 + stringHeight2 + 10;
+
+            p.translate(60, canvasHeight / 2);
+            p.textSize(textSize1);
+            p.textLeading(lineHeight1);
+            p.textAlign(p.LEFT, p.TOP);
+            p.text(string1, 0, -textBoxHeight / 2, textBoxWidth1);
+
+            p.textSize(textSize2);
+            p.textLeading(lineHeight2);
+            p.textAlign(p.LEFT, p.BOTTOM);
+            p.text(string2, 0, textBoxHeight / 2, textBoxWidth2);
+
+            p.pop();
 
             // p.push();
             // p.textSize(32);
-            // const stringWidth1 = p.textWidth(string1);
-            // const stringRow1 = Math.floor(stringWidth1 / textBoxWidth1) + 1;
-            // const lineHeight1 = 32 * 1.5;
-            // const stringHeight1 = stringRow1 * lineHeight1;
-
-            // p.textSize(52);
-            // const stringWidth2 = p.textWidth(string2);
-            // const stringRow2 = Math.floor(stringWidth2 / textBoxWidth2) + 1;
-            // const lineHeight2 = 52 * 1.5;
-            // const stringHeight2 = stringRow2 * lineHeight2;
-
-            // const textBoxHeight = stringHeight1 + stringHeight2;
-
-            // p.translate(60, canvasHeight / 2);
-            // p.textSize(32);
-            // p.textLeading(lineHeight1);
             // p.textAlign(p.LEFT, p.TOP);
-            // p.text(string1, 0, -textBoxHeight / 2, textBoxWidth1);
-
-            // p.textSize(52);
-            // p.textLeading(lineHeight2);
-            // p.textAlign(p.LEFT, p.BOTTOM);
-            // p.text(string2, 0, textBoxHeight / 2, textBoxWidth2);
-
+            // p.text(string1, 40, 40);
             // p.pop();
 
-            p.push();
-            p.textSize(32);
-            p.textAlign(p.LEFT, p.TOP);
-            p.text(string1, 40, 40);
-            p.pop();
-
-            p.push();
-            p.textSize(32);
-            p.textAlign(p.RIGHT, p.TOP);
-            p.text(string2, canvasWidth - 40, 40);
-            p.pop();
+            // p.push();
+            // p.textSize(32);
+            // p.textAlign(p.RIGHT, p.TOP);
+            // p.text(string2, canvasWidth - 40, 40);
+            // p.pop();
 
             if (canvas && onSave) {
               canvas.canvas.toBlob(async (blob) => {
