@@ -77,8 +77,8 @@ const Sketch = ({ onSave }) => {
             itemHeight = itemYMax - itemYMin,
             xRatio = areaWidth / itemWidth,
             yRatio = areaHeight / itemHeight,
-            textBoxWidth1 = 390,
-            textBoxWidth2 = 370;
+            textBoxWidth1 = 400,
+            textBoxWidth2 = 400;
 
           function calcX(x) {
             if (filteredDesigns.length == 1) {
@@ -128,8 +128,8 @@ const Sketch = ({ onSave }) => {
 
             const string1 = designerName + "さんの星座";
             const string2 = constellationName + "座";
-            const textSize1 = 24;
-            const textSize2 = 36;
+            const textSize1 = 28;
+            const textSize2 = 42;
 
             p.push();
             p.textSize(textSize1);
