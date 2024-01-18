@@ -53,18 +53,19 @@ const Sketch = ({ onSave }) => {
             selectedDesigns.includes(design.index)
           );
 
-          const r = 15 + 50 / filteredDesigns.length,
+          // const r = 15 + 50 / filteredDesigns.length,
+          const r = p.constrain(200 / filteredDesigns.length, 20, 32),
             canvasWidth = 1200,
             canvasHeight = 630,
             // paddingX = r * 5,
-            paddingX = 40 + r * 5,
+            paddingX = 100 + 800 / filteredDesigns.length,
             // paddingY = 100,
-            paddingY = 60,
+            paddingY = 40 + 200 / filteredDesigns.length,
             // areaXMin = canvasWidth / 2,
             areaXMin = paddingX,
             areaXMax = canvasWidth - paddingX,
             // areaYMin = paddingY,
-            areaYMin = paddingY + 60,
+            areaYMin = paddingY + 80,
             areaYMax = canvasHeight - paddingY - r,
             areaWidth = areaXMax - areaXMin,
             areaHeight = areaYMax - areaYMin,
