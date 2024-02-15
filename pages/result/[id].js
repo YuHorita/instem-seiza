@@ -15,7 +15,7 @@ export default function Page({ id, designerName, constellationName }) {
   const pathname = usePathname();
   const [canvasImage, setCanvasImage] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
-  const title = `${designerName}さんの星座｜Designship 2023`;
+  const title = `${designerName}さんの星座`;
   const description = `${constellationName}座を見つけました！`;
   const ogpImage = `${baseUrl}/api/og?id=${id}`;
 
@@ -95,7 +95,7 @@ export default function Page({ id, designerName, constellationName }) {
         <div className="mt-4 d-flex flex-column align-items-center justify-content-center gap-3">
           <a
             className="btn btn-primary rounded-5 w-75 py-3 fs-5 text-center d-flex align-items-center justify-content-center gap-2 fw-bold"
-            href={`https://twitter.com/intent/tweet?url=${baseUrl}${pathname}%0a&hashtags=Designship2023,デザイナーの星座を描こう`}
+            href={`https://twitter.com/intent/tweet?url=${baseUrl}${pathname}%0a&text=${constellationName}座を見つけました！%0a&hashtags=instem2024,みんなの星座を描こう`}
             target="_blank"
           >
             <img src="/x-logo-white.png" height={24} />

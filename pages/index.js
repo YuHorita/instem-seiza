@@ -90,11 +90,10 @@ const Home = () => {
       <main className="bg-body text-body px-4">
         <section className="container-fluid p-0">
           <div className="mb-4">
-            <h1 className="text-center mt-4 mb-4 lh-base fw-bold">
-              デザイナーの星座を描こう
-              <br />
-              INSTeM Convention版
+            <h1 className="text-center mt-4 mb-1 lh-base fw-bold">
+              みんなの星座を描こう
             </h1>
+            <p className="text-center fw-bold mb-4">デザイナーの星座を描こう INSTeM Convention版</p>
 
             <p>
               INSTeM
@@ -108,7 +107,7 @@ const Home = () => {
               <a href="https://design-ship.jp/2023" target="_blank">
                 Designship 2023
               </a>
-              内で実施された企画を、INSTeM
+              内で実施された「デザイナーの星座を描こう」を、INSTeM
               Convention向けにアレンジしたものになります。
             </p>
           </div>
@@ -239,7 +238,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="d-flex justify-content-center mt-5">
+            <div className="d-flex justify-content-center mt-4">
               <button
                 type="submit"
                 className="btn btn-primary rounded-5 px-5 py-3 fs-5 fw-bold"

@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <link
           rel="apple-touch-icon"
-          sizes="180x180"
+          sizes="152x152"
           href="/apple-touch-icon.png"
         />
         <link
@@ -22,9 +22,10 @@ export default function Document() {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#1b1d28" />
-        <meta name="msapplication-TileColor" content="#1b1d28" />
-        <meta name="theme-color" content="#1b1d28" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f9f9f9" />
+        <meta name="msapplication-TileColor" content="#f9f9f9" />
+        <meta name="theme-color" content="#f9f9f9" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -33,7 +34,7 @@ export default function Document() {
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;family=Montserrat:wght@300;500&amp;display=swap"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;family=Montserrat:wght@300;500;700&amp;display=swap"
         />
         <script
           type="text/javascript"

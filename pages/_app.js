@@ -21,13 +21,13 @@ export default function MyApp({ Component, pageProps }) {
       />
 
       <DefaultSeo
-        defaultTitle="デザイナーの星座を描こう | Designship 2023"
-        description="あなたの星座を描いてみませんか？"
+        defaultTitle="みんなの星座を描こう"
+        description="デザイナーの星座を描こう INSTeM Convention版"
         openGraph={{
           type: "website",
-          title: "デザイナーの星座を描こう | Designship 2023",
-          description: "あなたの星座を描いてみませんか？",
-          site_name: "デザイナーの星座を描こう | Designship 2023",
+          title: "みんなの星座を描こう",
+          description: "デザイナーの星座を描こう INSTeM Convention版",
+          site_name: "みんなの星座を描こう",
           url: "サイトのURL",
           images: [
             {
@@ -39,12 +39,12 @@ export default function MyApp({ Component, pageProps }) {
           ],
         }}
         twitter={{
-          title: "デザイナーの星座を描こう | Designship 2023",
-          handle: "@Designship_jp",
-          site: "@Designship_jp",
+          title: "みんなの星座を描こう",
+          // handle: "@Designship_jp",
+          // site: "@Designship_jp",
           cardType: "summary_large_image",
           card: "summary_large_image",
-          creator: "@Designship_jp",
+          // creator: "@Designship_jp",
           images: [`${baseUrl}/default_ogp.png`],
         }}
       />
