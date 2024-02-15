@@ -72,7 +72,7 @@ const Page2 = () => {
     }
 
     const { data, error } = await supabase
-      .from("design_constellation")
+      .from("instem_seiza")
       .insert(
         [
           {

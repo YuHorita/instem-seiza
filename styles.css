@@ -1,21 +1,10 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "Gothic MB101 DemiBold", "Noto Sans JP", sans-serif;
+    font-family: "Montserrat", "Noto Sans JP", sans-serif;
     letter-spacing: 1.4px;
 }
 
-.fw-bold, .fw-bold * {
-    font-family: "Gothic MB101 Bold", "Noto Sans JP", sans-serif;
-}
-
-.fw-normal, .fw-normal * {
-    font-family: "Gothic MB101 DemiBold", "Noto Sans JP", sans-serif;
-}
-
-.fw-light, .fw-light * {
-    font-family: "Gothic MB101 Medium", "Noto Sans JP", sans-serif;
-}
 
 main {
     min-height: 100vh;

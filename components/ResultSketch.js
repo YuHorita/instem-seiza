@@ -19,8 +19,8 @@ const Sketch = ({ onSave }) => {
   const getData = async (id) => {
     // console.log(id);
     try {
-      const { data: design_constellation, error } = await supabase
-        .from("design_constellation")
+      const { data: instem_seiza, error } = await supabase
+        .from("instem_seiza")
         .select("*")
         .eq("id", id)
         .single();
@@ -28,11 +28,11 @@ const Sketch = ({ onSave }) => {
       if (error) {
         throw error;
       }
-      // console.log(design_constellation);
-      designerName = design_constellation.designer_name;
-      selectedDesigns = design_constellation.selected_designs;
-      starLines = design_constellation.star_lines;
-      constellationName = design_constellation.constellation_name;
+      // console.log(instem_seiza);
+      designerName = instem_seiza.designer_name;
+      selectedDesigns = instem_seiza.selected_designs;
+      starLines = instem_seiza.star_lines;
+      constellationName = instem_seiza.constellation_name;
     } catch (error) {
       console.error("データの取得に失敗しました", error);
     }

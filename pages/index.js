@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { designs } from "../components/library";
-import Script from "next/script";
+// import Script from "next/script";
 
 const Home = () => {
   const [designerName, setDesignerName] = useState("");
@@ -82,41 +82,6 @@ const Home = () => {
     window.location.href = "/page2";
   };
 
-  // const handleCheckboxChange = (event) => {
-  //   const value = parseInt(event.target.value);
-  //   if (event.target.checked) {
-  //     // チェックが付いたら選択済みデザインに追加
-  //     setSelectedDesigns([...selectedDesigns, value]);
-  //   } else {
-  //     // チェックが外れたら選択済みデザインから削除
-  //     setSelectedDesigns(selectedDesigns.filter((design) => design !== value));
-  //   }
-  //   validateDesigns(selectedDesigns); // チェックボックスの変更時にバリデーションを実行
-  // };
-
-  // const handleSelectChange = (event) => {
-  //   const selectedOptions = Array.from(event.target.selectedOptions, (option) =>
-  //     parseInt(option.value)
-  //   );
-  //   setSelectedDesigns(selectedOptions);
-  //   validateDesigns(selectedOptions); // multipleSelectの変更時にバリデーションを実行
-  // };
-
-  // const validateDesigns = (designs) => {
-  //   // バリデーションロジックを実行
-  //   const isValid = designs.length > 0;
-  //   setIsDesignsValid(isValid);
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   localStorage.setItem("designerName", JSON.stringify(designerName));
-  //   localStorage.setItem("selectedDesigns", JSON.stringify(selectedDesigns));
-  //   if (isDesignsValid) {
-  //     window.location.href = "/page2";
-  //   }
-  // };
-
   return (
     <>
       <div className="container p-0" style={{ maxWidth: "600px" }}>
@@ -126,13 +91,14 @@ const Home = () => {
         <section className="container-fluid p-0">
           <div className="mb-5">
             <h1 className="text-center mt-4 mb-4 lh-base fw-bold">
-              デザイナーの
+              デザイナーの星座を描こう
               <br />
-              星座を描こう
+              INSTeM Convention版
             </h1>
 
             <p>
-              デザインが広がりすぎた時代において、一言で「デザイン」と言っても捉え方は人それぞれ。本企画は参加者の皆さんがひとりひとりの「デザイナーの星座」を発見していくためのものです。
+              INSTeM
+              Conventionにはどんな人たちが集まっているのでしょうか。ここでは、来場者のキャリアの遍歴を夜空に浮かんだ星座に見立ててみます。来場者のみなさんの、ひとりひとりの星座をつくってみませんか。
             </p>
           </div>
 
@@ -142,7 +108,9 @@ const Home = () => {
           </div>
 
           <p className="mt-3 mb-5">
-            まずは以下の質問に答えて、あなたにとってのデザインの星を夜空の中から見つけてみましょう。
+            まずは以下の質問に答えて、あなたをあらわす星を夜空の中から見つけてみましょう。
+            <br />
+            あなたの現在および過去のキャリアにあてはまるキーワードを複数選択してください。
           </p>
 
           <p className="fw-light">
@@ -178,7 +146,7 @@ const Home = () => {
               suppressHydrationWarning={true}
             >
               <label className="form-label" htmlFor="designSelect">
-                あなたにとっての「デザイン」
+                あなたの現在および過去のキャリアにあてはまるキーワード
                 <span className="text-danger">*</span>
               </label>
               <select
@@ -201,7 +169,7 @@ const Home = () => {
                 ))}
               </select>
               <div className="invalid-feedback">
-                最低１つのデザインを選択してください。
+                最低１つのキーワードを選択してください。
               </div>
             </div>
 
@@ -211,7 +179,7 @@ const Home = () => {
               suppressHydrationWarning={true}
             >
               <label className="form-label" htmlFor="designSelect">
-                あなたにとっての「デザイン」
+                あなたの現在および過去のキャリアにあてはまるキーワード
                 <span className="text-danger">*</span>
               </label>
 
@@ -258,25 +226,20 @@ const Home = () => {
               </div>
 
               <div className="invalid-feedback">
-                最低１つのデザインを選択してください。
+                最低１つのキーワードを選択してください。
               </div>
             </div>
 
             <div className="d-flex justify-content-center mt-5">
               <button
                 type="submit"
-                className="btn btn-primary rounded-5 px-5 py-3 fs-5 fw-bold"
+                className="btn btn-primary rounded-5 px-5 py-2 fs-5 fw-bold"
               >
-                次へ進む
+                Next
               </button>
             </div>
           </form>
         </section>
-        {/* <Script
-          type="text/javascript"
-          src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
-          charset="utf-8"
-        /> */}
       </main>
     </>
   );

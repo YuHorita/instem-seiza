@@ -158,16 +158,16 @@ export async function getServerSideProps(context) {
   var constellationName = "";
 
   try {
-    const { data: design_constellation, error } = await supabase
-      .from("design_constellation")
+    const { data: instem_seiza, error } = await supabase
+      .from("instem_seiza")
       .select("*")
       .eq("id", id)
       .single();
     if (error) {
       throw error;
     }
-    designerName = design_constellation.designer_name;
-    constellationName = design_constellation.constellation_name;
+    designerName = instem_seiza.designer_name;
+    constellationName = instem_seiza.constellation_name;
   } catch (error) {
     console.error("データの取得に失敗しました", error);
     // トップページにリダイレクト

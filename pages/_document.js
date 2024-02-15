@@ -32,8 +32,8 @@ export default function Document() {
           crossOrigin="true"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;600;700&display=swap"
           rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;family=Montserrat:wght@300;500&amp;display=swap"
         />
         <script
           type="text/javascript"

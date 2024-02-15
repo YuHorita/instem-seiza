@@ -44,7 +44,7 @@ const Sketch = () => {
   const getData = async () => {
     try {
       let { data: selectedDesignsArray, error } = await supabase
-        .from("design_constellation")
+        .from("instem_seiza")
         .select("selected_designs");
       selectedDesignsArray.forEach((elm) => {
         elm.selected_designs.forEach((design) => {
@@ -69,7 +69,7 @@ const Sketch = () => {
 
     try {
       let { data: starLinesArray, error } = await supabase
-        .from("design_constellation")
+        .from("instem_seiza")
         .select("star_lines");
       starLinesArray.forEach((elm) => {
         elm.star_lines.forEach((line) => {

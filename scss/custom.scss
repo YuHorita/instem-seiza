@@ -1,8 +1,8 @@
-$body-bg: #1b1d28;
-$body-color: #fff;
-$primary: #da297b;
-$body-secondary-bg: #252732;
-$body-tertiary-bg: #1b1d28;
+$body-bg: #f9f9f9;
+$body-color: #333;
+$primary: rgba(0, 0, 0, 0.9);
+$body-secondary-bg: #fff;
+$body-tertiary-bg: #eaeaea;
 $btn-hover-bg-shade-amount: 0%;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
