@@ -96,12 +96,12 @@ const Sketch = () => {
       // Ts.loadFont();
 
       const sketch = new p5((p) => {
-        let bg, pg, lineSeedJP;
+        let bg, pg, notoSansJP;
 
         const canvasWidth = 3840,
           canvasHeight = 2160,
           paddingX = 400,
-          paddingY = 100,
+          paddingY = 200,
           areaWidth = canvasWidth - paddingX * 2,
           areaHeight = canvasHeight - paddingY * 2,
           itemXMin = designs.sort((a, b) => a.x - b.x)[0].x,
@@ -137,14 +137,13 @@ const Sketch = () => {
 
         p.preload = () => {
           bg = p.loadImage("/bg.png");
-          lineSeedJP = p.loadFont("LINESeedJP_OTF_Eb.otf");
+          notoSansJP = p.loadFont("NotoSansJP-Bold.ttf");
         };
 
         p.setup = () => {
           canvas = p.createCanvas(canvasWidth, canvasHeight);
           canvas.parent(sketchRef.current);
-          // p.textFont(lineSeedJP);
-          p.textFont("Gothic MB101 Bold");
+          p.textFont(notoSansJP);
           pg = p.createGraphics(p.width, p.height);
         };
 
@@ -174,9 +173,10 @@ const Sketch = () => {
         const easing = 0.01;
 
         p.draw = () => {
-          p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
-          pg.background(37, 39, 50);
-          pg.erase();
+          // p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
+          // p.background(51);
+          p.background(255);
+          // pg.erase();
           designs.forEach((elm) => {
             drawDesignStar(elm);
           });
@@ -199,14 +199,15 @@ const Sketch = () => {
             }
           });
 
-          pg.noErase();
-          p.image(pg, 0, 0);
+          // pg.noErase();
+          // p.image(pg, 0, 0);
+          // p.background(51);
           designs.forEach((elm) => {
             drawCaption(elm);
           });
 
           p.push();
-          p.fill(255);
+          p.fill(51);
 
           p.textSize(40);
           p.textAlign(p.LEFT, p.CENTER);
@@ -215,35 +216,39 @@ const Sketch = () => {
 
           p.textSize(96);
           p.textAlign(p.RIGHT, p.CENTER);
-          
-          p.text(userNum + "個", 300 + String(lineNum).length * 100, 130);
-          p.text(lineNum + "本", 300 + String(lineNum).length * 100, 280);
+
+          // p.text(userNum + "個", 300 + String(lineNum).length * 100, 130);
+          // p.text(lineNum + "本", 300 + String(lineNum).length * 100, 280);
 
           // 以下はLINE Seed JPのときのコード
-          // p.text(userNum + "個", 300 + String(lineNum).length * 100, 120);
-          // p.text(lineNum + "本", 300 + String(lineNum).length * 100, 270);
+          p.text(userNum + "個", 300 + String(lineNum).length * 150, 115);
+          p.text(lineNum + "本", 300 + String(lineNum).length * 150, 270);
+
+          p.textSize(30);
+          p.textAlign(p.RIGHT, p.BOTTOM);
+          p.text("Powered by Designship", p.width - 80, p.height - 40);
           p.pop();
         };
 
         function drawDesignStar(elm) {
           // console.log(elm);
-          pg.push();
-          pg.fill(255);
-          pg.noStroke();
+          p.push();
+          p.fill(51);
+          p.noStroke();
           // console.log(calcRadius(elm.index) + circleSizeArray[elm.index]);
-          pg.ellipse(
+          p.ellipse(
             calcX(elm.x),
             calcY(elm.y),
             calcRadius(elm.index) + circleSizeArray[elm.index]
           );
-          pg.pop();
+          p.pop();
         }
 
         function drawLine(line, index) {
-          pg.push();
-          pg.stroke(255);
-          pg.strokeWeight(calcLineWeight(line[0], line[1]));
-          pg.noFill();
+          p.push();
+          p.stroke(51);
+          p.strokeWeight(calcLineWeight(line[0], line[1]));
+          p.noFill();
           const elm1 = designs.filter((elm) => elm.index === line[0])[0];
           const elm2 = designs.filter((elm) => elm.index === line[1])[0];
 
@@ -276,68 +281,68 @@ const Sketch = () => {
             frameBasis;
 
           if (frameValue1 < frameValue4) {
-            pg.line(
+            p.line(
               calcX(elm1.x),
               calcY(elm1.y),
               calcX(elm1.x) + frameValue1 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue1 * (calcY(elm2.y) - calcY(elm1.y))
             );
 
-            pg.line(
+            p.line(
               calcX(elm1.x) + frameValue2 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue2 * (calcY(elm2.y) - calcY(elm1.y)),
               calcX(elm1.x) + frameValue3 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue3 * (calcY(elm2.y) - calcY(elm1.y))
             );
 
-            pg.line(
+            p.line(
               calcX(elm1.x) + frameValue4 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue4 * (calcY(elm2.y) - calcY(elm1.y)),
               calcX(elm2.x),
               calcY(elm2.y)
             );
           } else if (frameValue3 < frameValue2) {
-            pg.line(
+            p.line(
               calcX(elm1.x),
               calcY(elm1.y),
               calcX(elm1.x) + frameValue3 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue3 * (calcY(elm2.y) - calcY(elm1.y))
             );
 
-            pg.line(
+            p.line(
               calcX(elm1.x) + frameValue4 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue4 * (calcY(elm2.y) - calcY(elm1.y)),
               calcX(elm1.x) + frameValue1 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue1 * (calcY(elm2.y) - calcY(elm1.y))
             );
 
-            pg.line(
+            p.line(
               calcX(elm1.x) + frameValue2 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue2 * (calcY(elm2.y) - calcY(elm1.y)),
               calcX(elm2.x),
               calcY(elm2.y)
             );
           } else if (frameValue1 < frameValue2) {
-            pg.line(
+            p.line(
               calcX(elm1.x),
               calcY(elm1.y),
               calcX(elm1.x) + frameValue1 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue1 * (calcY(elm2.y) - calcY(elm1.y))
             );
-            pg.line(
+            p.line(
               calcX(elm1.x) + frameValue2 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue2 * (calcY(elm2.y) - calcY(elm1.y)),
               calcX(elm2.x),
               calcY(elm2.y)
             );
           } else if (frameValue3 < frameValue4) {
-            pg.line(
+            p.line(
               calcX(elm1.x),
               calcY(elm1.y),
               calcX(elm1.x) + frameValue3 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue3 * (calcY(elm2.y) - calcY(elm1.y))
             );
-            pg.line(
+            p.line(
               calcX(elm1.x) + frameValue4 * (calcX(elm2.x) - calcX(elm1.x)),
               calcY(elm1.y) + frameValue4 * (calcY(elm2.y) - calcY(elm1.y)),
               calcX(elm2.x),
@@ -345,38 +350,31 @@ const Sketch = () => {
             );
           }
 
-          pg.pop();
+          p.pop();
         }
 
         function drawCaption(elm) {
           p.push();
-          p.fill(255, 255, 255);
+          p.fill(51);
           p.textSize(20 + calcRadius(elm.index) / 2);
-          p.textLeading(100);
+          p.textLeading(20 + calcRadius(elm.index) / 2);
           p.noStroke();
 
-          
           if (elm.caption === 0) {
             p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, -calcRadius(elm.index) / 1.3 - 14);
+            // p.translate(0, -calcRadius(elm.index) / 1.3 - 14);
 
             // LINE Seed JPのときは以下のコードを使う
-            // p.translate(0, -calcRadius(elm.index) / 1.3 - 14 - 10);
+            p.translate(0, -calcRadius(elm.index) / 1.3 - 14 - 5);
           } else if (elm.caption === 1) {
             p.textAlign(p.LEFT, p.CENTER);
-            p.translate(
-              calcRadius(elm.index) / 1.8 + 10,
-              calcRadius(elm.index) / 12 - 10
-            );
+            p.translate(calcRadius(elm.index) / 1.5 + 10, 0);
           } else if (elm.caption === 2) {
             p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, calcRadius(elm.index) / 1.3 + 24 - 10);
+            p.translate(0, calcRadius(elm.index) / 1.3 + 24 - 5);
           } else if (elm.caption === 3) {
             p.textAlign(p.RIGHT, p.CENTER);
-            p.translate(
-              -calcRadius(elm.index) / 1.8 - 10,
-              calcRadius(elm.index) / 12 - 10
-            );
+            p.translate(-calcRadius(elm.index) / 1.5 - 10, 0);
           }
           p.translate(calcX(elm.x), calcY(elm.y));
 
