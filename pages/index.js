@@ -242,9 +242,9 @@ const Home = () => {
             <div className="d-flex justify-content-center mt-5">
               <button
                 type="submit"
-                className="btn btn-primary rounded-5 px-5 py-2 fs-5 fw-bold"
+                className="btn btn-primary rounded-5 px-5 py-3 fs-5 fw-bold"
               >
-                Next
+                次へ進む
               </button>
             </div>
           </form>
