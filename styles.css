@@ -28,7 +28,7 @@ canvas {
     margin: 1.5em 0;
     padding: 12px 0;
     font-size: 16px;
-    background: #DA297B;
+    background: #FDD000;
     border-radius: 8px;
     width: 100%;
     text-align: center;
@@ -41,11 +41,10 @@ canvas {
     left: 50%;
     margin-left: -12px;
     border: 12px solid transparent;
-    border-top: 14px solid #DA297B;
+    border-top: 14px solid #FDD000;
 }
 
 .balloon1 p {
-    color: white;
     margin-bottom: 2px;
     padding: 0;
 }
@@ -102,4 +101,8 @@ canvas {
 
 #draw-sketch .rotate-guide.is-visible {
     opacity: 1;
+}
+
+.notice {
+    background: #FDD000;
 }

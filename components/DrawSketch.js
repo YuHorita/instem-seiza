@@ -16,7 +16,7 @@ const Sketch = ({ children, isTouchable }) => {
   useEffect(() => {
     // Ts.loadFont();
     const sketch = new p5((p) => {
-      let lineSeedJP;
+      let notoSansJP;
       console.log("sketch start");
       const filteredDesigns = designs.filter((design) =>
         selectedDesigns.includes(design.index)
@@ -40,7 +40,7 @@ const Sketch = ({ children, isTouchable }) => {
             : 600,
         canvasHeight = parseInt(canvasWidth * 0.525),
         paddingX = r * 4,
-        paddingY = 20,
+        paddingY = 30,
         areaXMin = paddingX,
         areaXMax = canvasWidth - paddingX,
         areaYMin = paddingY,
@@ -73,20 +73,21 @@ const Sketch = ({ children, isTouchable }) => {
 
       p.preload = () => {
         bg = p.loadImage("/bg.png");
-        lineSeedJP = p.loadFont("/LINESeedJP_OTF_Bd.otf");
+        notoSansJP = p.loadFont("/NotoSansJP-Bold.ttf");
       };
 
       p.setup = () => {
         canvas = p.createCanvas(canvasWidth, canvasHeight);
         canvas.parent(sketchRef.current);
-        // p.textFont(lineSeedJP);
-        p.textFont("Gothic MB101 Bold");
+        p.textFont(notoSansJP);
         pg = p.createGraphics(p.width, p.height);
       };
 
       p.draw = () => {
-        p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
-        pg.background(37, 39, 50);
+        // p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
+        // #333 to rgb
+        p.background(51);
+        pg.background(255);
         pg.erase();
         filteredDesigns.forEach((elm) => {
           drawDesignStar(elm);
@@ -173,23 +174,13 @@ const Sketch = ({ children, isTouchable }) => {
 
       function drawCaption(elm) {
         p.push();
-        p.fill(255, 255, 255);
+        // p.fill(255, 255, 255);
+        p.fill(51);
         p.textSize(r / 1.5);
         p.textLeading(100);
         p.noStroke();
-        // if (elm.caption === 0) {
-        //   p.textAlign(p.CENTER, p.CENTER);
-        //   p.translate(calcX(elm.x), calcY(elm.y) - r);
-        // } else if (elm.caption === 1) {
-        //   p.textAlign(p.LEFT, p.CENTER);
-        //   p.translate(calcX(elm.x) + r * 0.7, calcY(elm.y) - 3);
-        // } else if (elm.caption === 2) {
         p.textAlign(p.CENTER, p.CENTER);
-        p.translate(calcX(elm.x), calcY(elm.y) + r * 1.2);
-        // } else if (elm.caption === 3) {
-        //   p.textAlign(p.RIGHT, p.CENTER);
-        //   p.translate(calcX(elm.x) - r * 0.7, calcY(elm.y) - 3);
-        // }
+        p.translate(calcX(elm.x), calcY(elm.y) + r);
         p.text(elm.name, 0, 0);
         p.pop();
       }

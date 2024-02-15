@@ -84,12 +84,12 @@ const Home = () => {
 
   return (
     <>
-      <div className="container p-0" style={{ maxWidth: "600px" }}>
+      {/* <div className="container p-0" style={{ maxWidth: "600px" }}>
         <img src="/top_thumbnail.png" className="img-fluid" />
-      </div>
+      </div> */}
       <main className="bg-body text-body px-4">
         <section className="container-fluid p-0">
-          <div className="mb-5">
+          <div className="mb-4">
             <h1 className="text-center mt-4 mb-4 lh-base fw-bold">
               デザイナーの星座を描こう
               <br />
@@ -102,9 +102,20 @@ const Home = () => {
             </p>
           </div>
 
+          <div className="notice p-4 mb-5 rounded">
+            <p className="mb-0">
+              本企画は、一般社団法人デザインシップの運営するカンファレンス
+              <a href="https://design-ship.jp/2023" target="_blank">
+                Designship 2023
+              </a>
+              内で実施された企画を、INSTeM
+              Convention向けにアレンジしたものになります。
+            </p>
+          </div>
+
           <div className="text-center">
             <h3 className="text-primary fs-5 fw-bold">Step 1/3</h3>
-            <h2 className="fw-bold">デザインの星を探そう</h2>
+            <h2 className="fw-bold">星を探そう</h2>
           </div>
 
           <p className="mt-3 mb-5">
@@ -191,38 +202,36 @@ const Home = () => {
                   overflowY: "scroll",
                 }}
               >
-                {designs
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((design) => (
-                    <div
-                      className="form-check py-1"
-                      key={`${design.name}-div`}
+                {designs.map((design) => (
+                  <div
+                    className="form-check py-1"
+                    key={`${design.name}-div`}
+                    suppressHydrationWarning={true}
+                  >
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value={design.index}
+                      id={`design-option-${design.index}`}
+                      key={`${design.name}-input`}
+                      onChange={handleCheckboxChange}
+                      checked={
+                        selectedDesigns
+                          ? selectedDesigns.includes(design.index)
+                          : false
+                      }
+                      suppressHydrationWarning={true}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor={`design-option-${design.index}`}
+                      key={`${design.name}-label`}
                       suppressHydrationWarning={true}
                     >
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value={design.index}
-                        id={`design-option-${design.index}`}
-                        key={`${design.name}-input`}
-                        onChange={handleCheckboxChange}
-                        checked={
-                          selectedDesigns
-                            ? selectedDesigns.includes(design.index)
-                            : false
-                        }
-                        suppressHydrationWarning={true}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor={`design-option-${design.index}`}
-                        key={`${design.name}-label`}
-                        suppressHydrationWarning={true}
-                      >
-                        {design.name}
-                      </label>
-                    </div>
-                  ))}
+                      {design.name}
+                    </label>
+                  </div>
+                ))}
               </div>
 
               <div className="invalid-feedback">

@@ -110,7 +110,7 @@ export default function Page({ id, designerName, constellationName }) {
           </btn>
         </div>
 
-        <div className="balloon2 d-flex flex-column align-items-center gap-2 bg-body-secondary">
+        {/* <div className="balloon2 d-flex flex-column align-items-center gap-2 bg-body-secondary">
           <h6
             className="text-center bg-primary d-inline-block rounded-2 w-100"
             style={{ padding: "0.8rem 0" }}
@@ -130,7 +130,7 @@ export default function Page({ id, designerName, constellationName }) {
           <div className="bg-white text-black p-3 rounded-3">
             クリップボードにリンクをコピーしました
           </div>
-        </div>
+        </div> */}
 
         <div
           className="hiddenContent"

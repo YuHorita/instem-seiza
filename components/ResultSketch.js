@@ -42,12 +42,8 @@ const Sketch = ({ onSave }) => {
     if (id) {
       (async () => {
         await getData(id);
-
-        // これでうまくいった。消すな。
-        // Ts.loadFont();
-
         const sketch = new p5((p) => {
-          let bg, pg, lineSeedJP;
+          let bg, pg, notoSansJP;
 
           const filteredDesigns = designs.filter((design) =>
             selectedDesigns.includes(design.index)
@@ -96,18 +92,19 @@ const Sketch = ({ onSave }) => {
           }
 
           p.preload = () => {
-            bg = p.loadImage("/bg.png");
-            lineSeedJP = p.loadFont("/LINESeedJP_OTF_Bd.otf");
+            // bg = p.loadImage("/bg.png");
+            notoSansJP = p.loadFont("/NotoSansJP-Bold.ttf");
           };
 
           p.setup = () => {
             canvas = p.createCanvas(canvasWidth, canvasHeight);
             canvas.parent(sketchRef.current);
-            p.textFont("Gothic MB101 Bold");
-            // p.textFont(lineSeedJP);
+            // p.textFont("Gothic MB101 Bold");
+            p.textFont(notoSansJP);
             pg = p.createGraphics(p.width, p.height);
-            p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
-            pg.background(37, 39, 50);
+            // p.image(bg, 0, 0, p.width, bg.height * (p.width / bg.width));
+            p.background(51);
+            pg.background(255);
             pg.erase();
             filteredDesigns.forEach((elm) => {
               drawDesignStar(elm);
@@ -121,7 +118,7 @@ const Sketch = ({ onSave }) => {
               drawCaption(elm);
             });
 
-            p.fill(255, 255, 255);
+            p.fill(51);
             p.textAlign(p.LEFT, p.CENTER);
             p.textWrap(p.CHAR);
             p.noStroke();
@@ -144,7 +141,7 @@ const Sketch = ({ onSave }) => {
             const lineHeight2 = textSize2 * 1.25;
             const stringHeight2 = stringRow2 * lineHeight2;
 
-            const textBoxHeight = stringHeight1 + stringHeight2 ;
+            const textBoxHeight = stringHeight1 + stringHeight2 + 10;
 
             p.translate(60, canvasHeight / 2);
             p.textSize(textSize1);
@@ -197,7 +194,7 @@ const Sketch = ({ onSave }) => {
 
           function drawDesignStar(elm) {
             pg.push();
-            pg.fill(255);
+            pg.fill(51);
             pg.noStroke();
             pg.ellipse(calcX(elm.x), calcY(elm.y), r);
             pg.pop();
@@ -205,7 +202,7 @@ const Sketch = ({ onSave }) => {
 
           function drawLine(line) {
             pg.push();
-            pg.stroke(255);
+            pg.stroke(51);
             pg.strokeWeight(3);
             pg.noFill();
             const elm1 = filteredDesigns.filter(
@@ -220,7 +217,7 @@ const Sketch = ({ onSave }) => {
 
           function drawCaption(elm) {
             p.push();
-            p.fill(255, 255, 255);
+            p.fill(51);
             p.textAlign(p.CENTER, p.CENTER);
             p.textSize(r);
             // p.textLeading(100);

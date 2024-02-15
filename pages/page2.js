@@ -100,7 +100,7 @@ const Page2 = () => {
           <h2 className="fw-bold">星を繋ごう</h2>
         </div>
         <p>
-          広大なデザインの星空から、あなたにとってのデザインの星を見つけ出しました。次は、星同士を繋いで星座を描いてみましょう。
+          広大な夜空から、あなたをあらわす星を見つけ出しました。次は、星同士をつないで星座を描いてみましょう。
         </p>
 
         <div className="balloon1">
@@ -155,7 +155,7 @@ const Page2 = () => {
               onChange={(e) => setConstellationName(e.target.value)}
               required
               maxLength="50"
-              placeholder="例：わたしのデザイン"
+              placeholder="例：わたしのキャリア"
             />
             <span className="input-group-text">座</span>
             <div className="invalid-feedback">星座名を入力してください。</div>
@@ -166,7 +166,6 @@ const Page2 = () => {
               className="text-primary"
               href="/terms"
               target="_blank"
-              style={{ textDecoration: "none" }}
             >
               利用規約
             </a>
@@ -203,11 +202,6 @@ const Page2 = () => {
           ))}
         </div>
       </section>
-      {/* <Script
-        type="text/javascript"
-        src="//typesquare.com/3/tsst/script/ja/typesquare.js?64fe9ab4c940489b8184031bac1e02d5"
-        charset="utf-8"
-      /> */}
     </main>
   );
 };
