@@ -356,29 +356,27 @@ const Sketch = () => {
         function drawCaption(elm) {
           p.push();
           p.fill(51);
-          p.textSize(20 + calcRadius(elm.index) / 2);
-          p.textLeading(20 + calcRadius(elm.index) / 2);
+          let fontSize = 20 + calcRadius(elm.index) / 2;
+          p.textSize(fontSize);
           p.noStroke();
 
-          if (elm.caption === 0) {
-            p.textAlign(p.CENTER, p.CENTER);
-            // p.translate(0, -calcRadius(elm.index) / 1.3 - 14);
-
-            // LINE Seed JPのときは以下のコードを使う
-            p.translate(0, -calcRadius(elm.index) / 1.3 - 14 - 5);
-          } else if (elm.caption === 1) {
-            p.textAlign(p.LEFT, p.CENTER);
-            p.translate(calcRadius(elm.index) / 1.5 + 10, 0);
-          } else if (elm.caption === 2) {
-            p.textAlign(p.CENTER, p.CENTER);
-            p.translate(0, calcRadius(elm.index) / 1.3 + 24 - 5);
-          } else if (elm.caption === 3) {
-            p.textAlign(p.RIGHT, p.CENTER);
-            p.translate(-calcRadius(elm.index) / 1.5 - 10, 0);
-          }
           p.translate(calcX(elm.x), calcY(elm.y));
 
-          p.text(elm.name, 0, 0);
+          if (elm.caption === 0) {
+            p.textAlign(p.CENTER, p.BOTTOM);
+            p.translate(0, -fontSize * 0.7);
+          } else if (elm.caption === 1) {
+            p.textAlign(p.LEFT, p.CENTER);
+            p.translate(fontSize, 0);
+          } else if (elm.caption === 2) {
+            p.textAlign(p.CENTER, p.TOP);
+            p.translate(0, fontSize);
+          } else if (elm.caption === 3) {
+            p.textAlign(p.RIGHT, p.CENTER);
+            p.translate(-fontSize, 0);
+          }
+
+          p.text(elm.name, 0, -fontSize * 0.2);
           p.pop();
         }
       });

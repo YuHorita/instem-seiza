@@ -97,14 +97,14 @@ const Page2 = () => {
       <section className="container-fluid p-0">
         <div className="text-center mt-3 mb-4">
           <h3 className="text-primary fs-5 fw-bold">Step 2/3</h3>
-          <h2 className="fw-bold">星を繋ごう</h2>
+          <h2 className="fw-bold">星をつなごう</h2>
         </div>
         <p>
           広大な夜空から、あなたをあらわす星を見つけ出しました。次は、星同士をつないで星座を描いてみましょう。
         </p>
 
         <div className="balloon1">
-          <p className="fw-bold">星をタップして繋いでみましょう！</p>
+          <p className="fw-bold">星をタップしてつないでみましょう！</p>
         </div>
         <SketchComponent isTouchable={isTouchable}>
           <div

@@ -95,7 +95,7 @@ export default function Page({ id, designerName, constellationName }) {
         <div className="mt-4 d-flex flex-column align-items-center justify-content-center gap-3">
           <a
             className="btn btn-primary rounded-5 w-75 py-3 fs-5 text-center d-flex align-items-center justify-content-center gap-2 fw-bold"
-            href={`https://twitter.com/intent/tweet?url=${baseUrl}${pathname}%0a&text=${constellationName}座を見つけました！%0a&hashtags=instem2024,みんなの星座を描こう`}
+            href={`https://twitter.com/intent/tweet?url=${baseUrl}${pathname}%0a&text=${constellationName}座を見つけました！%0a&hashtags=INSTeM2024,みんなの星座を描こう`}
             target="_blank"
           >
             <img src="/x-logo-white.png" height={24} />
